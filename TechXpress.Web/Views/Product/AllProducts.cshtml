@@ -1,0 +1,217 @@
+﻿@{
+    ViewBag.Title = "Our Products";
+}
+
+<h1 class="main-title">Our Products</h1>
+
+<section>
+    <h2 class="section-title">Explore Our Electronics</h2>
+
+    <div class="product-list">
+        <div class="product-item">
+            <img src="https://via.placeholder.com/300x200?text=Gaming+Laptop" alt="Gaming Laptop">
+            <h3>ASUS FHD Gaming Laptop</h3>
+            <p class="price">$700</p>
+            <p class="reviews">(32 reviews)</p>
+            <button class="add-to-cart"><i class="fa fa-cart-plus"></i> Add To Cart</button>
+        </div>
+
+        <div class="product-item">
+            <img src="https://via.placeholder.com/300x200?text=Canon+Camera" alt="Canon Camera">
+            <h3>Canon EOS DSLR Camera</h3>
+            <p class="price">$360</p>
+            <p class="reviews">(66 reviews)</p>
+            <button class="add-to-cart"><i class="fa fa-cart-plus"></i> Add To Cart</button>
+        </div>
+
+        <div class="product-item">
+            <img src="https://via.placeholder.com/300x200?text=Wireless+Headphones" alt="Wireless Headphones">
+            <h3>Sony Wireless Headphones</h3>
+            <p class="price">$150</p>
+            <p class="reviews">(45 reviews)</p>
+            <button class="add-to-cart"><i class="fa fa-cart-plus"></i> Add To Cart</button>
+        </div>
+
+        <div class="product-item">
+            <img src="https://via.placeholder.com/300x200?text=Smartphone" alt="Smartphone">
+            <h3>Samsung Galaxy S22</h3>
+            <p class="price">$999</p>
+            <p class="reviews">(85 reviews)</p>
+            <button class="add-to-cart"><i class="fa fa-cart-plus"></i> Add To Cart</button>
+        </div>
+
+        <div class="product-item">
+            <img src="https://via.placeholder.com/300x200?text=Smartwatch" alt="Smartwatch">
+            <h3>Apple Watch Series 8</h3>
+            <p class="price">$450</p>
+            <p class="reviews">(70 reviews)</p>
+            <button class="add-to-cart"><i class="fa fa-cart-plus"></i> Add To Cart</button>
+        </div>
+        <div class="product-item">
+            <img src="https://via.placeholder.com/300x200?text=Smartwatch" alt="Smartwatch">
+            <h3>Apple Watch Series 8</h3>
+            <p class="price">$450</p>
+            <p class="reviews">(70 reviews)</p>
+            <button class="add-to-cart"><i class="fa fa-cart-plus"></i> Add To Cart</button>
+        </div>
+        <div class="product-item">
+            <img src="https://via.placeholder.com/300x200?text=Smartwatch" alt="Smartwatch">
+            <h3>Apple Watch Series 8</h3>
+            <p class="price">$450</p>
+            <p class="reviews">(70 reviews)</p>
+            <button class="add-to-cart"><i class="fa fa-cart-plus"></i> Add To Cart</button>
+        </div>
+        <div class="product-item">
+            <img src="https://via.placeholder.com/300x200?text=Smartwatch" alt="Smartwatch">
+            <h3>Apple Watch Series 8</h3>
+            <p class="price">$450</p>
+            <p class="reviews">(70 reviews)</p>
+            <button class="add-to-cart"><i class="fa fa-cart-plus"></i> Add To Cart</button>
+        </div>
+    </div>
+
+    <div class="view-all">
+        <a href="#">View All Products</a>
+    </div>
+</section>
+
+<style>
+
+    .main-title {
+        text-align: center;
+        font-size: 3em;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        color: #1a1a1a;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+    }
+
+        .main-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: #e44d26;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+    .section-title {
+        text-align: center;
+        font-size: 1.8em;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        color: #444;
+        font-weight: 600;
+        position: relative;
+    }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 3px;
+            background-color: #e44d26;
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+
+    .product-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+    }
+
+    .product-item {
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+        background-color: #fafafa;
+        text-align: center;
+    }
+
+        .product-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .product-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .product-item h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+            min-height: 3em;
+        }
+
+    .price {
+        font-weight: bold;
+        font-size: 1.2em;
+        margin: 10px 0;
+        color: #e44d26;
+    }
+
+    .reviews {
+        color: #666;
+        margin-bottom: 15px;
+        font-size: 0.9em;
+    }
+
+    .add-to-cart {
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s;
+        font-weight: bold;
+    }
+
+        .add-to-cart:hover {
+            background-color: forestgreen;
+        }
+
+    .view-all {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+        .view-all a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+            .view-all a:hover {
+                background-color: #333;
+                color: white;
+            }
+</style>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('.add-to-cart').click(function () {
+                alert('تمت إضافة المنتج إلى سلة التسوق');
+            });
+        });
+    </script>
+}
