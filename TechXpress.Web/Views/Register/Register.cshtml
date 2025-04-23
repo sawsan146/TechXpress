@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="exclusive-signup-container">
+    <div class="signup-image">
+        <img src="/images/4351089568df088bdb77c8e7e78bab15.jpg" alt="Exclusive Sign Up">
+    </div>
+
+    <div class="signup-form-container">
+        <h2>Create an account</h2>
+        <p class="signup-subtitle">Enter your details below</p>
+
+        <form method="post" class="signup-form">
+            <div class="input-group">
+                <input type="text" id="name" name="name" required>
+                <label for="name">Name</label>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="email" name="email" required>
+                <label for="email">Email or Phone Number</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="password" name="password" required>
+                <label for="password">Password</label>
+            </div>
+
+            <button type="submit" class="signup-btn">Create Account</button>
+
+            <button type="button" class="google-signup-btn">
+                <img src="/images/google-icon.png" alt="Google">
+                Sign up with Google
+            </button>
+            <p class="login-link">
+                Already have an account?
+                <a asp-controller="Register" asp-action="Login">Log in</a>
+            </p>
+        </form>
+    </div>
+</div>
