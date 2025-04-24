@@ -1,17 +1,89 @@
 ﻿@{
     ViewData["Title"] = "Register";
+    Layout = "_Layout";
 }
+
+
+<link rel="stylesheet" href="/css/forms.css" />
+
+<style>
+
+    @@media (max-width: 768px) {
+        .exclusive-signup-container
+
+    {
+        flex-direction: column;
+    }
+
+    .signup-image {
+        display: none;
+    }
+
+    .signup-form-container {
+        padding: 40px 20px;
+        width: 100%;
+    }
+
+    }
+
+    .exclusive-signup-container {
+        display: flex;
+        min-height: 80vh;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .signup-image {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+    }
+
+        .signup-image img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+    .signup-form-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 80px;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+        .signup-form-container h2 {
+            font-size: 32px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+    .signup-subtitle {
+        color: #666;
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+    .signup-form {
+        width: 100%;
+    }
+</style>
 
 <div class="exclusive-signup-container">
     <div class="signup-image">
-        <img src="/images/4351089568df088bdb77c8e7e78bab15.jpg" alt="Exclusive Sign Up">
+        <img src="/images/75f394c0a1c7dc5b68a42239311e510f54d8cd59.jpg" alt="Exclusive Sign Up" class="img-fluid">
     </div>
 
     <div class="signup-form-container">
-        <h2>Create an account</h2>
+        <h2>Create an Account</h2>
         <p class="signup-subtitle">Enter your details below</p>
 
-        <form method="post" class="signup-form">
+        <form method="post" action="/Register/Register" class="signup-form">
             <div class="input-group">
                 <input type="text" id="name" name="name" required>
                 <label for="name">Name</label>
@@ -30,12 +102,13 @@
             <button type="submit" class="signup-btn">Create Account</button>
 
             <button type="button" class="google-signup-btn">
-                <img src="/images/google-icon.png" alt="Google">
+                <img src="/images/images.jpeg" alt="Google">
                 Sign up with Google
             </button>
+
             <p class="login-link">
                 Already have an account?
-                <a asp-controller="Register" asp-action="Login">Log in</a>
+                <a href="/Register/Login">Log in</a>
             </p>
         </form>
     </div>

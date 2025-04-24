@@ -1,17 +1,90 @@
 ﻿@{
     ViewData["Title"] = "Login";
+    Layout = "_Layout";
 }
+
+
+<link rel="stylesheet" href="/css/forms.css" />
+
+<style>
+
+    @@media (max-width: 768px) {
+        .exclusive-login-container
+
+    {
+        flex-direction: column;
+    }
+
+    .login-image {
+        display: none;
+    }
+
+    .login-form-container {
+        padding: 40px 20px;
+        width: 100%;
+    }
+
+    }
+
+
+    .exclusive-login-container {
+        display: flex;
+        min-height: 80vh;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .login-image {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+    }
+
+        .login-image img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+    .login-form-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 80px;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+        .login-form-container h2 {
+            font-size: 32px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+    .login-subtitle {
+        color: #666;
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+    .login-form {
+        width: 100%;
+    }
+</style>
 
 <div class="exclusive-login-container">
     <div class="login-image">
-        <img src="/images/4351089568df088bdb77c8e7e78bab15.jpg" alt="Exclusive Login">
+        <img src="/images/75f394c0a1c7dc5b68a42239311e510f54d8cd59.jpg" alt="Exclusive Login" class="img-fluid">
     </div>
 
     <div class="login-form-container">
         <h2>Log in to Exclusive</h2>
         <p class="login-subtitle">Enter your details below</p>
 
-        <form method="post" class="login-form">
+        <form method="post" action="/Register/Login" class="login-form">
             <div class="input-group">
                 <input type="text" id="email" name="email" required>
                 <label for="email">Email or Phone Number</label>
@@ -22,16 +95,15 @@
                 <label for="password">Password</label>
             </div>
 
-            <div class="form-actions">
-                <button type="submit" class="login-btn">Log in</button>
-                <a href="#" class="forgot-password">Forget Password?</a>
-            </div>
+            <button type="submit" class="login-btn">Log In</button>
+            <p class="forgot-password">
+                <a href="#">Forget Password?</a>
+            </p>
+
             <p class="switch-link">
                 Don't have an account?
-                <a asp-controller="Register" asp-action="Register">Sign up</a>
+                <a href="/Register/Register">Sign up</a>
             </p>
         </form>
-
     </div>
 </div>
-

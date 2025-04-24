@@ -1,0 +1,342 @@
+﻿@{
+    ViewData["Title"] = "My Account";
+    Layout = "_Layout";
+}
+
+<style>
+    
+    @@media (max-width: 768px) {
+        .account-container {
+            padding: 15px;
+        }
+
+        .sidebar-section,
+        .account-content {
+            padding: 20px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+        .welcome-message {
+            font-size: 12px;
+        }
+
+        .content-wrapper {
+            flex-direction: column;
+        }
+
+            .content-wrapper .col-md-3,
+            .content-wrapper .col-md-9 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        
+        .path-welcome-container {
+            flex-direction: column; 
+            align-items: flex-start; 
+        }
+
+        .welcome-message {
+            align-self: flex-start; 
+        }
+    }
+
+    
+    .account-container {
+        background-color: #f5f5f5;
+        min-height: calc(100vh - 150px);
+        padding-top: 20px;
+    }
+
+    
+    .path-welcome-container {
+        display: flex;
+        flex-direction: row; 
+        justify-content: space-between;
+        align-items: center; 
+        margin-bottom: 20px; 
+    }
+
+    
+    .navigation-path {
+        background: transparent;
+        padding: 0;
+        font-size: 14px;
+        margin: 0; 
+        display: flex;
+        align-items: center;
+        list-style: none; 
+    }
+
+    .path-item {
+        color: #666; 
+    }
+
+        .path-item.active {
+            color: #DB4444;
+            font-weight: 500;
+        }
+
+        .path-item:not(:last-child)::after {
+            content: " / "; 
+            color: #666;
+            margin: 0 5px; 
+        }
+
+        .path-item a {
+            color: #666;
+            text-decoration: none;
+        }
+
+            .path-item a:hover {
+                text-decoration: underline;
+            }
+
+    
+    .welcome-message {
+        color: #666;
+        font-size: 16px; 
+        font-weight: 400;
+    }
+
+        .welcome-message span {
+            color: #DB4444;
+            font-weight: 500;
+        }
+
+    
+    .content-wrapper {
+        max-width: 1200px; 
+        display: flex;
+        justify-content: flex-start; 
+    }
+
+    
+    .sidebar-section {
+        background: white;
+        border-radius: 4px;
+        padding: 20px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .sidebar-header {
+        color: #333;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin: 25px 0 15px 0;
+        letter-spacing: 0.5px;
+    }
+
+        .sidebar-header:first-child {
+            margin-top: 0;
+        }
+
+    .sidebar-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 20px 0;
+    }
+
+        .sidebar-menu li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+            .sidebar-menu li.active {
+                border-left: 3px solid #DB4444;
+                padding-left: 12px;
+            }
+
+                .sidebar-menu li.active a {
+                    color: #DB4444;
+                    font-weight: 500;
+                }
+
+        .sidebar-menu a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+            .sidebar-menu a:hover {
+                color: #DB4444;
+            }
+
+    
+    .account-content {
+        background: white;
+        border-radius: 4px;
+        padding: 30px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        height: 100%;
+    }
+
+    .content-title {
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .form-section {
+        margin-bottom: 30px;
+    }
+
+    .section-title {
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 20px;
+        font-size: 16px;
+        text-transform: uppercase;
+    }
+
+    .form-control {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px 15px;
+        font-size: 14px;
+        background: #f9f9f9;
+    }
+
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .btn-outline-dark {
+        border-color: #ddd;
+        color: #333;
+        padding: 8px 25px;
+    }
+
+    .btn-danger {
+        background-color: #DB4444;
+        border-color: #DB4444;
+        padding: 8px 25px;
+    }
+
+    
+    .content-wrapper .col-md-3 {
+        flex: 0 0 25%; 
+        max-width: 25%;
+    }
+
+    .content-wrapper .col-md-9 {
+        flex: 0 0 75%; 
+        max-width: 75%;
+    }
+</style>
+
+<div class="account-container">
+    
+    <div class="container mt-3">
+        <div class="path-welcome-container">
+            
+            <nav aria-label="navigation-path">
+                <ol class="navigation-path">
+                    <li class="path-item"><a href="#">Home</a></li>
+                    <li class="path-item active">My Account</li>
+                </ol>
+            </nav>
+            
+            <div class="welcome-message">
+                Welcome! <span>Md Rimel</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-4">
+        <div class="row content-wrapper">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <div class="sidebar-section">
+                    <h5 class="sidebar-header">MANAGE MY ACCOUNT</h5>
+                    <ul class="sidebar-menu">
+                        <li class="active"><a href="#">My Profile</a></li>
+                        <li><a href="#">Address Book</a></li>
+                        <li><a href="#">My Payment Options</a></li>
+                    </ul>
+
+                    <h5 class="sidebar-header">MY ORDERS</h5>
+                    <ul class="sidebar-menu">
+                        <li><a href="#">My Returns</a></li>
+                        <li><a href="#">My Cancellations</a></li>
+                    </ul>
+
+                    <h5 class="sidebar-header">MY WISHLIST</h5>
+                    <ul class="sidebar-menu">
+                        <li><a href="#">My Wishlist</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9">
+                <div class="account-content">
+                    <h4 class="content-title">EDIT YOUR PROFILE</h4>
+
+                    <form class="account-form">
+                        <!-- Personal Info -->
+                        <div class="form-section">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control" value="Md">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" value="Rimel">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Email</label>
+                                <input type="email" class="form-control" value="rimel1111@gmail.com">
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Address</label>
+                                <input type="text" class="form-control" value="Kingston, 5236, United States">
+                            </div>
+                        </div>
+
+                        <!-- Password Change -->
+                        <div class="form-section">
+                            <h6 class="section-title">PASSWORD CHANGE</h6>
+                            <div class="mb-3">
+                                <label>Current Password</label>
+                                <input type="password" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label>New Password</label>
+                                <input type="password" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label>Confirm New Password</label>
+                                <input type="password" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline-dark">CANCEL</button>
+                            <button type="submit" class="btn btn-danger">SAVE CHANGES</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
