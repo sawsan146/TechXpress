@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="exclusive-login-container">
+    <div class="login-image">
+        <img src="/images/4351089568df088bdb77c8e7e78bab15.jpg" alt="Exclusive Login">
+    </div>
+
+    <div class="login-form-container">
+        <h2>Log in to Exclusive</h2>
+        <p class="login-subtitle">Enter your details below</p>
+
+        <form method="post" class="login-form">
+            <div class="input-group">
+                <input type="text" id="email" name="email" required>
+                <label for="email">Email or Phone Number</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="password" name="password" required>
+                <label for="password">Password</label>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="login-btn">Log in</button>
+                <a href="#" class="forgot-password">Forget Password?</a>
+            </div>
+            <p class="switch-link">
+                Don't have an account?
+                <a asp-controller="Register" asp-action="Register">Sign up</a>
+            </p>
+        </form>
+
+    </div>
+</div>
+
