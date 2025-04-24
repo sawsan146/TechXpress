@@ -1,552 +1,90 @@
+@media (max-width: 992px) {
+    .search-bar {
+        width: 100%;
+        margin: 15px 0;
+    }
 
-.sale-banner {
-    background-color: #000000; 
-    color: #ffffff; 
-    height: 30px;
-    padding: 10px 0 30px 0;
-    text-align: center;
-    font-size: 0.9rem;
-    padding-bottom: 35px;
+    .navbar-icons {
+        margin-left: 0;
+        justify-content: flex-end;
+    }
 }
 
-.navbar-custom {
-    background-color: #ffffff; 
-    padding: 15px 0;
-    border-bottom: 1px solid #e0e0e0; 
+@media (max-width: 768px) {
+    .navbar-nav .nav-link {
+        font-size: 16px;
+        padding: 8px 12px;
+    }
+
+    .footer-section {
+        margin-bottom: 20px;
+    }
 }
 
-.navbar-brand {
-    font-weight: bold;
-    color: #212529; 
-}
-
-.navbar-nav .nav-link {
-    color: #212529; 
-    margin-left: 15px;
-}
-
-.navbar-nav .nav-link:hover {
-    color: #007bff; 
-}
-
-.search-bar {
-    width: 200px;
-    margin-left: auto;
-}
-
-.search-input {
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    padding: 8px;
-    width: 100%;
-}
-
-.search-button {
-    background: none;
-    border: none;
-    padding: 0;
-    margin-left: 5px;
-    cursor: pointer;
-}
-
-.navbar-icons {
-    margin-left: 10px;
-}
-
-.navbar-icons a {
-    color: #212529;
-    margin-left: 10px;
-    font-size: 1.2rem;
-    text-decoration: none;
-}
-
-.navbar-icons a:hover {
-    color: #007bff;
-}
-.language-dropdown {
-    color: white;
-    width: 100px;
-    position: fixed; 
-    top: 5px;     
-    right: 20px;    
-    z-index: 10000;
-    background-color: black;
-}
-.search-bar{
-    width: 250px;
-}
-.navbar{
-margin-top: 20px;
-}
-
-
-
-
-/* Your existing CSS */
-.user-icon-dropdown {
-    position: relative;
-    display: inline-block;
-    margin-left: 20px;
-}
-
-.user-icon-button {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    font-size: 1.5rem;
-    color:black;
+body {
+    padding-top: 40px;
+    min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    outline: none;
-
+    flex-direction: column;
 }
 
-.user-icon-button:focus {
-    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+main {
+    flex: 1;
 }
 
 .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    z-index: 1000;
-    display: none; /* Hidden by default */
-    min-width: 180px;
-    padding: 0.5rem 0;
-    margin-top: 0.125rem;
-    font-size: 1rem;
-    color: #212529;
-    text-align: left;
-    list-style: none;
-    background-color: #f8f9fa;
-    background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 0.25rem;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
-    background-color: transparent;
+    background-color: #fff;
+    min-width: 200px;
 }
 
 .dropdown-item {
-    display: block;
-    width: 120px;
-    padding: 0.25rem 1.5rem;
-    clear: both;
-    font-weight: 400;
-    color: #212529;
-    text-align: inherit;
-    white-space: nowrap;
-    background-color: transparent;
-    border: 0;
-    text-decoration: none;
+    width: 100%;
 }
 
-.dropdown-item:hover,
-.dropdown-item:focus {
-    color: #1e2125;
-    background-color: #e9ecef;
+.navbar-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
 }
 
+    .navbar-icons a:hover {
+        background-color: #f8f9fa;
+    }
 
-.user-icon-dropdown:hover .dropdown-menu {
-    display: block;
-}
-
-.user-svg {
-    fill: currentColor;
-}
-.carty{
+.search-bar {
     position: relative;
-    top:-5px;
-
-}
-.likey{
-    position: relative;
-    top:-5px;
-    margin-left: 4px;
 }
 
+.search-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+}
 
-
-
-
+.search-input {
+    padding-right: 35px;
+}
 
 .footer {
-    background-color: #000;
-    color: #fff;
-    padding: 40px 0;
-
-        position: fixed; 
-        left: 0;
-        bottom: 0;
-        width: 100%;
-
-        color: white;
-        text-align: center;
-
-}
-
-.footer-section {
-    margin-bottom: 30px;
+    background-color: #1a1a1a;
+    padding: 50px 0 20px;
 }
 
 .footer-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.footer-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-list li {
-    margin-bottom: 8px;
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 18px;
 }
 
 .footer-list li a,
 .footer-contact-info {
-    color: #aaa;
-    text-decoration: none;
-    font-size: 0.9rem;
+    transition: color 0.3s;
 }
 
-.footer-list li a:hover {
-    color: #fff;
-}
-
-.subscribe-form {
-    display: flex;
-}
-
-.subscribe-input {
-    background-color: transparent;
-    border: 1px solid #aaa;
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px 0 0 5px;
-    flex-grow: 1;
-}
-
-.subscribe-button {
-    background-color: transparent;
-    border: 1px solid #aaa;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-}
-
-.subscribe-button:hover {
-    background-color: #222;
-}
-
-.download-app-links a {
-    display: block;
-    margin-bottom: 10px;
-}
-
-.download-app-links img {
-    height: 40px;
-}
-
-.social-icons a {
-    color: #aaa;
-    font-size: 1.2rem;
-    margin-right: 15px;
-    text-decoration: none;
-}
-
-.social-icons a:hover {
-    color: #fff;
-}
-
-.copyright {
-    background-color: #111;
-    color: #777;
-    text-align: center;
-    padding: 15px 0;
-    font-size: 0.8rem;
-}
-
-
-.exclusive-login-container {
-    display: flex;
-    min-height: 100vh;
-    font-family: 'Arial', sans-serif;
-}
-
-.login-image {
-    flex: 1;
-    background: #f5f5f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-}
-
-    .login-image img {
-        max-width: 100%;
-        height: 100vh;
-        object-fit: contain;
-    }
-
-.login-form-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 80px;
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-    .login-form-container h2 {
-        font-size: 32px;
-        font-weight: 400;
-        margin-bottom: 10px;
-        color: #000;
-    }
-
-.login-subtitle {
-    color: #666;
-    font-size: 16px;
-    margin-bottom: 30px;
-}
-
-.login-form {
-    width: 100%;
-}
-
-.input-group {
-    position: relative;
-    margin-bottom: 25px;
-}
-
-    .input-group input {
-        width: 100%;
-        padding: 12px 15px;
-        font-size: 16px;
-        border: none;
-        border-bottom: 1px solid #ddd;
-        background: transparent;
-        outline: none;
-    }
-
-    .input-group label {
-        position: absolute;
-        top: 12px;
-        left: 15px;
-        color: #999;
-        font-size: 16px;
-        pointer-events: none;
-        transition: 0.2s ease all;
-    }
-
-    .input-group input:focus ~ label,
-    .input-group input:valid ~ label {
-        top: -15px;
-        left: 0;
-        font-size: 12px;
-        color: #DB4444;
-    }
-
-    .input-group input:focus {
-        border-bottom-color: #DB4444;
-    }
-
-.form-actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 30px;
-}
-
-.login-btn {
-    padding: 12px 40px;
-    background: #000;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-.forgot-password {
-    color: #DB4444;
-    font-size: 14px;
-    text-decoration: none;
-}
-
-
-@media (max-width: 768px) {
-    .exclusive-login-container {
-        flex-direction: column;
-    }
-
-    .login-image {
-        display: none;
-    }
-
-    .login-form-container {
-        padding: 40px 20px;
-        width: 100%;
-    }
-}
-
-.exclusive-signup-container {
-    display: flex;
-    min-height: 100vh;
-    font-family: 'Arial', sans-serif;
-}
-
-.signup-image {
-    flex: 1;
-    background: #f5f5f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-}
-
-    .signup-image img {
-        max-width: 100%;
-        height: 100vh;
-        object-fit: contain;
-    }
-
-.signup-form-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 80px;
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-    .signup-form-container h2 {
-        font-size: 32px;
-        font-weight: 400;
-        margin-bottom: 10px;
-        color: #000;
-    }
-
-.signup-subtitle {
-    color: #666;
-    font-size: 16px;
-    margin-bottom: 30px;
-}
-
-.signup-form {
-    width: 100%;
-}
-
-.input-group {
-    position: relative;
-    margin-bottom: 25px;
-}
-
-    .input-group input {
-        width: 100%;
-        padding: 12px 15px;
-        font-size: 16px;
-        border: none;
-        border-bottom: 1px solid #ddd;
-        background: transparent;
-        outline: none;
-    }
-
-    .input-group label {
-        position: absolute;
-        top: 12px;
-        left: 15px;
-        color: #999;
-        font-size: 16px;
-        pointer-events: none;
-        transition: 0.2s ease all;
-    }
-
-    .input-group input:focus ~ label,
-    .input-group input:valid ~ label {
-        top: -15px;
-        left: 0;
-        font-size: 12px;
-        color: #DB4444;
-    }
-
-    .input-group input:focus {
-        border-bottom-color: #DB4444;
-    }
-
-.signup-btn {
-    width: 100%;
-    padding: 12px;
-    background: #DB4444;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    margin: 20px 0;
-}
-
-.google-signup-btn {
-    width: 100%;
-    padding: 12px;
-    background: #fff;
-    color: #333;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-    .google-signup-btn img {
-        width: 20px;
-        height: 20px;
-    }
-
-.login-link {
-    text-align: center;
-    color: #666;
-    font-size: 14px;
-}
-
-    .login-link a {
-        color: #DB4444;
-        text-decoration: none;
-    }
-
-        .login-link a:hover {
-            text-decoration: underline;
-        }
-
-@media (max-width: 768px) {
-    .exclusive-signup-container {
-        flex-direction: column;
-    }
-
-    .signup-image {
-        display: none;
-    }
-
-    .signup-form-container {
-        padding: 40px 20px;
-        width: 100%;
-    }
-}
