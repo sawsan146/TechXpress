@@ -27,6 +27,8 @@ namespace TechXpress.Domain.Infrastructure
         public DbSet<WishList> WishLists { get; set; }
         public DbSet<WishListItems> WishListItems { get; set; }
 
+        public DbSet<ContactMessage> ContactMessages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());
@@ -42,6 +44,7 @@ namespace TechXpress.Domain.Infrastructure
             modelBuilder.ApplyConfiguration(new CartItemsConfiguration());
             modelBuilder.ApplyConfiguration(new OrderDetailsConfiguration());
             modelBuilder.ApplyConfiguration(new PaymentConfiguration());
+            modelBuilder.ApplyConfiguration(new ContactMessageConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

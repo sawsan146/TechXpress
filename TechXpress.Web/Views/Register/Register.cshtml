@@ -3,27 +3,11 @@
     Layout = "_Layout";
 }
 
-
-<link rel="stylesheet" href="/css/forms.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
 <style>
-
-    @@media (max-width: 768px) {
-        .exclusive-signup-container
-
-    {
-        flex-direction: column;
-    }
-
-    .signup-image {
-        display: none;
-    }
-
-    .signup-form-container {
-        padding: 40px 20px;
-        width: 100%;
-    }
-
+    body {
+        background: #f9f9f9;
     }
 
     .exclusive-signup-container {
@@ -44,21 +28,23 @@
             max-width: 100%;
             max-height: 80vh;
             object-fit: contain;
+            border-radius: 1rem;
         }
 
     .signup-form-container {
         flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 0 80px;
+        background-color: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        padding: 60px 40px;
         max-width: 500px;
-        margin: 0 auto;
+        margin: auto;
     }
 
         .signup-form-container h2 {
             font-size: 32px;
-            font-weight: 400;
+            font-weight: 700;
+            text-align: center;
             margin-bottom: 10px;
             color: #000;
         }
@@ -67,45 +53,148 @@
         color: #666;
         font-size: 16px;
         margin-bottom: 30px;
+        text-align: center;
     }
 
-    .signup-form {
+    .input-group {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border-radius: 0.5rem;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .input-group label {
+            position: absolute;
+            top: 50%;
+            left: 40px;
+            transform: translateY(-150%);
+            font-size: 14px;
+            color: #666;
+            background: #fff;
+            padding: 0 5px;
+        }
+
+    .form-icon {
+        position: absolute;
+        top: 50%;
+        left: 15px;
+        transform: translateY(-50%);
+        color: #aaa;
+    }
+
+    .toggle-password {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #aaa;
+    }
+
+    .signup-btn {
+        background-color: #111;
+        color: white;
+        padding: 10px;
+        border-radius: 0.5rem;
+        border: none;
         width: 100%;
+        font-weight: 600;
+        transition: 0.3s;
+        margin-bottom: 15px;
+    }
+
+        .signup-btn:hover {
+            background-color: #000;
+        }
+
+    .google-signup-btn {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+        background-color: white;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+        .google-signup-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+    .login-link {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+        .login-link a {
+            text-decoration: none;
+            color: #666;
+        }
+
+    @@media (max-width: 768px) {
+        .exclusive-signup-container
+
+    {
+        flex-direction: column;
+    }
+
+    .signup-image {
+        display: none;
+    }
+
+    .signup-form-container {
+        width: 100%;
+        padding: 40px 20px;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
     }
 </style>
 
 <div class="exclusive-signup-container">
     <div class="signup-image">
-        <img src="/images/Login/75f394c0a1c7dc5b68a42239311e510f54d8cd59.jpg" alt="Exclusive Sign Up" class="img-fluid">
+        <img src="/images/Login/Side Image.png" alt="Exclusive Sign Up" class="img-fluid">
     </div>
 
     <div class="signup-form-container">
-        <h2>Create an Account</h2>
-        <p class="signup-subtitle">Enter your details below</p>
+        <h2>Join TechXpress Today</h2>
+        <p class="signup-subtitle">Create your account to get started</p>
 
         <form method="post" action="/Register/Register" class="signup-form">
             <div class="input-group">
+                <i class="fa fa-user form-icon"></i>
                 <input type="text" id="name" name="name" required>
                 <label for="name">Name</label>
             </div>
 
             <div class="input-group">
+                <i class="fa fa-envelope form-icon"></i>
                 <input type="text" id="email" name="email" required>
                 <label for="email">Email or Phone Number</label>
             </div>
 
             <div class="input-group">
+                <i class="fa fa-lock form-icon"></i>
                 <input type="password" id="password" name="password" required>
+                <i class="fa fa-eye toggle-password" onclick="togglePasswordVisibility(this)"></i>
                 <label for="password">Password</label>
             </div>
 
             <button type="submit" class="signup-btn">Create Account</button>
 
-            <button type="button" class="google-signup-btn">
-                <img src="/images/images.jpeg" alt="Google">
-                Sign up with Google
-            </button>
-
+        
             <p class="login-link">
                 Already have an account?
                 <a href="/Register/Login">Log in</a>
@@ -113,3 +202,15 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        function togglePasswordVisibility(icon) {
+            const passwordInput = document.getElementById('password');
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            icon.classList.toggle('fa-eye');
+            icon.classList.toggle('fa-eye-slash');
+        }
+    </script>
+}

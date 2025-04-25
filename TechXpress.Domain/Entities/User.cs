@@ -22,6 +22,8 @@ namespace TechXpress.Domain.Entities
         public List<Review> Reviews { get; set; }
         public List<WishList> WishLists { get; set; }
         public ShoppingCart ShoppingCart { get; set; }
+
+        public List<ContactMessage> ContactMessages { get; set; } 
     }
 
 }
