@@ -100,7 +100,27 @@ namespace TechXpress.Web.Controllers
 
 
             };
+            var categoriesVm = new List<CategoryViewModel>
+        {
+            new CategoryViewModel { Id = "phones", Name = "Phones", IsSelected = false },
+            new CategoryViewModel { Id = "computers", Name ="Computers", IsSelected = true },
+            new CategoryViewModel { Id = "smartwatch", Name = "Smart Watches", IsSelected = false },
+            new CategoryViewModel { Id = "camera", Name = "Cameras", IsSelected = false },
+            new CategoryViewModel { Id = "headphones", Name = "Head Phones", IsSelected = false },
+            new CategoryViewModel { Id = "gaming", Name = "Games", IsSelected = false },
+            new CategoryViewModel { Id = "tablet", Name = "Tablet", IsSelected = false },
+            new CategoryViewModel { Id = "accessories", Name = "Accessories", IsSelected = false },
+            new CategoryViewModel { Id = "tv", Name = "TV", IsSelected = false },
+            new CategoryViewModel { Id = "laptop", Name = "Laptops", IsSelected = false },
+            new CategoryViewModel { Id = "printer", Name = "Printers", IsSelected = false },
+            new CategoryViewModel { Id = "monitor", Name = "Monitors", IsSelected = false },
+            new CategoryViewModel { Id = "speakers", Name = "Speakers", IsSelected = false },
+
+
+
+        };
             ViewBag.ProductVm = ProductVm;
+            ViewBag.categoriesVm = categoriesVm;
             return View();
         }
 

@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "About Us";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="text-sm mb-4 text-gray-600">
+        <a href="/" class="hover:underline">Home</a> /
+        <span class="text-black font-semibold">About</span>
+    </nav>
+
+    <!-- Our Story -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center mb-16">
+        <div>
+            <h2 class="text-3xl font-bold mb-4">Our Story</h2>
+            <p class="text-gray-700 mb-3 leading-relaxed">
+                Launched in 2015, Exclusive is South Asia’s premier online shopping marketplace...
+            </p>
+            <p class="text-gray-700 leading-relaxed">
+                Exclusive has more than 1 Million products to offer...
+            </p>
+        </div>
+        <div>
+            <img src="~/images/About/Side Image (1).png" alt="Team working in the office" class="rounded-lg shadow w-full h-auto">
+        </div>
+    </section>
+
+    <!-- Our Team -->
+    <section class="text-center mb-16">
+        <h2 class="text-2xl font-semibold mb-8">Our Team</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Team Member -->
+            <div class="p-6 border rounded-lg shadow-sm hover:shadow-md transition">
+                <img src="~/images/About/Man1.png" alt="Tom Cruise - Founder & Chairman" class="w-full mb-4 rounded" />
+                <h3 class="font-bold text-xl mb-1">Tom Cruise</h3>
+                <p class="text-gray-600">Founder & Chairman</p>
+            </div>
+
+            <div class="p-6 border rounded-lg shadow-sm hover:shadow-md transition">
+                <img src="~/images/About/Woman.png" alt="Emma Watson - Managing Director" class="w-full mb-4 rounded" />
+                <h3 class="font-bold text-xl mb-1">Emma Watson</h3>
+                <p class="text-gray-600">Managing Director</p>
+            </div>
+
+            <div class="p-6 border rounded-lg shadow-sm hover:shadow-md transition">
+                <img src="~/images/About/Man2.png" alt="Will Smith - Product Designer" class="w-full mb-4 rounded" />
+                <h3 class="font-bold text-xl mb-1">Will Smith</h3>
+                <p class="text-gray-600">Product Designer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="grid grid-cols-1 md:grid-cols-3 text-center gap-10 mt-16">
+        <!-- Service 1 -->
+        <div class="flex flex-col items-center">
+            <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center mb-4">
+                <i class="fas fa-truck text-3xl text-black" aria-hidden="true"></i>
+            </div>
+            <h4 class="font-bold text-lg mb-1">Free and Fast Delivery</h4>
+            <p class="text-gray-600 text-sm">Free delivery for all orders over $140</p>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="flex flex-col items-center">
+            <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center mb-4">
+                <i class="fas fa-headset text-3xl text-black" aria-hidden="true"></i>
+            </div>
+            <h4 class="font-bold text-lg mb-1">24/7 Customer Service</h4>
+            <p class="text-gray-600 text-sm">Friendly 24/7 customer support</p>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="flex flex-col items-center">
+            <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center mb-4">
+                <i class="fas fa-undo text-3xl text-black" aria-hidden="true"></i>
+            </div>
+            <h4 class="font-bold text-lg mb-1">Money Back Guarantee</h4>
+            <p class="text-gray-600 text-sm">We return money within 30 days</p>
+        </div>
+    </section>
+</div>

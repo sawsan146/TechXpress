@@ -1,0 +1,113 @@
+﻿@model List<CategoryViewModel>
+
+@{
+    ViewBag.Title = "Browse Categories";
+
+    var iconDictionary = new Dictionary<string, string>
+    {
+        ["phones"] = "fas fa-mobile-alt",
+        ["computers"] = "fas fa-desktop",
+        ["smartwatch"] = "fas fa-clock",
+        ["tablets"] = "fas fa-tablet-alt",
+        ["accessories"] = "fas fa-plug",
+        ["laptops"] = "fas fa-laptop",
+        ["televisions"] = "fas fa-tv",
+        ["speakers"] = "fas fa-volume-up",
+        ["headsets"] = "fas fa-headset",
+        ["smart-home"] = "fas fa-home",
+        ["camera"] = "fas fa-camera",
+        ["headphones"] = "fas fa-headphones",
+        ["gaming"] = "fas fa-gamepad"
+    };
+}
+<br> <br>
+<section class="py-10 bg-gray-50 relative">
+    <div class="container mx-auto px-4">
+
+        <p class="main-title" class="text-sm text-gray-600 font-semibold mb-1 uppercase">Categories</p>
+        <h2 class="section-title" class=" text-3xl font-bold text-gray-800 mb-6">Browse By Category</h2>
+
+        <!-- Scroll buttons -->
+        <button id="scrollLeft" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 shadow rounded-full z-10">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button id="scrollRight" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 shadow rounded-full z-10">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+
+        <div id="scrollContainer" class="flex items-center gap-5 overflow-x-auto scroll-smooth scrollbar-hide px-8">
+            @foreach (var category in Model)
+            {
+                var iconClass = iconDictionary.TryGetValue(category.Id, out var icon)
+                ? icon
+                : "fas fa-box";
+
+                <a href="@Url.Action("Details", "Category", new { id = category.Id })"
+                   class="group min-w-[130px] text-center p-4 rounded-xl border border-gray-200 bg-gray-200 text-black
+                              transition duration-300 ease-in-out cursor-pointer hover:bg-gray-400 hover:scale-105 block">
+
+                    <i class="@iconClass text-3xl mb-3 block transition duration-300 ease-in-out group-hover:text-white"></i>
+
+                    <p class="text-sm font-semibold transition duration-300 ease-in-out group-hover:text-white">
+                        @category.Name
+                    </p>
+                </a>
+            }
+        </div>
+    </div>
+</section>
+<style>
+    .main-title {
+        text-align: center;
+        font-size: 2.5em;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        color: #1a1a1a;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+    }
+
+        .main-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: #e44d26;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+    .section-title {
+        text-align: center;
+        font-size: 1.6em;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        color: #444;
+        font-weight: 600;
+        position: relative;
+    }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 3px;
+            background-color: #e44d26;
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+
+
+</style>
+<script>
+    const scrollContainer = document.getElementById('scrollContainer');
+    document.getElementById('scrollLeft').onclick = () => {
+        scrollContainer.scrollBy({ left: -200, behavior: 'smooth' });
+    };
+    document.getElementById('scrollRight').onclick = () => {
+        scrollContainer.scrollBy({ left: 200, behavior: 'smooth' });
+    };
+</script>
+<br /> <br />
