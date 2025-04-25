@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TechXpress.Domain.Entities;
+using TechXpress.Web.ViewModel;
 
 namespace TechXpress.Web.Controllers
 {
@@ -14,6 +16,9 @@ namespace TechXpress.Web.Controllers
         // This is a placeholder. In a real application, you would fetch the product details from a database or service.
         public IActionResult ProductDetails()
         {
+
+
+
             return View("ProductDetails");
         }
 

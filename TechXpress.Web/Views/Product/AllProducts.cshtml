@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<ProductViewModel>
+
+@{
     ViewBag.Title = "Our Products";
 }
 
@@ -8,78 +10,62 @@
     <h2 class="section-title">Explore Our Electronics</h2>
 
     <div class="product-list">
-        <div class="product-item">
-            <img src="https://via.placeholder.com/300x200?text=Gaming+Laptop" alt="Gaming Laptop">
-            <h3>ASUS FHD Gaming Laptop</h3>
-            <p class="price">$700</p>
-            <p class="reviews">(32 reviews)</p>
-            <button class="add-to-cart"><i class="fa fa-cart-plus"></i> Add To Cart</button>
-        </div>
+        @foreach (var product in Model)
+        {
+            <div class="product-item bg-white shadow-lg rounded-4 p-3 position-relative text-center">
+                <div class="product-img-wrapper overflow-hidden rounded-4 mb-3 position-relative">
+                    <img src="@Url.Content("~/images/Products/" + product.Image)"
+                         alt="@product.Name"
+                         class="img-fluid rounded-4 product-image">
 
-        <div class="product-item">
-            <img src="https://via.placeholder.com/300x200?text=Canon+Camera" alt="Canon Camera">
-            <h3>Canon EOS DSLR Camera</h3>
-            <p class="price">$360</p>
-            <p class="reviews">(66 reviews)</p>
-            <button class="add-to-cart"><i class="fa fa-cart-plus"></i> Add To Cart</button>
-        </div>
+                    <div class="icon-overlay position-absolute top-0 end-0 m-2 d-flex gap-2">
+                        <a href="@Url.Action("Wishlist", "User", new { id = product.Id })"
+                           class="text-danger text-decoration-none fs-5"
+                           title="Add to Wishlist"
+                           aria-label="Add to Wishlist">
+                            <i class="fa fa-heart"></i>
+                        </a>
+                        <a href="@Url.Action("Details", "Product", new { id = product.Id })"
+                           class="text-secondary text-decoration-none fs-5"
+                           title="View Details"
+                           aria-label="View Details">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    </div>
+                </div>
 
-        <div class="product-item">
-            <img src="https://via.placeholder.com/300x200?text=Wireless+Headphones" alt="Wireless Headphones">
-            <h3>Sony Wireless Headphones</h3>
-            <p class="price">$150</p>
-            <p class="reviews">(45 reviews)</p>
-            <button class="add-to-cart"><i class="fa fa-cart-plus"></i> Add To Cart</button>
-        </div>
+                <div class="product-body px-2">
+                    <h5 class="fw-semibold mb-1">@product.Name</h5>
+                    <p class="text-muted mb-2 small d-flex justify-content-center align-items-center gap-1">
+                        <span class="star-rating text-warning" data-rating="@product.Rating" data-product-id="@product.Id">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                var isActive = i <= product.Rating ? "active" : "";
+                                <i class="fa fa-star @isActive" data-value="@i"></i>
+                            }
+                        </span>
+                        <span>(@product.ReviewCount reviews)</span>
+                    </p>
 
-        <div class="product-item">
-            <img src="https://via.placeholder.com/300x200?text=Smartphone" alt="Smartphone">
-            <h3>Samsung Galaxy S22</h3>
-            <p class="price">$999</p>
-            <p class="reviews">(85 reviews)</p>
-            <button class="add-to-cart"><i class="fa fa-cart-plus"></i> Add To Cart</button>
-        </div>
+                    <p class="price fw-bold fs-5 text-dark mb-3">$@product.Price</p>
 
-        <div class="product-item">
-            <img src="https://via.placeholder.com/300x200?text=Smartwatch" alt="Smartwatch">
-            <h3>Apple Watch Series 8</h3>
-            <p class="price">$450</p>
-            <p class="reviews">(70 reviews)</p>
-            <button class="add-to-cart"><i class="fa fa-cart-plus"></i> Add To Cart</button>
-        </div>
-        <div class="product-item">
-            <img src="https://via.placeholder.com/300x200?text=Smartwatch" alt="Smartwatch">
-            <h3>Apple Watch Series 8</h3>
-            <p class="price">$450</p>
-            <p class="reviews">(70 reviews)</p>
-            <button class="add-to-cart"><i class="fa fa-cart-plus"></i> Add To Cart</button>
-        </div>
-        <div class="product-item">
-            <img src="https://via.placeholder.com/300x200?text=Smartwatch" alt="Smartwatch">
-            <h3>Apple Watch Series 8</h3>
-            <p class="price">$450</p>
-            <p class="reviews">(70 reviews)</p>
-            <button class="add-to-cart"><i class="fa fa-cart-plus"></i> Add To Cart</button>
-        </div>
-        <div class="product-item">
-            <img src="https://via.placeholder.com/300x200?text=Smartwatch" alt="Smartwatch">
-            <h3>Apple Watch Series 8</h3>
-            <p class="price">$450</p>
-            <p class="reviews">(70 reviews)</p>
-            <button class="add-to-cart"><i class="fa fa-cart-plus"></i> Add To Cart</button>
-        </div>
+                    <button class="btn btn-dark w-100 py-2 fw-semibold add-to-cart">
+                        <i class="fa fa-cart-plus me-2"></i> Add To Cart
+                    </button>
+                </div>
+            </div>
+        }
     </div>
 
     <div class="view-all">
-        <a href="#">View All Products</a>
+        <a href="@Url.Action("Index", "Product")">View All Products</a>
     </div>
 </section>
 
 <style>
-
     .main-title {
         text-align: center;
-        font-size: 3em;
+        font-size: 2.5em;
         margin-top: 30px;
         margin-bottom: 10px;
         color: #1a1a1a;
@@ -101,7 +87,7 @@
 
     .section-title {
         text-align: center;
-        font-size: 1.8em;
+        font-size: 1.6em;
         margin-top: 20px;
         margin-bottom: 30px;
         color: #444;
@@ -121,65 +107,61 @@
 
     .product-list {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        gap: 25px;
         margin: 30px 0;
     }
 
     .product-item {
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 10px;
-        transition: transform 0.3s ease;
-        background-color: #fafafa;
-        text-align: center;
+        border: none;
+        padding: 0;
+        border-radius: 12px;
+        background-color: #fff;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.1);
     }
 
         .product-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-        .product-item img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
+    .product-img-wrapper img {
+        width: 100%;
+        height: auto;
+        transition: transform 0.3s ease;
+    }
 
-        .product-item h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.1em;
-            min-height: 3em;
-        }
+    .product-img-wrapper:hover img {
+        transform: scale(1.05);
+    }
+
+    .icon-overlay {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+    }
+
+    .product-img-wrapper:hover .icon-overlay {
+        opacity: 1;
+    }
 
     .price {
         font-weight: bold;
-        font-size: 1.2em;
-        margin: 10px 0;
         color: #e44d26;
     }
 
-    .reviews {
-        color: #666;
-        margin-bottom: 15px;
-        font-size: 0.9em;
-    }
-
-    .add-to-cart {
-        background-color: black;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 4px;
+    .star-rating i {
         cursor: pointer;
-        width: 100%;
-        transition: background-color 0.3s;
-        font-weight: bold;
+        transition: color 0.2s;
+        color: #ccc;
     }
 
-        .add-to-cart:hover {
-            background-color: forestgreen;
+        .star-rating i.active {
+            color: #f4b400;
         }
 
     .view-all {
@@ -203,14 +185,57 @@
             }
 </style>
 
-<!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 @section scripts {
     <script>
-        $(document).ready(function () {
-            $('.add-to-cart').click(function () {
-                alert('تمت إضافة المنتج إلى سلة التسوق');
+        $(function () {
+            $('.add-to-cart').on('click', function () {
+                alert('Product added to cart');
+            });
+
+            $('.star-rating i').on('click', function () {
+                const $rating = $(this).parent();
+                const value = $(this).data('value');
+                const productId = $rating.data('product-id');
+
+                $rating.attr('data-rating', value);
+                $rating.find('i').each(function () {
+                    $(this).toggleClass('active', $(this).data('value') <= value);
+                });
+
+                $.ajax({
+                    url: '/Product/Rate',
+                    type: 'POST',
+                    data: {
+                        productId: productId,
+                        rating: value
+                    },
+                    success: function (response) {
+                        console.log("Rating saved:", response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error saving rating:", error);
+                    }
+                });
+            });
+
+            $('.star-rating').each(function () {
+                const $rating = $(this);
+                $rating.find('i').hover(
+                    function () {
+                        const hoverValue = $(this).data('value');
+                        $rating.find('i').css('color', function () {
+                            return $(this).data('value') <= hoverValue ? '#f4b400' : '#ccc';
+                        });
+                    },
+                    function () {
+                        const selectedValue = $rating.data('rating');
+                        $rating.find('i').css('color', function () {
+                            return $(this).data('value') <= selectedValue ? '#f4b400' : '#ccc';
+                        });
+                    }
+                );
             });
         });
     </script>

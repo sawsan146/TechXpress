@@ -15,7 +15,6 @@ namespace TechXpress.Domain.Entities
         public int Stock { get; set; }
         public DateTime AddTime { get; set; }
         public string Description { get; set; }
-
         public Category Category { get; set; }
         public List<ProductImg> ProductImages { get; set; }
         public List<OrderDetails> OrderDetails { get; set; }
