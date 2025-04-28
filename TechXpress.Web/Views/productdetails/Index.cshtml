@@ -1,0 +1,194 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<link rel="stylesheet" href="~/css/final details.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+<div class="container py-5">
+    <div class="row gx-5">
+        <div class="col-md-6">
+            <div class="product-images">
+                <div class="main-image">
+                    <img src="~/games-2453777_640.jpg" alt="Product Image" class="w-100 rounded-lg shadow-md" style="height: 425px ;">
+                </div>
+                <div class="thumbnail-images">
+                    <img src="~/controller-6032446_640.jpg" alt="Thumbnail 1" class="w-100 rounded-lg border border-gray-300 hover:border-danger">
+                    <img src="~/games-2453777_640.jpg" alt="Thumbnail 2" class="w-100 rounded-lg border border-gray-300 hover:border-danger">
+                    <img src="~/controller-6032446_640.jpg" alt="Thumbnail 3" class="w-100 rounded-lg border border-gray-300 hover:border-danger">
+                    <img src="~/games-2453777_640.jpg" alt="Thumbnail 4" class="w-100 rounded-lg border border-gray-300 hover:border-danger">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="product-details" style="color: black;">
+                <h1 class="h2 fw-semibold text-gray-800 mb-2">Havic HV-G92 Gamepad</h1>
+                <div class="d-flex align-items-center mb-3">
+                    <span class="text-sm text-warning me-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                    <span class="text-xs text-muted">(150 Reviews)</span>
+                    <span class="text-xs text-success ms-2">In Stock</span>
+                </div>
+                <p class="h4 fw-bold text-gray-900 mb-4">$192.00</p>
+                <p class="text-gray-600 mb-4">PlayStation 5 Controller Skin. High quality vinyl with air channel adhesive for easy bubble-free install & mess-free removal. Pressure sensitive.</p>
+
+                <div class="d-flex align-items-center mb-4">
+                    <div class="quantity-input-group me-4">
+                        <button id="decrement" style="border-radius: 30%;background-color:#aaa8a8;width:20px">-</button>
+                        <input type="number" id="quantity" value="2" min="1" aria-label="Quantity" style="width: 30px;background-color:#f0f0f0;text-align:center">
+                        <button id="increment" style="border-radius: 30%;background-color:#aaa8a8;width:20px">+</button>
+                    </div>
+                    <button class="buy-now-button" style="margin-left: 0;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" x2="21" y1="6" y2="6"></line>
+                            <path d="M16 10a4 4 0 1 1-8 0"></path>
+                        </svg>
+                        Buy Now
+                    </button>
+                </div>
+
+                <div class="mb-4">
+                    <div class="free-delivery-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success">
+                            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                            <path d="M9 12l2 2 4-4"></path>
+                        </svg>
+                        <span>Free Delivery</span>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="return-delivery-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary">
+                            <path d="M10.21 4.13a8 8 0 1 0 9.66 9.66"></path>
+                            <path d="M10 14l-3-3 3-3"></path>
+                            <path d="M14 14l3-3-3-3"></path>
+                        </svg>
+                        <span>Free 30 Days Delivery Returns.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5" style="color: black;">
+        <h2 class="h3 fw-semibold text-gray-800 mb-4">Related Items</h2>
+        <div class="row g-4">
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="related-item-card bg-white rounded-lg shadow-md p-4">
+                    <div class="position-relative">
+                        <img src="~/controller-6032446_640.jpg" alt="Related Item 1" class="w-100 rounded-md">
+                        <span class="position-absolute top-0 start-0 bg-danger text-white text-xs px-2 py-1 rounded-md">-40%</span>
+                        <div class="add-to-cart">Add To Cart</div>
+                    </div>
+                    <h3 class="h6 fw-semibold text-gray-800 mt-3">HAVIT HV-G92 Gamepad</h3>
+                    <p class="small text-muted">$120 <span class="text-decoration-line-through">$160</span></p>
+                    <div class="d-flex align-items-center mt-2">
+                        <span class="text-sm text-warning me-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                        <span class="text-xs text-muted">(88)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="related-item-card bg-white rounded-lg shadow-md p-4">
+                    <div class="position-relative">
+                        <img src="~/controller-6032446_640.jpg" alt="Related Item 2" class="w-100 rounded-md">
+                        <span class="position-absolute top-0 start-0 bg-danger text-white text-xs px-2 py-1 rounded-md">-35%</span>
+                        <div class="add-to-cart">Add To Cart</div>
+                    </div>
+                    <h3 class="h6 fw-semibold text-gray-800 mt-3">AK-900 Wired Keyboard</h3>
+                    <p class="small text-muted">$960 <span class="text-decoration-line-through">$1160</span></p>
+                    <div class="d-flex align-items-center mt-2">
+                        <span class="text-sm text-warning me-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                        <span class="text-xs text-muted">(75)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="related-item-card bg-white rounded-lg shadow-md p-4">
+                    <div class="position-relative">
+                        <img src="~/games-2453777_640.jpg" alt="Related Item 3" class="w-100 rounded-md">
+                        <span class="position-absolute top-0 start-0 bg-danger text-white text-xs px-2 py-1 rounded-md">-30%</span>
+                        <div class="add-to-cart">Add To Cart</div>
+                    </div>
+                    <h3 class="h6 fw-semibold text-gray-800 mt-3">IPS LCD Gaming Monitor</h3>
+                    <p class="small text-muted">$370 <span class="text-decoration-line-through">$400</span></p>
+                    <div class="d-flex align-items-center mt-2">
+                        <span class="text-sm text-warning me-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                        <span class="text-xs text-muted">(99)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="related-item-card bg-white rounded-lg shadow-md p-4">
+                    <div class="position-relative">
+                        <img src="~/games-2453777_640.jpg" alt="Related Item 4" class="w-100 rounded-md">
+                        <div class="add-to-cart">Add To Cart</div>
+                    </div>
+                    <h3 class="h6 fw-semibold text-gray-800 mt-3">RGB Liquid CPU Cooler</h3>
+                    <p class="small text-muted">$160 <span class="text-decoration-line-through">$170</span></p>
+                    <div class="d-flex align-items-center mt-2">
+                        <span class="text-sm text-warning me-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                        <span class="text-xs text-muted">(65)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const sizeBoxes = document.querySelectorAll('.size-box');
+    sizeBoxes.forEach(box => {
+        box.addEventListener('click', function() {
+            sizeBoxes.forEach(b => b.classList.remove('selected'));
+            this.classList.add('selected');
+        });
+    });
+
+
+    const thumbnailImages = document.querySelectorAll('.thumbnail-images img');
+    const mainImage = document.querySelector('.main-image img');
+    thumbnailImages.forEach(thumbnail => {
+        thumbnail.addEventListener('click', function() {
+            mainImage.src = this.src;
+        });
+    });
+
+
+    const colorOptions = document.querySelectorAll('.color-option');
+    colorOptions.forEach(option => {
+        option.addEventListener('click', function() {
+
+            colorOptions.forEach(c => c.classList.remove('selected'));
+            this.classList.add('selected');
+            const color = this.getAttribute('data-color');
+            console.log('Selected color:', color);
+        });
+    });
+    });
+     // Quantity increment/decrement
+     const quantityInput = document.getElementById('quantity');
+        const incrementButton = document.getElementById('increment');
+        const decrementButton = document.getElementById('decrement');
+
+        incrementButton.addEventListener('click', () => {
+            let currentValue = parseInt(quantityInput.value);
+            currentValue++;
+            quantityInput.value = currentValue;
+        });
+
+        decrementButton.addEventListener('click', () => {
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) { // Prevent negative values
+                currentValue--;
+                quantityInput.value = currentValue;
+            }
+        });
+
+</script>
