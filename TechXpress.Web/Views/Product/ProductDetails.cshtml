@@ -1,285 +1,214 @@
 ﻿@{
     ViewData["Title"] = "Product Details"; 
-    Layout = "_Layout";
 }
 
-@* <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script> *@
-<style>
+<div class="bg-light font-sans">
 
-    .add-to-cart {
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        background-color: #f04438;
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 0.375rem;
-        cursor: pointer;
-        position: absolute;
-        bottom: 1rem;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1;
-    }
+   
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    .related-item-card:hover .add-to-cart {
-        opacity: 1;
-    }
+        <!--add the content here-->
+        <div class="container py-5">
+            <div class="row gx-5">
+                <div class="col-md-6">
+                    <div class="product-images">
+                        <div class="main-image">
+                            <img src="games-2453777_640.jpg" alt="Product Image" class="w-100 rounded-lg shadow-md" style="height: 425px ;">
+                        </div>
+                        <div class="thumbnail-images">
+                            <img src="controller-6032446_640.jpg" alt="Thumbnail 1" class="w-100 rounded-lg border border-gray-300 hover:border-danger">
+                            <img src="games-2453777_640.jpg" alt="Thumbnail 2" class="w-100 rounded-lg border border-gray-300 hover:border-danger">
+                            <img src="controller-6032446_640.jpg" alt="Thumbnail 3" class="w-100 rounded-lg border border-gray-300 hover:border-danger">
+                            <img src="controller-6032446_640.jpg" alt="Thumbnail 4" class="w-100 rounded-lg border border-gray-300 hover:border-danger">
+                        </div>
+                    </div>
+                </div>
 
-    .related-item-card {
-        position: relative;
-        overflow: hidden;
-        .buy-now-button
+                <div class="col-md-6">
+                    <div class="product-details" style="color: black;">
+                        <h1 class="h2 fw-semibold text-gray-800 mb-2">Havic HV-G92 Gamepad</h1>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="text-sm text-warning me-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                            <span class="text-xs text-muted">(150 Reviews)</span>
+                            <span class="text-xs text-success ms-2">In Stock</span>
+                        </div>
+                        <p class="h4 fw-bold text-gray-900 mb-4">$192.00</p>
+                        <p class="text-gray-600 mb-4">PlayStation 5 Controller Skin. High quality vinyl with air channel adhesive for easy bubble-free install & mess-free removal. Pressure sensitive.</p>
 
-    {
-        background-color: #f04438;
-        color: white;
-        padding: 0.75rem 1.5rem;
-        border-radius: 0.375rem; /* Tailwind's rounded-md */
-        font-weight: 600; /* Tailwind's font-semibold */
-        cursor: pointer;
-        display: inline-flex; /* Use inline-flex for better alignment */
-        align-items: center; /* Vertically center the icon and text */
-        justify-content: center; /* Horizontally center content, if needed */
-        transition: background-color 0.3s ease; /* Smooth transition */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-        border: none; /* Remove default button border */
-    }
+                        <div class="mb-4">
+                            <h3 class="small fw-semibold text-gray-700 mb-2">Colours:</h3>
+                            <div class="d-flex gap-2">
+                                <div class="color-option bg-danger" data-color="red"></div>
+                                <div class="color-option bg-primary" data-color="blue"></div>
+                                <div class="color-option bg-success" data-color="green"></div>
+                            </div>
+                        </div>
 
-    .buy-now-button:hover {
-        background-color: #d92e22; /* Darker shade on hover */
-    }
+                        <!--
 
-    .free-delivery-box {
-        background-color: #f7fee7; /* Tailwind's bg-yellow-100 */
-        border-radius: 0.375rem; /* Tailwind's rounded-md */
-        padding: 0.75rem; /* Tailwind's p-3 */
-        display: flex;
-        align-items: center;
-        gap: 0.5rem; /* Tailwind's gap-2 */
-        border: 1px solid #f0f0f0;
-    }
+                                        <div class="d-flex align-items-center mb-4">
+                                            <div class="d-flex align-items-center me-4">
+                                                <button class="text-gray-700 focus:outline-none">-</button>
+                                                <input type="text" value="2" class="form-control w-25 text-center rounded-md focus:ring-2 focus:ring-danger focus:border-danger">
+                                                <button class="text-gray-700 focus:outline-none">+</button>
+                                            </div> -->
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="quantity-input-group me-4">
+                                <button id="decrement" style="border-radius: 30%;">-</button>
+                                <input type="number" id="quantity" value="2" min="1" aria-label="Quantity" style="width: 30px;">
+                                <button id="increment" style="border-radius: 30%;">+</button>
+                            </div>
+                            <button class="buy-now-button" style="margin-left: 0;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                    <line x1="3" x2="21" y1="6" y2="6"></line>
+                                    <path d="M16 10a4 4 0 1 1-8 0"></path>
+                                </svg>
+                                Buy Now
+                            </button>
+                        </div>
 
-    .return-delivery-box {
-        background-color: #eff6ff; /* Tailwind's bg-blue-100 */
-        border-radius: 0.375rem; /* Tailwind's rounded-md */
-        padding: 0.75rem; /* Tailwind's p-3 */
-        display: flex;
-        align-items: center;
-        gap: 0.5rem; /* Tailwind's gap-2 */
-        border: 1px solid #f0f0f0;
-    }
+                        <div class="mb-4">
+                            <div class="free-delivery-box">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M9 12l2 2 4-4"></path>
+                                </svg>
+                                <span>Free Delivery</span>
+                            </div>
+                        </div>
 
-    .size-box {
-        border: 1px solid #e0e0e0;
-        border-radius: 0.375rem;
-        width: 2.5rem; /* 40px */
-        height: 2.5rem; /* 40px */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 0.5rem;
-        cursor: pointer;
-        transition: border-color 0.2s ease;
-    }
-
-        .size-box:hover {
-            border-color: #f04438;
-        }
-
-        .size-box.selected {
-            border-color: #f04438;
-            background-color: #fee2e2;
-            color: #f04438;
-            font-weight: bold;
-        }
-
-    .product-images {
-        display: flex;
-        flex-direction: row; /* Change to row */
-        gap: 1rem; /* Add gap between main image and thumbnails */
-    }
-
-    .main-image {
-        margin-bottom: 0; /* Remove bottom margin */
-    }
-
-    .thumbnail-images {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-        .thumbnail-images img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            cursor: pointer; /* Add cursor pointer on hover */
-        }
-</style>
-
-<div class="container mx-auto px-4 py-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="product-images">
-            <div class="main-image">
-                <img src="games-2453777_640.jpg" alt="Product Image" class="w-full rounded-lg shadow-md">
-            </div>
-            <div class="thumbnail-images">
-                <img src="controller-6032446_640.jpg" alt="Thumbnail 1" class="w-full rounded-lg border border-gray-300 hover:border-red-500">
-                <img src="games-2453777_640.jpg" alt="Thumbnail 2" class="w-full rounded-lg border border-gray-300 hover:border-red-500">
-                <img src="controller-6032446_640.jpg" alt="Thumbnail 3" class="w-full rounded-lg border border-gray-300 hover:border-red-500">
-                <img src="controller-6032446_640.jpg" alt="Thumbnail 4" class="w-full rounded-lg border border-gray-300 hover:border-red-500">
-            </div>
-        </div>
-
-        <div class="product-details">
-            <h1 class="text-2xl font-semibold text-gray-800 mb-2">Havic HV-G92 Gamepad</h1>
-            <div class="flex items-center mb-4">
-                <span class="text-sm text-yellow-400 mr-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                <span class="text-xs text-gray-500">(150 Reviews)</span>
-                <span class="text-xs text-gray-500 ml-2">In Stock</span>
-            </div>
-            <p class="text-xl font-bold text-gray-900 mb-4">$192.00</p>
-            <p class="text-gray-600 mb-4">PlayStation 5 Controller Skin. High quality vinyl with air channel adhesive for easy bubble-free install & mess-free removal. Pressure sensitive.</p>
-
-            <div class="mb-4">
-                <h3 class="text-sm font-semibold text-gray-700 mb-2">Colours:</h3>
-                <div class="flex gap-2">
-                    <div class="w-8 h-8 rounded-full bg-red-500 cursor-pointer border border-gray-300 hover:border-red-500"></div>
-                    <div class="w-8 h-8 rounded-full bg-blue-500 cursor-pointer border border-gray-300 hover:border-red-500"></div>
-                    <div class="w-8 h-8 rounded-full bg-green-500 cursor-pointer border border-gray-300 hover:border-red-500"></div>
+                        <div class="mb-4">
+                            <div class="return-delivery-box">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary">
+                                    <path d="M10.21 4.13a8 8 0 1 0 9.66 9.66"></path>
+                                    <path d="M10 14l-3-3 3-3"></path>
+                                    <path d="M14 14l3-3-3-3"></path>
+                                </svg>
+                                <span>Free 30 Days Delivery Returns. Details</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="mb-4">
-                <h3 class="text-sm font-semibold text-gray-700 mb-2">Size:</h3>
-                <div class="flex">
-                    <div class="size-box">XS</div>
-                    <div class="size-box selected">S</div>
-                    <div class="size-box">M</div>
-                    <div class="size-box">L</div>
-                    <div class="size-box">XL</div>
-                </div>
-            </div>
-
-            <div class="flex items-center mb-4">
-                <div class="flex items-center mr-4">
-                    <button class="text-gray-700 focus:outline-none">-</button>
-                    <input type="text" value="2" class="w-12 text-center border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500">
-                    <button class="text-gray-700 focus:outline-none">+</button>
-                </div>
-                <button class="buy-now-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
-                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                        <line x1="3" x2="21" y1="6" y2="6"></line>
-                        <path d="M16 10a4 4 0 1 1-8 0"></path>
-                    </svg>
-                    Buy Now
-                </button>
-            </div>
-
-            <div class="mb-4">
-                <div class="free-delivery-box">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500">
-                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
-                        <path d="M9 12l2 2 4-4"></path>
-                    </svg>
-                    <span>Free Delivery</span>
-                </div>
-            </div>
-
-            <div class="mb-4">
-                <div class="return-delivery-box">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-500">
-                        <path d="M10.21 4.13a8 8 0 1 0 9.66 9.66"></path>
-                        <path d="M10 14l-3-3 3-3"></path>
-                        <path d="M14 14l3-3-3-3"></path>
-                    </svg>
-                    <span>Free 30 Days Delivery Returns. Details</span>
+            <div class="mt-5" style="color: black;">
+                <h2 class="h3 fw-semibold text-gray-800 mb-4">Related Items</h2>
+                <div class="row g-4">
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="related-item-card bg-white rounded-lg shadow-md p-4">
+                            <div class="position-relative">
+                                <img src="controller-6032446_640.jpg" alt="Related Item 1" class="w-100 rounded-md">
+                                <span class="position-absolute top-0 start-0 bg-danger text-white text-xs px-2 py-1 rounded-md">-40%</span>
+                                <div class="add-to-cart">Add To Cart</div>
+                            </div>
+                            <h3 class="h6 fw-semibold text-gray-800 mt-3">HAVIT HV-G92 Gamepad</h3>
+                            <p class="small text-muted">$120 <span class="text-decoration-line-through">$160</span></p>
+                            <div class="d-flex align-items-center mt-2">
+                                <span class="text-sm text-warning me-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                                <span class="text-xs text-muted">(88)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="related-item-card bg-white rounded-lg shadow-md p-4">
+                            <div class="position-relative">
+                                <img src="controller-6032446_640.jpg" alt="Related Item 2" class="w-100 rounded-md">
+                                <span class="position-absolute top-0 start-0 bg-danger text-white text-xs px-2 py-1 rounded-md">-35%</span>
+                                <div class="add-to-cart">Add To Cart</div>
+                            </div>
+                            <h3 class="h6 fw-semibold text-gray-800 mt-3">AK-900 Wired Keyboard</h3>
+                            <p class="small text-muted">$960 <span class="text-decoration-line-through">$1160</span></p>
+                            <div class="d-flex align-items-center mt-2">
+                                <span class="text-sm text-warning me-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                                <span class="text-xs text-muted">(75)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="related-item-card bg-white rounded-lg shadow-md p-4">
+                            <div class="position-relative">
+                                <img src="controller-6032446_640.jpg" alt="Related Item 3" class="w-100 rounded-md">
+                                <span class="position-absolute top-0 start-0 bg-danger text-white text-xs px-2 py-1 rounded-md">-30%</span>
+                                <div class="add-to-cart">Add To Cart</div>
+                            </div>
+                            <h3 class="h6 fw-semibold text-gray-800 mt-3">IPS LCD Gaming Monitor</h3>
+                            <p class="small text-muted">$370 <span class="text-decoration-line-through">$400</span></p>
+                            <div class="d-flex align-items-center mt-2">
+                                <span class="text-sm text-warning me-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                                <span class="text-xs text-muted">(99)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="related-item-card bg-white rounded-lg shadow-md p-4">
+                            <div class="position-relative">
+                                <img src="controller-6032446_640.jpg" alt="Related Item 4" class="w-100 rounded-md">
+                                <div class="add-to-cart">Add To Cart</div>
+                            </div>
+                            <h3 class="h6 fw-semibold text-gray-800 mt-3">RGB Liquid CPU Cooler</h3>
+                            <p class="small text-muted">$160 <span class="text-decoration-line-through">$170</span></p>
+                            <div class="d-flex align-items-center mt-2">
+                                <span class="text-sm text-warning me-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                                <span class="text-xs text-muted">(65)</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+            const sizeBoxes = document.querySelectorAll('.size-box');
+            sizeBoxes.forEach(box => {
+                box.addEventListener('click', function() {
+                    sizeBoxes.forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
 
-    <div class="mt-12">
-        <h2 class="text-xl font-semibold text-gray-800 mb-6">Related Item</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="related-item-card bg-white rounded-lg shadow-md p-4">
-                <div class="relative">
-                    <img src="controller-6032446_640.jpg" alt="Related Item 1" class="w-full rounded-md">
-                    <span class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-md">-40%</span>
-                    <div class="add-to-cart">Add To Cart</div>
-                </div>
-                <h3 class="text-md font-semibold text-gray-800 mt-4">HAVIT HV-G92 Gamepad</h3>
-                <p class="text-sm text-gray-500">$120 <span class="line-through">$160</span></p>
-                <div class="flex items-center mt-2">
-                    <span class="text-sm text-yellow-400 mr-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                    <span class="text-xs text-gray-500">(88)</span>
-                </div>
-            </div>
-            <div class="related-item-card bg-white rounded-lg shadow-md p-4">
-                <div class="relative">
-                    <img src="controller-6032446_640.jpg" alt="Related Item 2" class="w-full rounded-md">
-                    <span class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-md">-35%</span>
-                    <div class="add-to-cart">Add To Cart</div>
-                </div>
-                <h3 class="text-md font-semibold text-gray-800 mt-4">AK-900 Wired Keyboard</h3>
-                <p class="text-sm text-gray-500">$960 <span class="line-through">$1160</span></p>
-                <div class="flex items-center mt-2">
-                    <span class="text-sm text-yellow-400 mr-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                    <span class="text-xs text-gray-500">(75)</span>
-                </div>
-            </div>
-            <div class="related-item-card bg-white rounded-lg shadow-md p-4">
-                <div class="relative">
-                    <img src="controller-6032446_640.jpg" alt="Related Item 3" class="w-full rounded-md">
-                    <span class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-md">-30%</span>
-                    <div class="add-to-cart">Add To Cart</div>
-                </div>
-                <h3 class="text-md font-semibold text-gray-800 mt-4">IPS LCD Gaming Monitor</h3>
-                <p class="text-sm text-gray-500">$370 <span class="line-through">$400</span></p>
-                <div class="flex items-center mt-2">
-                    <span class="text-sm text-yellow-400 mr-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                    <span class="text-xs text-gray-500">(99)</span>
-                </div>
-            </div>
-            <div class="related-item-card bg-white rounded-lg shadow-md p-4">
-                <div class="relative">
-                    <img src="controller-6032446_640.jpg" alt="Related Item 4" class="w-full rounded-md">
-                    <div class="add-to-cart">Add To Cart</div>
-                </div>
-                <h3 class="text-md font-semibold text-gray-800 mt-4">RGB Liquid CPU Cooler</h3>
-                <p class="text-sm text-gray-500">$160 <span class="line-through">$170</span></p>
-                <div class="flex items-center mt-2">
-                    <span class="text-sm text-yellow-400 mr-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                    <span class="text-xs text-gray-500">(65)</span>
-                </div>
-            </div>
-        </div>
-    </div>
+
+            const thumbnailImages = document.querySelectorAll('.thumbnail-images img');
+            const mainImage = document.querySelector('.main-image img');
+            thumbnailImages.forEach(thumbnail => {
+                thumbnail.addEventListener('click', function() {
+                    mainImage.src = this.src;
+                });
+            });
+
+
+            const colorOptions = document.querySelectorAll('.color-option');
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+
+                    colorOptions.forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    const color = this.getAttribute('data-color');
+                    console.log('Selected color:', color);
+                });
+            });
+            });
+             // Quantity increment/decrement
+             const quantityInput = document.getElementById('quantity');
+                const incrementButton = document.getElementById('increment');
+                const decrementButton = document.getElementById('decrement');
+
+                incrementButton.addEventListener('click', () => {
+                    let currentValue = parseInt(quantityInput.value);
+                    currentValue++;
+                    quantityInput.value = currentValue;
+                });
+
+                decrementButton.addEventListener('click', () => {
+                    let currentValue = parseInt(quantityInput.value);
+                    if (currentValue > 1) { // Prevent negative values
+                        currentValue--;
+                        quantityInput.value = currentValue;
+                    }
+                });
+
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const sizeBoxes = document.querySelectorAll('.size-box');
-        sizeBoxes.forEach(box => {
-            box.addEventListener('click', function() {
-                // Remove 'selected' class from all size boxes
-                sizeBoxes.forEach(b => b.classList.remove('selected'));
-                // Add 'selected' class to the clicked box
-                this.classList.add('selected');
-            });
-        });
-
-        // Thumbnail image selection
-        const thumbnailImages = document.querySelectorAll('.thumbnail-images img');
-        const mainImage = document.querySelector('.main-image img');
-
-        thumbnailImages.forEach(thumbnail => {
-            thumbnail.addEventListener('click', function() {
-                // Change the main image source to the clicked thumbnail source
-                mainImage.src = this.src;
-                // You can also add logic to highlight the selected thumbnail if needed
-            });
-        });
-    });
-</script>
