@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace TechXpress.Web.ViewModel
+namespace TechXpress.Web.Controllers
 {
     public class WishListController : Controller
     {
