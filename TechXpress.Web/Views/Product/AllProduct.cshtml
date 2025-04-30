@@ -1,1 +1,329 @@
-﻿
+﻿@model List<TechXpress.Domain.Entities.Product>
+
+@{
+    ViewData["Title"] = "All Products";
+    var selectedCategory = ViewBag.Category ?? "All Products";
+    var categories = ViewBag.Categories as List<string>;
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<div class="container">
+    <div class="sidebar">
+        <h2>Categories</h2>
+        <ul>
+            @foreach (var category in categories)
+            {
+                <li class="@(category == selectedCategory ? "active" : "")">
+                    <a href="@Url.Action("Index", "Product", new { category = category })">@category</a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <h1 class="main-title">All Products</h1>
+        <h2 class="section-title">Explore Our Electronics</h2>
+        <p>Showing @Model.Count products</p>
+
+        <div class="product-list">
+            @foreach (var product in Model)
+            {
+                <div class="product-item bg-white shadow-lg rounded-4 p-3 position-relative text-center">
+                    <div class="product-img-wrapper overflow-hidden rounded-4 mb-3 position-relative">
+                        @if (product.ProductImages != null && product.ProductImages.Any())
+                        {
+                            <img src="@Url.Content(product.ProductImages.First().ImageURL)" alt="@product.Name" class="img-fluid rounded-4 product-image" />
+                        }
+                        else
+                        {
+                            <img src="/images/placeholder.jpg" alt="@product.Name" class="img-fluid rounded-4 product-image" />
+                        }
+
+                        <div class="icon-overlay position-absolute top-0 end-0 m-2 d-flex gap-2">
+                            <a href="@Url.Action("Wishlist", "User", new { id = product.Product_ID })"
+                               class="text-danger text-decoration-none fs-5"
+                               title="Add to Wishlist"
+                               aria-label="Add to Wishlist">
+                                <i class="fa fa-heart"></i>
+                            </a>
+                            <a asp-controller="Product" asp-action="ProductDetails"
+                               class="text-secondary text-decoration-none fs-5"
+                               title="View Details"
+                               aria-label="View Details">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="product-body px-2">
+                        <h5 class="fw-semibold mb-1">@product.Name</h5>
+                        <p class="text-muted mb-2 small d-flex justify-content-center align-items-center gap-1">
+                            <span class="star-rating text-warning" data-rating="@(product.Reviews != null && product.Reviews.Any() ? product.Reviews.Average(r => r.Rating) : 0)" data-product-id="@product.Product_ID">
+                                @{
+                                    var averageRating = product.Reviews != null && product.Reviews.Any()
+                                    ? product.Reviews.Average(r => r.Rating)
+                                    : 0;
+                                    for (int i = 1; i <= 5; i++)
+                                    {
+                                        var isActive = i <= averageRating ? "active" : "";
+                                        <i class="fa fa-star @isActive" data-value="@i"></i>
+                                    }
+                                }
+                            </span>
+                            <span>(@(product.Reviews?.Count ?? 0) reviews)</span>
+                        </p>
+
+                        <p class="price fw-bold fs-5 text-dark mb-3">$@product.Price</p>
+
+                        <a asp-controller="Cart"
+                           asp-action="Index"
+                           asp-route-product_id="@product.Product_ID"
+                           class="btn btn-custom w-100 py-2 fw-semibold add-to-cart">
+                            <i class="fa fa-cart-plus me-2"></i> Add To Cart
+                        </a>
+
+                        <div class="category-label">
+                            <span>@product.Category.Name</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .container {
+        display: flex;
+        gap: 20px;
+        padding: 20px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .sidebar {
+        width: 200px;
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+        .sidebar h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin: 10px 0;
+        }
+
+            .sidebar li.active {
+                background: #e44d26; 
+                border-radius: 5px;
+            }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+            display: block;
+        }
+
+        .sidebar li.active a {
+            color: #fff;
+        }
+
+    .main-content {
+        flex: 1;
+    }
+
+    .main-title {
+        text-align: center;
+        font-size: 2.5em;
+        margin-top: 30px;
+        margin-bottom: 10px;
+        color: #1a1a1a;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+    }
+
+        .main-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: #e44d26;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+    .section-title {
+        text-align: center;
+        font-size: 1.6em;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        color: #444;
+        font-weight: 600;
+        position: relative;
+    }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 3px;
+            background-color: #e44d26;
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+
+    .product-list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+        margin: 30px 0;
+    }
+
+    .product-item {
+        border: none;
+        padding: 0;
+        border-radius: 12px;
+        background-color: #fff;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+        width: 100%;
+        max-width: 280px;
+    }
+
+        .product-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+    .product-img-wrapper img {
+        width: 100%;
+        height: auto;
+        transition: transform 0.3s ease;
+    }
+
+    .product-img-wrapper:hover img {
+        transform: scale(1.05);
+    }
+
+    .icon-overlay {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 2;
+    }
+
+    .product-img-wrapper:hover .icon-overlay {
+        opacity: 1;
+    }
+
+    .price {
+        font-weight: bold;
+        color: #e44d26;
+    }
+
+    .star-rating i {
+        cursor: pointer;
+        transition: color 0.2s;
+        color: #ccc;
+    }
+
+        .star-rating i.active {
+            color: #f4b400;
+        }
+
+    .btn-custom {
+        background-color: black; 
+        color: #fff;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-custom:hover {
+            background-color: #495057; 
+        }
+        
+
+    .category-label {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+        .category-label span {
+            background-color: #f8f9fa;
+            color: #666;
+            font-size: 0.85em;
+            padding: 5px 10px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+</style>
+
+@section scripts {
+    <script>
+        $(function () {
+            $('.add-to-cart').on('click', function () {
+                alert('Product added to cart');
+            });
+
+            $('.star-rating i').on('click', function () {
+                const $rating = $(this).parent();
+                const value = $(this).data('value');
+                const productId = $rating.data('product-id');
+
+                $rating.attr('data-rating', value);
+                $rating.find('i').each(function () {
+                    $(this).toggleClass('active', $(this).data('value') <= value);
+                });
+
+                $.ajax({
+                    url: '/Product/Rate',
+                    type: 'POST',
+                    data: {
+                        productId: productId,
+                        rating: value
+                    },
+                    success: function (response) {
+                        console.log("Rating saved:", response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error saving rating:", error);
+                    }
+                });
+            });
+
+            $('.star-rating').each(function () {
+                const $rating = $(this);
+                $rating.find('i').hover(
+                    function () {
+                        const hoverValue = $(this).data('value');
+                        $rating.find('i').css('color', function () {
+                            return $(this).data('value') <= hoverValue ? '#f4b400' : '#ccc';
+                        });
+                    },
+                    function () {
+                        const selectedValue = $rating.data('rating');
+                        $rating.find('i').css('color', function () {
+                            return $(this).data('value') <= selectedValue ? '#f4b400' : '#ccc';
+                        });
+                    }
+                );
+            });
+        });
+    </script>
+}
