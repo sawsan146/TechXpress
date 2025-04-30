@@ -90,7 +90,7 @@
                     </a>
 
                     <!-- Cart -->
-                    <a href="#" class="position-relative me-3 text-dark" aria-label="Cart">
+                    <a asp-controller="Cart" asp-action="Index"  class="position-relative me-3 text-dark" aria-label="Cart">
                         <i class="bi bi-cart3 fs-5"></i>
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             0
@@ -131,7 +131,7 @@
                     </h5>
                     <ul class="list-unstyled">
                         <li class="mb-2">
-                            <a href="#" class="text-white text-decoration-none d-flex align-items-center">
+                            <a asp-controller="About" asp-action="Index"  class="text-white text-decoration-none d-flex align-items-center">
                                 <i class="bi bi-info-circle me-2"></i> About Us
                             </a>
                         </li>

@@ -100,6 +100,7 @@ namespace TechXpress.Web.Controllers
 
 
             };
+
             var categoriesVm = new List<CategoryViewModel>
         {
             new CategoryViewModel { Id = "phones", Name = "Phones", IsSelected = false },

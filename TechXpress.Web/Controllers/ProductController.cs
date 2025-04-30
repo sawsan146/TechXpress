@@ -12,12 +12,15 @@ namespace TechXpress.Web.Controllers
             return View("AllProducts");
         }
 
+        public IActionResult HomeProductSection()
+        {
+            return View("HomeProductSection");
+        }
+
         // Logic to fetch product details by id
         // This is a placeholder. In a real application, you would fetch the product details from a database or service.
         public IActionResult ProductDetails()
         {
-
-
 
             return View("ProductDetails");
         }
