@@ -10,6 +10,20 @@
         justify-content: flex-end;
     }
 }
+.navbar .nav-link:hover,
+.navbar :hover {
+    color: red !important;
+    transform: scale(1);
+    transition: all 0.2s ease-in-out;
+}
+.dropdown-item:active,
+.dropdown-item:focus {
+    background-color: transparent !important;
+    color: red !important; 
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 
 @media (max-width: 768px) {
     .navbar-nav .nav-link {
@@ -29,6 +43,7 @@ body {
     display: flex;
     flex-direction: column;
 }
+
 body {
     margin: 0;
     padding: 0;
@@ -92,4 +107,11 @@ main {
 .footer-list li a,
 .footer-contact-info {
     transition: color 0.3s;
+}
+.footer a:hover {
+    color: red !important;
+}
+.footer h5:hover {
+    color: red !important;
+    cursor: pointer;
 }
