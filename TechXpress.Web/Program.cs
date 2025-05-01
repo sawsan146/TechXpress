@@ -1,6 +1,7 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using TechXpress.Domain.Infrastructure;
 using System;
+using TechXpress.Domain.Infrastructure;
 
 namespace TechXpress.Web
 {
@@ -18,6 +19,14 @@ namespace TechXpress.Web
               options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
 
+            builder.Services.AddSession();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+       
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+
+                 options.LoginPath = "/Register/Login");
+            
+
 
             var app = builder.Build();
 
@@ -33,8 +42,10 @@ namespace TechXpress.Web
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
+            app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.MapControllerRoute(
                 name: "default",
