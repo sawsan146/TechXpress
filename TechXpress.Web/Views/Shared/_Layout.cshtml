@@ -1,5 +1,4 @@
-﻿﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,7 +6,6 @@
     <meta name="description" content="Tech Express - Your favorite electronics store">
     <meta name="keywords" content="electronics, laptops, tech, gadgets">
     <meta name="author" content="Tech Express">
-
 
     <title>@ViewData["Title"] – Tech Express</title>
 
@@ -35,7 +33,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 
 </head>
 <body>
@@ -113,7 +110,7 @@
 
                                 @if (User.IsInRole("Admin"))
                                 {
-                                    <li><a class="dropdown-item text-danger" href="#">Dash Board</a></li>
+                                    <li><a asp-controller="Admin" asp-action="Index" class="dropdown-item text-danger" >Dash Board</a></li>
                                 }
 
                                 <li><hr class="dropdown-divider"></li>
@@ -212,7 +209,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="text-white text-decoration-none d-flex align-items-center">
+                            <a asp-controller="Home" asp-action="Privacy" class="text-white text-decoration-none d-flex align-items-center">
                                 <i class="bi bi-lock me-2"></i> Privacy Policy
                             </a>
                         </li>
@@ -221,11 +218,11 @@
             </div>
 
             <!-- Copyright -->
-            <div class="text-center mt-5 pt-4 border-top border-secondary">
+            @* <div class="text-center mt-5 pt-4 border-top border-secondary">
                 <p class="mb-0">
                     &copy; <span id="current-year">2023</span> Tech Express. All rights reserved.
                 </p>
-            </div>
+            </div> *@
         </div>
     </footer>
 

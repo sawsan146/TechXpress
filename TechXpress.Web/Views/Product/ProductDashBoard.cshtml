@@ -1,0 +1,56 @@
+﻿@model IEnumerable<TechXpress.Domain.Entities.Product>
+
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+}
+
+<div class="p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-semibold">Products</h2>
+        <a href="@Url.Action("Create", "Product")"
+           class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">+ Add Product</a>
+    </div>
+
+    <div class="overflow-x-auto bg-white shadow rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Name</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Category</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 w-1/4">Description</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Price</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Stock</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Reviews</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Edit</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Delete</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="px-6 py-4">@item.Name</td>
+                        <td class="px-6 py-4">@item.Category?.Name</td>
+                        <td class="px-6 py-4 truncate max-w-xs">@item.Description</td>
+                        <td class="px-6 py-4 text-green-600 font-bold">$@item.Price</td>
+                        <td class="px-6 py-4">@item.Stock</td>
+                        <td class="px-6 py-4">@item.Reviews?.Count()</td>
+                        <td class="px-6 py-4">
+                            <a href="@Url.Action("Edit", "Product", new { id = item.Product_ID })"
+                               class="block w-full text-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                                Edit
+                            </a>
+                        </td>
+                        <td class="px-6 py-4">
+                            <a href="@Url.Action("Delete", "Product", new { id = item.Product_ID })"
+                               class="block w-full text-center px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+}
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div class="p-4 bg-white shadow rounded-lg">
+        <p class="text-gray-500 text-sm">Total Sales</p>
+        <h3 class="text-2xl font-bold mt-1">$24,780</h3>
+        <p class="text-green-500 text-xs mt-1">+12% from last month</p>
+    </div>
+    <div class="p-4 bg-white shadow rounded-lg">
+        <p class="text-gray-500 text-sm">New Customers</p>
+        <h3 class="text-2xl font-bold mt-1">684</h3>
+        <p class="text-green-500 text-xs mt-1">+8% from last month</p>
+    </div>
+    <div class="p-4 bg-white shadow rounded-lg">
+        <p class="text-gray-500 text-sm">Pending Orders</p>
+        <h3 class="text-2xl font-bold mt-1">35</h3>
+        <p class="text-yellow-500 text-xs mt-1">+2% from last month</p>
+    </div>
+    <div class="p-4 bg-white shadow rounded-lg">
+        <p class="text-gray-500 text-sm">Total Revenue</p>
+        <h3 class="text-2xl font-bold mt-1">$198,530</h3>
+        <p class="text-green-500 text-xs mt-1">+18% from last month</p>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="mt-6">
+    <div class="p-4 bg-white shadow rounded-lg">
+        <h3 class="text-lg font-medium mb-4">Quick Actions</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <a href="@Url.Action("Create", "Products")" class="flex flex-col items-center justify-center h-24 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                <span>📦</span><span>Add Product</span>
+            </a>
+            <a href="@Url.Action("Create", "Customers")" class="flex flex-col items-center justify-center h-24 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                <span>👤</span><span>Add Customer</span>
+            </a>
+            <a href="@Url.Action("Create", "Invoices")" class="flex flex-col items-center justify-center h-24 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                <span>📄</span><span>Create Invoice</span>
+            </a>
+            <a href="@Url.Action("Index", "Reports")" class="flex flex-col items-center justify-center h-24 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700">
+                <span>📊</span><span>View Reports</span>
+            </a>
+        </div>
+    </div>
+</div>

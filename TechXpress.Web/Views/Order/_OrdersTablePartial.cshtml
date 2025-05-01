@@ -1,0 +1,54 @@
+﻿@model IEnumerable<OrderViewModel>
+
+<div class="overflow-x-auto bg-white shadow rounded-lg p-4">
+    <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+            <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">All Details</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
+
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td class="px-6 py-4">@order.CustomerName</td>
+                    <td class="px-6 py-4">@order.OrderDate.ToString("dd/MM/yyyy")</td>
+                    <td class="px-6 py-4 text-green-600 font-bold">$@order.TotalAmount</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-block px-2 py-1 text-sm rounded-full @GetStatusColor(order.Status)">
+                            @order.Status
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 space-x-2">
+                        <a href="@Url.Action("Details", "Order", new { id = order.OrderId })" class="btn btn-primary  hover:underline">View</a>                        
+                    </td>
+                    <td class="px-6 py-4 space-x-2">
+                        <form method="post" asp-action="Delete" asp-route-id="@order.OrderId" class="inline" onsubmit="return confirm('Delete this order?');">
+                            <button type="submit" class="btn btn-danger  hover:underline">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@functions {
+    string GetStatusColor(string status)
+    {
+        return status switch
+        {
+            "Pending" => "bg-yellow-100 text-yellow-800",
+            "Shipped" => "bg-blue-100 text-blue-800",
+            "Delivered" => "bg-green-100 text-green-800",
+            "Cancelled" => "bg-red-100 text-red-800",
+            _ => "bg-gray-100 text-gray-800"
+        };
+    }
+}
