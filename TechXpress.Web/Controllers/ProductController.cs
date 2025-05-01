@@ -6,10 +6,11 @@ namespace TechXpress.Web.Controllers
 {
     public class ProductController : Controller
     {
-        public IActionResult Index(string category = "All Products")
+        List<Product> products;
+
+        public ProductController()
         {
-            
-            var products = new List<Product>
+            products = new List<Product>
             {
                 new Product
                 {
@@ -301,6 +302,12 @@ namespace TechXpress.Web.Controllers
                 }
             };
 
+        }
+
+        public IActionResult Index(string category = "All Products")
+        {
+            
+
             ViewBag.Category = category;
             ViewBag.Categories = new List<string>
             {
@@ -331,5 +338,11 @@ namespace TechXpress.Web.Controllers
         {
             return View("ProductDetails");
         }
+
+        public IActionResult ProductDashBoard()
+        {
+            return View("ProductDashBoard",products);
+        }
+
     }
 }

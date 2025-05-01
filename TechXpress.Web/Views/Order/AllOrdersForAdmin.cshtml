@@ -1,0 +1,47 @@
+﻿@model IEnumerable<OrderViewModel>
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+}
+
+<div class="p-6">
+    <h2 class="text-2xl font-semibold mb-4">Orders</h2>
+
+    <!-- Filter Dropdown -->
+    <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Filter by Status:</label>
+        <select id="statusFilter" class="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500">
+            <option value="All">All</option>
+            <option value="Pending">Pending</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+    </div>
+
+    <!-- Table Wrapper -->
+    <div id="ordersTableContainer">
+        @Html.Partial("_OrdersTablePartial", Model)
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#statusFilter').on('change', function () {
+            var selectedStatus = $(this).val();
+            $.ajax({
+                url: '@Url.Action("Filter", "Order")',
+                type: 'GET',
+                data: { status: selectedStatus },
+                success: function (data) {
+                    $('#ordersTableContainer').html(data);
+                },
+                error: function () {
+                    alert("Error loading data");
+                }
+            });
+        });
+    </script>
+}
