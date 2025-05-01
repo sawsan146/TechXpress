@@ -22,14 +22,12 @@
     </div>
 
     <div class="main-content">
-        <h1 class="main-title">All Products</h1>
-        <h2 class="section-title">Explore Our Electronics</h2>
-        <p>Showing @Model.Count products</p>
+        <p id="product-count">Showing @Model.Count products</p>
 
         <div class="product-list">
             @foreach (var product in Model)
             {
-                <div class="product-item bg-white shadow-lg rounded-4 p-3 position-relative text-center">
+                <div class="product-item bg-white shadow-lg rounded-4 p-3 position-relative text-center" data-category="@product.Category.Name">
                     <div class="product-img-wrapper overflow-hidden rounded-4 mb-3 position-relative">
                         @if (product.ProductImages != null && product.ProductImages.Any())
                         {
@@ -100,6 +98,7 @@
         padding: 20px;
         max-width: 1400px;
         margin: 0 auto;
+        margin-top: 0;
     }
 
     .sidebar {
@@ -107,6 +106,7 @@
         background: #f8f9fa;
         padding: 20px;
         border-radius: 10px;
+        margin-top: 0;
     }
 
         .sidebar h2 {
@@ -125,7 +125,7 @@
         }
 
             .sidebar li.active {
-                background: #e44d26; 
+                background: #e44d26;
                 border-radius: 5px;
             }
 
@@ -142,55 +142,14 @@
 
     .main-content {
         flex: 1;
+        margin-top: 0;
     }
-
-    .main-title {
-        text-align: center;
-        font-size: 2.5em;
-        margin-top: 30px;
-        margin-bottom: 10px;
-        color: #1a1a1a;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        position: relative;
-    }
-
-        .main-title::after {
-            content: "";
-            display: block;
-            width: 60px;
-            height: 4px;
-            background-color: #e44d26;
-            margin: 10px auto 0;
-            border-radius: 2px;
-        }
-
-    .section-title {
-        text-align: center;
-        font-size: 1.6em;
-        margin-top: 20px;
-        margin-bottom: 30px;
-        color: #444;
-        font-weight: 600;
-        position: relative;
-    }
-
-        .section-title::after {
-            content: "";
-            display: block;
-            width: 40px;
-            height: 3px;
-            background-color: #e44d26;
-            margin: 8px auto 0;
-            border-radius: 2px;
-        }
 
     .product-list {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 25px;
-        margin: 30px 0;
+        margin: 0;
     }
 
     .product-item {
@@ -212,15 +171,28 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-    .product-img-wrapper img {
+    .product-img-wrapper {
         width: 100%;
-        height: auto;
-        transition: transform 0.3s ease;
+        height: 150px; /* ارتفاع صغير للـ container */
+        position: relative;
+        overflow: hidden;
+        background-color: #f8f9fa; /* خلفية لملء أي فراغات حول الصورة */
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    .product-img-wrapper:hover img {
-        transform: scale(1.05);
-    }
+        .product-img-wrapper img {
+            max-width: 100%;
+            max-height: 100%; /* الصورة تتكيّف مع الـ container من غير ما تتجاوزه */
+            object-fit: contain; /* الصورة تظهر كاملة من غير تقطيع */
+            object-position: center; /* الصورة تتمركز في الـ container */
+            transition: transform 0.3s ease;
+        }
+
+        .product-img-wrapper:hover img {
+            transform: scale(1.05);
+        }
 
     .icon-overlay {
         opacity: 0;
@@ -248,16 +220,15 @@
         }
 
     .btn-custom {
-        background-color: black; 
+        background-color: black;
         color: #fff;
         border: none;
         transition: background-color 0.3s ease;
     }
 
         .btn-custom:hover {
-            background-color: #495057; 
+            background-color: #495057;
         }
-        
 
     .category-label {
         margin-top: 10px;
@@ -277,6 +248,30 @@
 @section scripts {
     <script>
         $(function () {
+            // Get the category from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedCategory = urlParams.get('category') || 'All Products';
+
+            // Filter products based on the selected category
+            if (selectedCategory !== 'All Products') {
+                $('.product-item').each(function () {
+                    const productCategory = $(this).data('category');
+                    if (productCategory !== selectedCategory) {
+                        $(this).hide(); // Hide products that don't match the category
+                    } else {
+                        $(this).show(); // Show products that match the category
+                    }
+                });
+
+                // Update the product count
+                const visibleProducts = $('.product-item:visible').length;
+                $('#product-count').text(`Showing ${visibleProducts} products`);
+            } else {
+                $('.product-item').show(); // Show all products if "All Products" is selected
+                $('#product-count').text(`Showing ${$('.product-item').length} products`);
+            }
+
+            // Existing scripts for add-to-cart and star-rating
             $('.add-to-cart').on('click', function () {
                 alert('Product added to cart');
             });

@@ -4,23 +4,25 @@
     ViewBag.Title = "Browse Categories";
 
     var iconDictionary = new Dictionary<string, string>
-    {
-        ["phones"] = "fas fa-mobile-alt",
-        ["computers"] = "fas fa-desktop",
-        ["smartwatch"] = "fas fa-clock",
-        ["tablets"] = "fas fa-tablet-alt",
-        ["accessories"] = "fas fa-plug",
-        ["laptops"] = "fas fa-laptop",
-        ["televisions"] = "fas fa-tv",
-        ["speakers"] = "fas fa-volume-up",
-        ["headsets"] = "fas fa-headset",
-        ["smart-home"] = "fas fa-home",
-        ["camera"] = "fas fa-camera",
-        ["headphones"] = "fas fa-headphones",
-        ["gaming"] = "fas fa-gamepad"
-    };
+            {
+                ["phones"] = "fas fa-mobile-alt",
+                ["computers"] = "fas fa-desktop",
+                ["smartwatch"] = "fas fa-clock",
+                ["tablets"] = "fas fa-tablet-alt",
+                ["accessories"] = "fas fa-plug",
+                ["laptops"] = "fas fa-laptop",
+                ["televisions"] = "fas fa-tv",
+                ["speakers"] = "fas fa-volume-up",
+                ["headsets"] = "fas fa-headset",
+                ["smart-home"] = "fas fa-home",
+                ["camera"] = "fas fa-camera",
+                ["headphones"] = "fas fa-headphones",
+                ["gaming"] = "fas fa-gamepad"
+            };
 }
-<br> <br>
+
+<br>
+<br>
 <section class="py-10 bg-gray-50 relative" id="Categories">
     <div class="container mx-auto px-4">
 
@@ -42,7 +44,7 @@
                 ? icon
                 : "fas fa-box";
 
-                <a href="@Url.Action("Details", "Category", new { id = category.Id })"
+                <a href="@Url.Action("Index", "Product", new { category = category.Name })"
                    class="group min-w-[130px] text-center p-4 rounded-xl border border-gray-200 bg-gray-200 text-black
                               transition duration-300 ease-in-out cursor-pointer hover:bg-gray-400 hover:scale-105 block">
 
@@ -56,6 +58,7 @@
         </div>
     </div>
 </section>
+
 <style>
     .main-title {
         text-align: center;
@@ -98,9 +101,8 @@
             margin: 8px auto 0;
             border-radius: 2px;
         }
-
-
 </style>
+
 <script>
     const scrollContainer = document.getElementById('scrollContainer');
     document.getElementById('scrollLeft').onclick = () => {
@@ -110,4 +112,5 @@
         scrollContainer.scrollBy({ left: 200, behavior: 'smooth' });
     };
 </script>
-<br /> <br />
+<br />
+<br />
