@@ -39,6 +39,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="@Url.Action("CategoryDashboard", "Category")" class="block p-2 rounded-md @(activePage == "Category" ? "bg-blue-100 text-blue-700" : "hover:bg-gray-100 text-gray-600")">
+                        Categories
+                    </a>
+                </li>
+                <li>
                     <a href="@Url.Action("Index", "User")" class="block p-2 rounded-md @(activePage == "User" ? "bg-blue-100 text-blue-700" : "hover:bg-gray-100 text-gray-600")">
                         Users
                     </a>

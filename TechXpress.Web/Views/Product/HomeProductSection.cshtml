@@ -50,12 +50,20 @@
 
                     <p class="price fw-bold fs-5 text-dark mb-3">$@product.Price</p>
 
+                    @* <a asp-controller="Cart"
+                       asp-action="Index"
+                       asp-route-product_id="@product.Id"
+
+                       class="btn btn-dark w-100 py-2 fw-semibold add-to-cart">
+                        <i class="fa fa-cart-plus me-2"></i> Add To Cart
+                    </a> *@
                     <a asp-controller="Cart"
                        asp-action="Index"
                        asp-route-product_id="@product.Id"
                        class="btn btn-dark w-100 py-2 fw-semibold add-to-cart">
                         <i class="fa fa-cart-plus me-2"></i> Add To Cart
                     </a>
+
 
                 </div>
             </div>
