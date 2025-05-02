@@ -3,6 +3,7 @@ using System.Diagnostics;
 using TechXpress.Web.Models;
 using TechXpress.Web.ViewModel;
 
+
 namespace TechXpress.Web.Controllers
 {
     public class HomeController : Controller
@@ -21,48 +22,48 @@ namespace TechXpress.Web.Controllers
             new ProductViewModel
             {
                 Id = 1,
-                Name = "Product 1",
-                Image = "Laptop.jpg",
+                Name = "tablet",
+                Image = "25e0a5d6-5154-45ce-a9ca-161096acc032.jpeg",
                 Price = 400f,
-                ReviewCount = 5,
+                ReviewCount = 50,
                 Rating=1
             },
             new ProductViewModel
             {
 
                     Id = 2,
-                Name = "Product 2",
-                Image = "Laptop.jpg",
+                Name = "pc device",
+                Image = "71Hk-ZbQAuL.__AC_SY300_SX300_QL70_ML2_.jpg",
                 Price =300f,
-                ReviewCount = 5,
+                ReviewCount = 30,
                 Rating = 1
             },
             new ProductViewModel
             {
 
                     Id = 3,
-                Name = "Product 1",
-                Image = "Laptop.jpg",
+                Name = "smart watch",
+                Image = "613Ay8pU9zL.__AC_SX300_SY300_QL70_ML2_.jpg",
                 Price = 540f,
-                ReviewCount = 23,
+                ReviewCount = 20,
                 Rating = 3
             },
             new ProductViewModel
             {
 
                     Id = 4,
-                Name = "Product 1",
-                Image = "Laptop.jpg",
+                Name = "canon camera",
+                Image = "81RLTx5tIUL._AC_SL1500_.jpg",
                 Price = 900,
-                ReviewCount = 54,
+                ReviewCount = 15,
                 Rating = 5
             },
             new ProductViewModel
             {
 
                     Id = 5,
-                Name = "Product 1",
-                Image = "Laptop.jpg",
+                Name = "headphone",
+                Image = "da6eac57-b91b-45aa-81f8-6185d4f60a6c.jpeg",
                 Price = 200f,
                 ReviewCount = 29,
                 Rating = 2
@@ -71,8 +72,8 @@ namespace TechXpress.Web.Controllers
             {
 
                     Id = 6,
-                Name = "Product 1",
-                Image = "Laptop.jpg",
+                Name = "playstation",
+                Image = "controller-6032446_640.jpg",
                 Price = 340f,
                 ReviewCount = 48,
                 Rating = 4  
@@ -81,8 +82,8 @@ namespace TechXpress.Web.Controllers
             {
 
                     Id = 7,
-                Name = "Product 1",
-                Image = "Laptop.jpg",
+                Name = "samsung tablet",
+                Image = "5a666c35-7feb-4ac6-8e84-868d875094cd.jpeg",
                 Price = 670f,
                 ReviewCount = 90,
                 Rating = 5
@@ -91,8 +92,8 @@ namespace TechXpress.Web.Controllers
             {
 
                 Id = 8,
-                Name = "Product 1",
-                Image = "Laptop.jpg",
+                Name = "mouse",
+                Image = "ff07d5fd-2b23-4a90-890e-e2620eca3b21.jpeg",
                 Price = 100,
                 ReviewCount = 50,
                 Rating=1

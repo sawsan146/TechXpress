@@ -14,10 +14,10 @@
         {
             <div  class="product-item bg-white shadow-lg rounded-4 p-3 position-relative text-center">
                 <div class="product-img-wrapper overflow-hidden rounded-4 mb-3 position-relative">
-                    <img src="@Url.Content("~/images/Products/" + product.Image)"
+                    <img src="@Url.Content("~/product/" + product.Image)" style="width:90%;height:200px;"
                          alt="@product.Name"
                          class="img-fluid rounded-4 product-image">
-
+					@* <img src="~/product/088ca847-2eb0-4df8-8942-5d5041e86179.jpeg" /> *@
                     <div class="icon-overlay position-absolute top-0 end-0 m-2 d-flex gap-2">
                         <a href="@Url.Action("Wishlist", "User", new { id = product.Id })"
                            class="text-danger text-decoration-none fs-5"
@@ -26,7 +26,7 @@
                             <i class="fa fa-heart"></i>
                         </a>
                         @* <a href="@Url.Action("Details", "Product", new { id = product.Id })" *@
-                        <a asp-controller="Product" asp-action="ProductDetails"
+                        <a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@product.Id"
                            class="text-secondary text-decoration-none fs-5"
                            title="View Details"
                            aria-label="View Details">
@@ -37,7 +37,7 @@
 
                 <div class="product-body px-2">
                     <h5 class="fw-semibold mb-1">@product.Name</h5>
-                    <p class="text-muted mb-2 small d-flex justify-content-center align-items-center gap-1">
+                    <p class="text-muted mb-2 small d-flex justify-content-center align-items-center gap-1"> 
                         <span class="star-rating text-warning" data-rating="@product.Rating" data-product-id="@product.Id">
                             @for (int i = 1; i <= 5; i++)
                             {
@@ -46,7 +46,7 @@
                             }
                         </span>
                         <span>(@product.ReviewCount reviews)</span>
-                    </p>
+                     </p> 
 
                     <p class="price fw-bold fs-5 text-dark mb-3">$@product.Price</p>
 

@@ -16,7 +16,7 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 1,
                     Category_ID = 1,
-                    Name = "Product 1",
+                    Name = "tablet",
                     Price = 400.00f,
                     Stock = 50,
                     AddTime = DateTime.Now,
@@ -34,7 +34,7 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 2,
                     Category_ID = 2,
-                    Name = "Product 2",
+                    Name = "pc device",
                     Price = 300.00f,
                     Stock = 30,
                     AddTime = DateTime.Now,
@@ -52,7 +52,7 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 3,
                     Category_ID = 3,
-                    Name = "Product 1",
+                    Name = "smart watch",
                     Price = 540.00f,
                     Stock = 20,
                     AddTime = DateTime.Now,
@@ -70,7 +70,7 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 4,
                     Category_ID = 4,
-                    Name = "Product 1",
+                    Name = "canon camera",
                     Price = 900.00f,
                     Stock = 15,
                     AddTime = DateTime.Now,
@@ -88,7 +88,7 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 5,
                     Category_ID = 5,
-                    Name = "Product 1",
+                    Name = "headphone",
                     Price = 200.00f,
                     Stock = 40,
                     AddTime = DateTime.Now,
@@ -106,7 +106,7 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 6,
                     Category_ID = 6,
-                    Name = "Product 1",
+                    Name = "playstation",
                     Price = 340.00f,
                     Stock = 25,
                     AddTime = DateTime.Now,
@@ -124,7 +124,7 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 7,
                     Category_ID = 7,
-                    Name = "Product 1",
+                    Name = "samsung tablet",
                     Price = 670.00f,
                     Stock = 60,
                     AddTime = DateTime.Now,
@@ -142,7 +142,7 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 8,
                     Category_ID = 8,
-                    Name = "Product 1",
+                    Name = "mouse",
                     Price = 100.00f,
                     Stock = 150,
                     AddTime = DateTime.Now,
@@ -160,7 +160,7 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 9,
                     Category_ID = 9,
-                    Name = "Product 1",
+                    Name = "lcd tv",
                     Price = 1200.00f,
                     Stock = 10,
                     AddTime = DateTime.Now,
@@ -178,7 +178,7 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 10,
                     Category_ID = 10,
-                    Name = "Product 2",
+                    Name = "dell labtop",
                     Price = 800.00f,
                     Stock = 35,
                     AddTime = DateTime.Now,
@@ -196,7 +196,7 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 11,
                     Category_ID = 11,
-                    Name = "Product 1",
+                    Name = "printer",
                     Price = 250.00f,
                     Stock = 50,
                     AddTime = DateTime.Now,
@@ -214,7 +214,7 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 12,
                     Category_ID = 12,
-                    Name = "Product 1",
+                    Name = "LED screen",
                     Price = 150.00f,
                     Stock = 80,
                     AddTime = DateTime.Now,
@@ -232,7 +232,7 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 13,
                     Category_ID = 13,
-                    Name = "Product 1",
+                    Name = "speakeres",
                     Price = 180.00f,
                     Stock = 70,
                     AddTime = DateTime.Now,
@@ -250,7 +250,7 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 14,
                     Category_ID = 1,
-                    Name = "Product 1",
+                    Name = "redmi phone",
                     Price = 450.00f,
                     Stock = 45,
                     AddTime = DateTime.Now,
@@ -268,7 +268,7 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 15,
                     Category_ID = 2,
-                    Name = "Product 2",
+                    Name = "pc device",
                     Price = 320.00f,
                     Stock = 28,
                     AddTime = DateTime.Now,
@@ -286,7 +286,7 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 16,
                     Category_ID = 3,
-                    Name = "Product 1",
+                    Name = "smart watch",
                     Price = 600.00f,
                     Stock = 18,
                     AddTime = DateTime.Now,
@@ -331,18 +331,111 @@ namespace TechXpress.Web.Controllers
 
         public IActionResult HomeProductSection()
         {
-            return View("HomeProductSection");
+            return View("HomeProductSection",products);
         }
 
-        public IActionResult ProductDetails()
-        {
-            return View("ProductDetails");
-        }
+      
 
         public IActionResult ProductDashBoard()
         {
-            return View("ProductDashBoard",products);
+            List<ProductViewModel> ProductVm = new List<ProductViewModel> {
+
+            new ProductViewModel
+            {
+                Id = 1,
+                Name = "Product 1",
+                Image = "Laptop.jpg",
+                Price = 400f,
+                ReviewCount = 5,
+                Rating=1
+            },
+            new ProductViewModel
+            {
+
+                    Id = 2,
+                Name = "Product 2",
+                Image = "Laptop.jpg",
+                Price =300f,
+                ReviewCount = 5,
+                Rating = 1
+            },
+            new ProductViewModel
+            {
+
+                    Id = 3,
+                Name = "Product 1",
+                Image = "Laptop.jpg",
+                Price = 540f,
+                ReviewCount = 23,
+                Rating = 3
+            },
+            new ProductViewModel
+            {
+
+                    Id = 4,
+                Name = "Product 1",
+                Image = "Laptop.jpg",
+                Price = 900,
+                ReviewCount = 54,
+                Rating = 5
+            },
+            new ProductViewModel
+            {
+
+                    Id = 5,
+                Name = "Product 1",
+                Image = "Laptop.jpg",
+                Price = 200f,
+                ReviewCount = 29,
+                Rating = 2
+            },
+            new ProductViewModel
+            {
+
+                    Id = 6,
+                Name = "Product 1",
+                Image = "Laptop.jpg",
+                Price = 340f,
+                ReviewCount = 48,
+                Rating = 4
+            },
+            new ProductViewModel
+            {
+
+                    Id = 7,
+                Name = "Product 1",
+                Image = "Laptop.jpg",
+                Price = 670f,
+                ReviewCount = 90,
+                Rating = 5
+            },
+            new ProductViewModel
+            {
+
+                Id = 8,
+                Name = "Product 1",
+                Image = "Laptop.jpg",
+                Price = 100,
+                ReviewCount = 50,
+                Rating=1
+            }
+
+
+            };
+
+            return View("ProductDashBoard",ProductVm);
         }
 
+        public ActionResult ProductDetails(int id)
+        {
+            var product = products.FirstOrDefault(p => p.Product_ID == id);
+
+            if (product == null)
+            {
+                return RedirectToAction("Indedx");
+            }
+
+            return View(product);
+        }
     }
 }

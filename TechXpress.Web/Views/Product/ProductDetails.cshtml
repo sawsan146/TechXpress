@@ -1,16 +1,16 @@
-﻿
+﻿@model TechXpress.Domain.Entities.Product
 <link rel="stylesheet" href="~/css/final details.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 
-<div class="container py-5">
+<div class="container py-5" style="margin-bottom:100px;margin-top:30px;">
     <div class="row gx-5">
         <div class="col-md-6">
             <div class="product-images">
                 <div class="main-image">
-                    <img src="~/games-2453777_640.jpg" alt="Product Image" class="w-100 rounded-lg shadow-md" style="height: 425px ;">
+                    <img src="@Url.Content(Model.ProductImages.First().ImageURL)" alt="@Model.Name" class="img-fluid rounded-4 product-image" style="width:100%;height:425px;" />
                 </div>
                 <div class="thumbnail-images">
                     <img src="~/controller-6032446_640.jpg" alt="Thumbnail 1" class="w-100 rounded-lg border border-gray-300 hover:border-danger">
@@ -23,13 +23,13 @@
 
         <div class="col-md-6">
             <div class="product-details" style="color: black;">
-                <h1 class="h2 fw-semibold text-gray-800 mb-2">Havic HV-G92 Gamepad</h1>
+                <h1 class="h2 fw-semibold text-gray-800 mb-2">@Model.Name</h1>
                 <div class="d-flex align-items-center mb-3">
                     <span class="text-sm text-warning me-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                    <span class="text-xs text-muted">(150 Reviews)</span>
+                    <span class="text-xs text-muted">@Model.Reviews.Count</span>
                     <span class="text-xs text-success ms-2">In Stock</span>
                 </div>
-                <p class="h4 fw-bold text-gray-900 mb-4">$192.00</p>
+                <p class="h4 fw-bold text-gray-900 mb-4">$@Model.Price</p>
                 <p class="text-gray-600 mb-4">PlayStation 5 Controller Skin. High quality vinyl with air channel adhesive for easy bubble-free install & mess-free removal. Pressure sensitive.</p>
 
                 <div class="d-flex align-items-center mb-4">
@@ -44,7 +44,7 @@
                             <line x1="3" x2="21" y1="6" y2="6"></line>
                             <path d="M16 10a4 4 0 1 1-8 0"></path>
                         </svg>
-                        Buy Now
+                        Add to Cart
                     </button>
                 </div>
 
@@ -72,70 +72,6 @@
         </div>
     </div>
 
-    <div class="mt-5" style="color: black;">
-        <h2 class="h3 fw-semibold text-gray-800 mb-4">Related Items</h2>
-        <div class="row g-4">
-            <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="related-item-card bg-white rounded-lg shadow-md p-4">
-                    <div class="position-relative">
-                        <img src="~/controller-6032446_640.jpg" alt="Related Item 1" class="w-100 rounded-md">
-                        <span class="position-absolute top-0 start-0 bg-danger text-white text-xs px-2 py-1 rounded-md">-40%</span>
-                        <div class="add-to-cart">Add To Cart</div>
-                    </div>
-                    <h3 class="h6 fw-semibold text-gray-800 mt-3">HAVIT HV-G92 Gamepad</h3>
-                    <p class="small text-muted">$120 <span class="text-decoration-line-through">$160</span></p>
-                    <div class="d-flex align-items-center mt-2">
-                        <span class="text-sm text-warning me-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                        <span class="text-xs text-muted">(88)</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="related-item-card bg-white rounded-lg shadow-md p-4">
-                    <div class="position-relative">
-                        <img src="~/controller-6032446_640.jpg" alt="Related Item 2" class="w-100 rounded-md">
-                        <span class="position-absolute top-0 start-0 bg-danger text-white text-xs px-2 py-1 rounded-md">-35%</span>
-                        <div class="add-to-cart">Add To Cart</div>
-                    </div>
-                    <h3 class="h6 fw-semibold text-gray-800 mt-3">AK-900 Wired Keyboard</h3>
-                    <p class="small text-muted">$960 <span class="text-decoration-line-through">$1160</span></p>
-                    <div class="d-flex align-items-center mt-2">
-                        <span class="text-sm text-warning me-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                        <span class="text-xs text-muted">(75)</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="related-item-card bg-white rounded-lg shadow-md p-4">
-                    <div class="position-relative">
-                        <img src="~/games-2453777_640.jpg" alt="Related Item 3" class="w-100 rounded-md">
-                        <span class="position-absolute top-0 start-0 bg-danger text-white text-xs px-2 py-1 rounded-md">-30%</span>
-                        <div class="add-to-cart">Add To Cart</div>
-                    </div>
-                    <h3 class="h6 fw-semibold text-gray-800 mt-3">IPS LCD Gaming Monitor</h3>
-                    <p class="small text-muted">$370 <span class="text-decoration-line-through">$400</span></p>
-                    <div class="d-flex align-items-center mt-2">
-                        <span class="text-sm text-warning me-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                        <span class="text-xs text-muted">(99)</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="related-item-card bg-white rounded-lg shadow-md p-4">
-                    <div class="position-relative">
-                        <img src="~/games-2453777_640.jpg" alt="Related Item 4" class="w-100 rounded-md">
-                        <div class="add-to-cart">Add To Cart</div>
-                    </div>
-                    <h3 class="h6 fw-semibold text-gray-800 mt-3">RGB Liquid CPU Cooler</h3>
-                    <p class="small text-muted">$160 <span class="text-decoration-line-through">$170</span></p>
-                    <div class="d-flex align-items-center mt-2">
-                        <span class="text-sm text-warning me-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                        <span class="text-xs text-muted">(65)</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
