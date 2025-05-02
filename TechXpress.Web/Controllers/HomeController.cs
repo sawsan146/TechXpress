@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using TechXpress.Domain.Entities;
 using TechXpress.Web.Models;
 using TechXpress.Web.ViewModel;
 
@@ -22,7 +23,7 @@ namespace TechXpress.Web.Controllers
             {
                 Id = 1,
                 Name = "Product 1",
-                Image = "Laptop.jpg",
+                Image = "050bf0f6-4fb8-490f-b5df-e97118a35e95.jpeg",
                 Price = 400f,
                 ReviewCount = 5,
                 Rating=1
@@ -32,7 +33,7 @@ namespace TechXpress.Web.Controllers
 
                     Id = 2,
                 Name = "Product 2",
-                Image = "Laptop.jpg",
+                Image = "7403bbb4-fff3-4b64-be15-4168738db7ba.jpg",
                 Price =300f,
                 ReviewCount = 5,
                 Rating = 1
@@ -42,7 +43,7 @@ namespace TechXpress.Web.Controllers
 
                     Id = 3,
                 Name = "Product 1",
-                Image = "Laptop.jpg",
+                Image = "3285e407-2c6d-4652-84fb-5bf5dc0a5cc9.jpeg",
                 Price = 540f,
                 ReviewCount = 23,
                 Rating = 3
@@ -52,7 +53,7 @@ namespace TechXpress.Web.Controllers
 
                     Id = 4,
                 Name = "Product 1",
-                Image = "Laptop.jpg",
+                Image = "b5d27624-b193-4d65-8c11-29fc0aa60e04.jpeg",
                 Price = 900,
                 ReviewCount = 54,
                 Rating = 5
@@ -62,7 +63,7 @@ namespace TechXpress.Web.Controllers
 
                     Id = 5,
                 Name = "Product 1",
-                Image = "Laptop.jpg",
+                Image = "25e0a5d6-5154-45ce-a9ca-161096acc032.jpeg",
                 Price = 200f,
                 ReviewCount = 29,
                 Rating = 2
@@ -72,7 +73,7 @@ namespace TechXpress.Web.Controllers
 
                     Id = 6,
                 Name = "Product 1",
-                Image = "Laptop.jpg",
+                Image = "636b547d-e03a-4d55-adf6-6dd3bef5b053.png",
                 Price = 340f,
                 ReviewCount = 48,
                 Rating = 4  
@@ -82,17 +83,16 @@ namespace TechXpress.Web.Controllers
 
                     Id = 7,
                 Name = "Product 1",
-                Image = "Laptop.jpg",
+                Image = "9c25a2c4-5cab-4bc3-b6e2-a4703893cbbe.jpeg",
                 Price = 670f,
                 ReviewCount = 90,
                 Rating = 5
             },
             new ProductViewModel
             {
-
                 Id = 8,
                 Name = "Product 1",
-                Image = "Laptop.jpg",
+                Image = "ed222807-8b3a-42bf-86a6-f13ee6b219ba.jpeg",
                 Price = 100,
                 ReviewCount = 50,
                 Rating=1
@@ -100,7 +100,7 @@ namespace TechXpress.Web.Controllers
 
 
             };
-
+          
             var categoriesVm = new List<CategoryViewModel>
         {
             new CategoryViewModel { Id = "phones", Name = "Phones", IsSelected = false },

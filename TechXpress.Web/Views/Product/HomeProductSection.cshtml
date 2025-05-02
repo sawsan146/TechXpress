@@ -12,9 +12,9 @@
     <div class="product-list">
         @foreach (var product in Model)
         {
-            <div  class="product-item bg-white shadow-lg rounded-4 p-3 position-relative text-center">
+            <div class="product-item bg-white shadow-lg rounded-4 p-3 position-relative text-center">
                 <div class="product-img-wrapper overflow-hidden rounded-4 mb-3 position-relative">
-                    <img src="@Url.Content("~/images/Products/" + product.Image)"
+                    <img src="@Url.Content("~/Product/" + product.Image)"
                          alt="@product.Name"
                          class="img-fluid rounded-4 product-image">
 
@@ -129,6 +129,7 @@
         box-shadow: 0 6px 18px rgba(0,0,0,0.1);
         width: 100%; /* تأكد من أن البطاقة تأخذ عرض كامل */
         max-width: 280px; /* حجم البطاقة يمكن تخصيصه */
+        height: 400px; /* تحديد ارتفاع ثابت */
     }
 
         .product-item:hover {
@@ -136,15 +137,21 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-    .product-img-wrapper img {
-        width: 100%;
-        height: auto;
-        transition: transform 0.3s ease;
+    .product-img-wrapper {
+        height: 200px; /* تحديد ارتفاع ثابت للصورة */
+        overflow: hidden;
     }
 
-    .product-img-wrapper:hover img {
-        transform: scale(1.05);
-    }
+        .product-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* لضمان أن الصورة تملأ المكان بشكل مناسب */
+            transition: transform 0.3s ease;
+        }
+
+        .product-img-wrapper:hover img {
+            transform: scale(1.05);
+        }
 
     .icon-overlay {
         opacity: 0;

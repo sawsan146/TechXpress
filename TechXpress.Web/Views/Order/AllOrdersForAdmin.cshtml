@@ -1,28 +1,86 @@
 ﻿@model IEnumerable<OrderViewModel>
-
 @{
     ViewBag.Title = "Orders";
     Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
 }
 
-<div class="p-6">
-    <h2 class="text-2xl font-semibold mb-4">Orders</h2>
+<style>
+    .orders-header {
+        background: linear-gradient(135deg, darkred, #ef5350) !important;
+        color: white;
+        padding: 1.5rem;
+        border-radius: 10px 10px 0 0;
+    }
+    
+    .orders-header h2 {
+        margin: 0;
+        font-weight: 600;
+        font-size: 1.8rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .filter-container {
+        background-color: #f8f9fa;
+        padding: 1rem;
+        border-radius: 0 0 10px 10px;
+        margin-bottom: 1.5rem;
+    }
+    
+    #statusFilter {
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        padding: 8px 12px;
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+    
+    #statusFilter:focus {
+        border-color: #e53935;
+        box-shadow: 0 0 0 0.25rem rgba(229, 57, 53, 0.25);
+        outline: none;
+    }
+</style>
 
-    <!-- Filter Dropdown -->
-    <div class="mb-4">
-        <label class="block text-sm font-medium text-gray-700 mb-1">Filter by Status:</label>
-        <select id="statusFilter" class="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500">
-            <option value="All">All</option>
-            <option value="Pending">Pending</option>
-            <option value="Shipped">Shipped</option>
-            <option value="Delivered">Delivered</option>
-            <option value="Cancelled">Cancelled</option>
-        </select>
+<div class="card shadow border-0 mt-4">
+    <div class="card-header orders-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>
+                <i class="bi bi-cart-check-fill"></i> Orders Management
+            </h2>
+            <a asp-controller="Admin" asp-action="Index" class="btn-back">
+                <i class="bi bi-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
     </div>
+    
+    <div class="card-body p-4">
+        <!-- Filter Section -->
+        <div class="filter-container">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Filter by Status:</label>
+                    <select id="statusFilter" class="form-select">
+                        <option value="All">All Orders</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Processing">Processing</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <!-- Additional filters can be added here -->
+                </div>
+            </div>
+        </div>
 
-    <!-- Table Wrapper -->
-    <div id="ordersTableContainer">
-        @Html.Partial("_OrdersTablePartial", Model)
+        <!-- Orders Table -->
+        <div id="ordersTableContainer" class="table-responsive">
+            @Html.Partial("_OrdersTablePartial", Model)
+        </div>
     </div>
 </div>
 

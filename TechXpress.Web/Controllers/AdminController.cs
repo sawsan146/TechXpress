@@ -8,7 +8,11 @@ namespace TechXpress.Web.Controllers
         {
             //var userName = Request.Cookies["UserName"] ?? "Guest";
             //ViewBag.UserName = userName;
+
+            ViewData["ActivePage"] = "Dashboard";
+
             return View("DashBoard");
         }
+
     }
 }

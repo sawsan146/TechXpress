@@ -1,0 +1,276 @@
+﻿@model List<UserManagementViewModel>
+@{
+    ViewData["Title"] = "User Management";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+
+}
+
+<style>
+    .user-management-card {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-management-header {
+        background: linear-gradient(135deg, darkred, #ef5350) !important;
+        color: white;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+        .user-management-header h2 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+    .user-table {
+        width: 100%;
+        margin-bottom: 0;
+        background-color: #fff;
+    }
+
+    .user-table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        padding: 12px;
+        text-align: left;
+    }
+
+    .user-table td {
+        padding: 12px;
+        vertical-align: middle;
+    }
+
+    .status-active {
+        color: green;
+        font-weight: bold;
+    }
+
+    .status-blocked {
+        color: red;
+        font-weight: bold;
+    }
+
+    .role-badge {
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-transform: capitalize;
+    }
+
+    .role-admin {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .role-manager {
+        background-color: #ffc107;
+        color: black;
+    }
+
+    .role-user {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    .btn-block, .btn-unblock {
+        padding: 6px 12px;
+        border-radius: 5px;
+        font-size: 0.85rem;
+    }
+
+    .btn-block {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
+
+    .btn-unblock {
+        background-color: #28a745;
+        color: white;
+        border: none;
+    }
+
+    .btn-block:hover,
+    .btn-unblock:hover {
+        opacity: 0.85;
+    }
+
+    .role-select-btn {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .role-select-item.active {
+        background-color: #e9ecef;
+    }
+
+    .role-select-item .bi-check {
+        color: darkred;
+        visibility: hidden;
+    }
+
+    .role-select-item.active .bi-check {
+        visibility: visible;
+    }
+     
+    .btn-back {
+        background: linear-gradient(135deg, #6c757d, #495057);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .btn-back:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+        color: white;
+    }
+</style>
+
+
+<div class="card user-management-card shadow border-0 mt-4">
+    
+
+    <div class="card-header user-management-header">
+        <h2 class="text-white m-0">
+            <i class="bi bi-people-fill me-2"></i>User Management
+        </h2>
+     
+    </div>
+    <br />
+    <br />
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="user-table table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.UserName</td>
+                                <td>@user.Email</td>
+                                <td>
+                                    @if (user.IsBlocked)
+                                    {
+                                        <span class="status-blocked">Blocked</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-active">Active</span>
+                                    }
+                                </td>
+                                <td>
+                                    <span class="role-badge @GetRoleBadgeClass(user.CurrentRole)">@user.CurrentRole</span>
+                                </td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        @if (user.IsBlocked)
+                                        {
+                                            <button class="btn-unblock" title="Unblock user" onclick="unblockUser('@user.Id')">
+                                                <i class="bi bi-unlock"></i> Unblock
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn-block" title="Block user" onclick="blockUser('@user.Id')">
+                                                <i class="bi bi-lock"></i> Block
+                                            </button>
+                                        }
+
+                                        <div class="dropdown">
+                                            <button class="role-select-btn dropdown-toggle" type="button" id="roleDropdown-@user.Id"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-person-gear"></i> Change Role
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="roleDropdown-@user.Id">
+                                                @foreach (var role in user.AvailableRoles)
+                                                {
+                                                    <li class="dropdown-item role-select-item @(role == user.CurrentRole ? "active" : "")"
+                                                        onclick="updateUserRole('@user.Id', '@role')">
+                                                        <i class="bi @(role == user.CurrentRole ? "bi-check" : "") me-1"></i>
+                                                        <span class="role-badge @GetRoleBadgeClass(role)">@role</span>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br />
+@* <div>
+    <a asp-controller="Admin" asp-action="Index" class="btn-back">
+        <i class="bi bi-arrow-left"></i> Back
+    </a>
+</div> *@
+</div>
+
+@section Scripts {
+    <script>
+        function updateUserRole(userId, newRole) {
+            fetch(`/Admin/UpdateUserRole`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                },
+                body: JSON.stringify({ userId, newRole })
+            })
+            .then(response => {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('Error updating role');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error updating role');
+            });
+        }
+    </script>
+}
+
+@functions {
+    public string GetRoleBadgeClass(string role)
+    {
+        return role.ToLower() switch
+        {
+            "admin" => "role-admin",
+            "manager" => "role-manager",
+            "user" => "role-user",
+            _ => "role-other"
+        };
+    }
+}
+
+
