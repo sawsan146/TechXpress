@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using TechXpress.Domain.Entities;
 using TechXpress.Web.ViewModel;
 
@@ -125,35 +126,54 @@ namespace TechXpress.Web.Controllers
         }
         public IActionResult Index(int product_id)
         {
-            var product = ProductVm.FirstOrDefault(p => p.Id == product_id);
-
-            if (product != null)
+            if (!User.Identity.IsAuthenticated)
             {
-                var cartItem = cartItems.FirstOrDefault(c => c.Product.Id == product_id);
+                return RedirectToAction("Login", "Register");
+            }
+            else
+            {
+                var product = ProductVm.FirstOrDefault(p => p.Id == product_id);
 
-                if (cartItem != null)
+                if (product != null)
                 {
-                    cartItem.Quantity += 1;
+                    var cartItemsJson = Request.Cookies["CartItems"];
+                    var cartItems = string.IsNullOrEmpty(cartItemsJson)
+                        ? new List<CartitemsViewModel>()
+                        : JsonConvert.DeserializeObject<List<CartitemsViewModel>>(cartItemsJson);
+
+                    var cartItem = cartItems.FirstOrDefault(c => c.Product.Id == product_id);
+
+                    if (cartItem != null)
+                    {
+                        cartItem.Quantity += 1;
+                    }
+                    else
+                    {
+                        cartItems.Add(new CartitemsViewModel
+                        {
+                            Cart_Item_ID = cartItems.Count + 1,
+                            Product = product,
+                            Quantity = 1,
+                            Price = product.Price
+                        });
+                    }
+
+                    var updatedCartItemsJson = JsonConvert.SerializeObject(cartItems);
+                    Response.Cookies.Append("CartItems", updatedCartItemsJson, new CookieOptions { HttpOnly = true });
+
+                    var viewModel = new ShoppingCartViewModel
+                    {
+                        ShoppingCartList = cartItems,
+                        OrderTotal = cartItems.Sum(i => i.Quantity * i.Product.Price)
+                    };
+
+                    return View(viewModel);
                 }
                 else
                 {
-                    cartItems.Add(new CartitemsViewModel
-                    {
-                        Cart_Item_ID = cartItems.Count + 1, 
-                        Product = product,
-                        Quantity = 1,
-                        Price = product.Price
-                    });
+                    return NotFound();
                 }
             }
-
-            var viewModel = new ShoppingCartViewModel
-            {
-                ShoppingCartList = cartItems,
-                OrderTotal = cartItems.Sum(i => i.Quantity * i.Product.Price)
-            };
-
-            return View(viewModel);
         }
 
 

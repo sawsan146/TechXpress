@@ -31,12 +31,13 @@
     <div class="p-4 bg-white shadow rounded-lg">
         <h3 class="text-lg font-medium mb-4">Quick Actions</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <a href="@Url.Action("Create", "Products")" class="flex flex-col items-center justify-center h-24 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+            <a href="@Url.Action("AddProduct", "Product")" class="flex flex-col items-center justify-center h-24 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
                 <span>📦</span><span>Add Product</span>
             </a>
-            <a href="@Url.Action("Create", "Customers")" class="flex flex-col items-center justify-center h-24 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                <span>👤</span><span>Add Customer</span>
+            <a href="@Url.Action("Index", "Settings")" class="flex flex-col items-center justify-center h-24 bg-gray-600 text-white rounded-lg hover:bg-gray-700">
+                <span>⚙️</span><span>Settings</span>
             </a>
+
             <a href="@Url.Action("Create", "Invoices")" class="flex flex-col items-center justify-center h-24 bg-green-600 text-white rounded-lg hover:bg-green-700">
                 <span>📄</span><span>Create Invoice</span>
             </a>

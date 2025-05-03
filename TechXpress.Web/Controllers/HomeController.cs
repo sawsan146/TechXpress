@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using TechXpress.Domain.Entities;
 using TechXpress.Web.Models;
 using TechXpress.Web.ViewModel;
 
@@ -24,6 +25,7 @@ namespace TechXpress.Web.Controllers
                 Id = 1,
                 Name = "tablet",
                 Image = "25e0a5d6-5154-45ce-a9ca-161096acc032.jpeg",
+
                 Price = 400f,
                 ReviewCount = 50,
                 Rating=1
@@ -34,6 +36,7 @@ namespace TechXpress.Web.Controllers
                     Id = 2,
                 Name = "pc device",
                 Image = "71Hk-ZbQAuL.__AC_SY300_SX300_QL70_ML2_.jpg",
+
                 Price =300f,
                 ReviewCount = 30,
                 Rating = 1
@@ -42,8 +45,10 @@ namespace TechXpress.Web.Controllers
             {
 
                     Id = 3,
+
                 Name = "smart watch",
                 Image = "613Ay8pU9zL.__AC_SX300_SY300_QL70_ML2_.jpg",
+
                 Price = 540f,
                 ReviewCount = 20,
                 Rating = 3
@@ -52,8 +57,10 @@ namespace TechXpress.Web.Controllers
             {
 
                     Id = 4,
+
                 Name = "canon camera",
                 Image = "81RLTx5tIUL._AC_SL1500_.jpg",
+
                 Price = 900,
                 ReviewCount = 15,
                 Rating = 5
@@ -64,6 +71,7 @@ namespace TechXpress.Web.Controllers
                     Id = 5,
                 Name = "headphone",
                 Image = "da6eac57-b91b-45aa-81f8-6185d4f60a6c.jpeg",
+
                 Price = 200f,
                 ReviewCount = 29,
                 Rating = 2
@@ -74,6 +82,7 @@ namespace TechXpress.Web.Controllers
                     Id = 6,
                 Name = "playstation",
                 Image = "controller-6032446_640.jpg",
+
                 Price = 340f,
                 ReviewCount = 48,
                 Rating = 4  
@@ -90,10 +99,10 @@ namespace TechXpress.Web.Controllers
             },
             new ProductViewModel
             {
-
                 Id = 8,
                 Name = "mouse",
                 Image = "ff07d5fd-2b23-4a90-890e-e2620eca3b21.jpeg",
+
                 Price = 100,
                 ReviewCount = 50,
                 Rating=1
@@ -101,7 +110,7 @@ namespace TechXpress.Web.Controllers
 
 
             };
-
+          
             var categoriesVm = new List<CategoryViewModel>
         {
             new CategoryViewModel { Id = "phones", Name = "Phones", IsSelected = false },

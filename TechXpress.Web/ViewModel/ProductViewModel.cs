@@ -10,8 +10,10 @@ namespace TechXpress.Web.ViewModel
         public  string Image { get; set; }
         public  float Price { get; set; }
         public int ReviewCount { get; set; }
-
         public  int  Rating { get; set; }
+
+        public Category category = new Category();
+
 
     }
 }

@@ -6,7 +6,14 @@ namespace TechXpress.Web.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Register");
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }

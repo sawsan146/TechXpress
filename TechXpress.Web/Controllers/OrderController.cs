@@ -17,14 +17,16 @@ namespace TechXpress.Web.Controllers
 
         public IActionResult Index()
         {
+
             List<OrderViewModel> orders=GetFakeOrders();
             var role = User.FindFirstValue(ClaimTypes.Role);
             if (role != "Admin")
             {
                 return Unauthorized(); 
             }
+            ViewData["ActivePage"] = "Order";
 
-          
+
 
             return View("AllOrdersForAdmin", orders);
         }

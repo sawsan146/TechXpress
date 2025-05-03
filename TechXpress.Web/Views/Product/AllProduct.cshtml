@@ -31,7 +31,7 @@
                     <div class="product-img-wrapper overflow-hidden rounded-4 mb-3 position-relative">
                         @if (product.ProductImages != null && product.ProductImages.Any())
                         {
-                            <img src="@Url.Content(product.ProductImages.First().ImageURL)" alt="@product.Name" class="img-fluid rounded-4 product-image" />
+                            <img src="@Url.Content(product.ProductImages.First().ImageURL)" alt="@product.Name" class="img-fluid rounded-4 product-image" style="width:100%;height:100%px;"/>
                         }
                         else
                         {
@@ -176,6 +176,7 @@
         position: relative;
         overflow: hidden;
         background-color: #f8f9fa;
+
         display: flex;
         justify-content: center;
         align-items: center;
@@ -186,6 +187,8 @@
             max-height: 100%;
             object-fit: contain;
             object-position: center;
+
+ 
             transition: transform 0.3s ease;
         }
 
@@ -248,30 +251,30 @@
 @section scripts {
     <script>
         $(function () {
-            // Get the category from the URL
+            
             const urlParams = new URLSearchParams(window.location.search);
             const selectedCategory = urlParams.get('category') || 'All Products';
 
-            // Filter products based on the selected category
+            
             if (selectedCategory !== 'All Products') {
                 $('.product-item').each(function () {
                     const productCategory = $(this).data('category');
                     if (productCategory !== selectedCategory) {
-                        $(this).hide(); // Hide products that don't match the category
+                        $(this).hide(); 
                     } else {
-                        $(this).show(); // Show products that match the category
+                        $(this).show(); 
                     }
                 });
 
-                // Update the product count
+                
                 const visibleProducts = $('.product-item:visible').length;
                 $('#product-count').text(`Showing ${visibleProducts} products`);
             } else {
-                $('.product-item').show(); // Show all products if "All Products" is selected
+                $('.product-item').show(); 
                 $('#product-count').text(`Showing ${$('.product-item').length} products`);
             }
 
-            // Existing scripts for add-to-cart and star-rating
+            
             $('.add-to-cart').on('click', function () {
                 alert('Product added to cart');
             });
