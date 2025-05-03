@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TechXpress.Domain.Entities;
@@ -340,9 +341,9 @@ namespace TechXpress.Web.Controllers
         {
             ViewData["ActivePage"] = "Product";
 
-            return View("ProductDashBoard", ProductVm);
+            return View("ProductDashBoard", products);
         }
-        public ActionResult ProductDetails(int id)
+        public IActionResult ProductDetails(int id)
         {
             var product = products.FirstOrDefault(p => p.Product_ID == id);
 
@@ -350,6 +351,9 @@ namespace TechXpress.Web.Controllers
             {
                 return RedirectToAction("Indedx");
             }
+            return View();
+        }
+
 
         [Authorize(Roles = "Admin")]
         public IActionResult AddProduct()
@@ -379,7 +383,7 @@ namespace TechXpress.Web.Controllers
             }
 
             vm.Categories = GetCategories();
-            return View(vm);
+            return View("AddProductDashBoard", vm);
         }
 
 
