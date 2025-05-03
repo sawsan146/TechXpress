@@ -1,4 +1,3 @@
-﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TechXpress.Domain.Entities;
@@ -336,16 +335,12 @@ namespace TechXpress.Web.Controllers
             return View("HomeProductSection",products);
         }
 
-        public IActionResult ProductDetails()
-        {
-            return View("ProductDetails");
-        }
 
         public IActionResult ProductDashBoard()
         {
             ViewData["ActivePage"] = "Product";
 
-            return View("ProductDashBoard",products);
+            return View("ProductDashBoard", ProductVm);
         }
         public ActionResult ProductDetails(int id)
         {
