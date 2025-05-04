@@ -1,8 +1,6 @@
-
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
 using TechXpress.Domain.Entities;
 using TechXpress.Web.ViewModel;
 
@@ -27,9 +25,7 @@ namespace TechXpress.Web.Controllers
                     Category = new Category { Category_ID = 1, Name = "Phones" },
                     ProductImages = new List<ProductImg>
                     {
-
                         new ProductImg { Image_ID = 1, Product_ID = 1, ImageURL = "~/images/product/25e0a5d6-5154-45ce-a9ca-161096acc032.jpeg" }
-
                     },
                     Reviews = new List<Review>
                     {
@@ -346,11 +342,7 @@ namespace TechXpress.Web.Controllers
 
             return View("ProductDashBoard", products);
         }
-
-
-        public ActionResult ProductDetails(int id)
-
-
+        public IActionResult ProductDetails(int id)
         {
             var product = products.FirstOrDefault(p => p.Product_ID == id);
 
@@ -393,90 +385,9 @@ namespace TechXpress.Web.Controllers
             return View("AddProductDashBoard", vm);
         }
 
-
-        private List<SelectListItem> GetCategories()
+        private IEnumerable<SelectListItem> GetCategories()
         {
-            List<CategoryViewModel> _Category = new List<CategoryViewModel>
-            {
-                new CategoryViewModel{ Id = "1", Name = "Phones" },
-                new CategoryViewModel{ Id = "2", Name = "Computers" },
-                new CategoryViewModel{ Id = "3", Name = "Smart Watches" },
-                new CategoryViewModel{ Id = "4", Name = "Cameras" },
-                new CategoryViewModel{ Id = "5", Name = "Head Phones" },
-                new CategoryViewModel{ Id = "6", Name = "Games" },
-                new CategoryViewModel{ Id = "7", Name = "Tablet" }
-            };
-
-            return _Category.Select(c => new SelectListItem
-            {
-                Value = c.Id.ToString(),
-                Text = c.Name
-            }).ToList();
-        }
-
-        //for Admin
-        [Authorize(Roles = "Admin")]
-        public IActionResult UpdateProduct(int id)
-        {
-           
-            ProductDashBoardViewModel vm = new ProductDashBoardViewModel();
-            var product = products.FirstOrDefault(p => p.Product_ID == id);
-          
-            if (product != null)
-            {
-                vm.Name = product.Name;
-                vm.Price = product.Price;
-                vm.Stock = product.Stock;
-                vm.Description = product.Description;
-                vm.Category_ID = product.Category_ID.ToString();
-                vm.Categories = GetCategories();
-                vm.UploadedImages = new List<IFormFile>();
-            }
-            else
-            {
-                return NotFound();
-            }
-            return View(vm);
-
-        }
-
-        [HttpPost]
-        public IActionResult UpdateProduct(ProductDashBoardViewModel vm)
-        {
-            ModelState.Remove("Categories");
-            if (ModelState.IsValid)
-            {
-                TempData["SuccessMessage"] = "Product updated successfully!";
-                return RedirectToAction("ProductDashBoard");
-            }
-            vm.Categories = GetCategories();
-            return View(vm);
-        }
-
-
-        public IActionResult AccessDenied()
-        {
-            return View();
-        }
-
-
-   //     [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public IActionResult DeleteProduct(int id)
-        {
-            var product = products.FirstOrDefault(p => p.Product_ID == id);
-            if (product != null)
-            {
-                products.Remove(product);
-                TempData["SuccessMessage"] = "Product deleted successfully!";
-            }
-            else
-            {
-                TempData["ErrorMessage"] = "Product not found!";
-            }
-            return RedirectToAction("ProductDashBoard");
-        }
-
-
+            throw new NotImplementedException();
         }
     }
+}

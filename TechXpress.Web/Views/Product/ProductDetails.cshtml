@@ -38,14 +38,15 @@
                         <input type="number" id="quantity" value="2" min="1" aria-label="Quantity" style="width: 30px;background-color:#f0f0f0;text-align:center">
                         <button id="increment" style="border-radius: 30%;background-color:#aaa8a8;width:20px">+</button>
                     </div>
-                    <a asp-controller="Cart" asp-action="Index" asp-route-id="@Model.Product_ID" class="buy-now-button" style="margin-left: 0; display: inline-flex; align-items: center;text-decoration: none;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
-                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                            <line x1="3" x2="21" y1="6" y2="6"></line>
-                            <path d="M16 10a4 4 0 1 1-8 0"></path>
-                        </svg>
-                        Add to Cart
-                    </a>
+
+                    <form asp-controller="Cart" asp-action="Index" method="post" style="display: inline;">
+                        <input type="hidden" name="product_id" value="@Model.Product_ID" />
+                        <button type="submit" class="buy-now-button" style="margin-left: 0; display: inline-flex; align-items: center; border: none; background-color:#dc3545; padding: 0; cursor: pointer; text-decoration: none; color: white; height:30px;padding:.75em 1.5em;">
+                            <i class="bi bi-cart3 fs-5"></i>
+                            Add to Cart
+                        </button>
+                    </form>
+
                 </div>
 
                 <div class="mb-4">

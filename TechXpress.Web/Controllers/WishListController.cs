@@ -307,7 +307,7 @@ namespace TechXpress.Web.Controllers
 
         public WishlistController()
         {
-            // No need to initialize ProductVm here, it's already done above
+
         }
 
         [HttpGet]
@@ -326,7 +326,7 @@ namespace TechXpress.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddToWishList(int productId) // Corrected method name
+        public IActionResult AddToWishList(int productId) 
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -344,12 +344,11 @@ namespace TechXpress.Web.Controllers
                 ? new List<WishListItemsViewModel>()
                 : JsonConvert.DeserializeObject<List<WishListItemsViewModel>>(wishlistItemsJson);
 
-            // Check if the product is already in the wishlist
             if (!wishlistItems.Any(item => item.Product.Id == productId))
             {
                 wishlistItems.Add(new WishListItemsViewModel
                 {
-                    WishList_Item_ID = wishlistItems.Count + 1, // Correct ID assignment
+                    WishList_Item_ID = wishlistItems.Count + 1,
                     Price = product.Price,
                     Product = product
                 });

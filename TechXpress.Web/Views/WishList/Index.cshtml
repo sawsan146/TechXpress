@@ -166,7 +166,7 @@
 
 <div class="container">
     <div class="wishlist-top">
-        <h2 class="wishlist-title">Wishlist (@Model?.WishlistItems?.Count ?? 0)</h2>
+        <h2 class="wishlist-title">Wishlist (@Model?.WishlistItems?.Count )</h2>
         <button class="move-all-to-bag">Move All To Bag</button>
     </div>
 
@@ -178,13 +178,24 @@
                 <div class="col-sm-6 col-md-4 col-lg-3">
                     <div class="product-card">
                         <div class="img-wrapper">
-                            <i class="far fa-eye eye-icon"></i>
-                            <form method="post" asp-action="RemoveFromWishlist" asp-controller="WishList" asp-route-productId="@item.Product.Id">
-                                <button type="submit" class="far fa-trash-alt del-icon btn btn-link text-danger p-0" style="font-size: 1.5em; text-decoration: none; cursor: pointer;"></button>
-                            </form>
-                            <img src="@item.Product.Image" alt="@item.Product.Name" />
-                            <form method="post" asp-action="AddToWishlist" asp-controller="Cart" asp-route-productId="@item.Product.Id">
-                                <button class="add-to-cart">Add to Cart</button>
+                            @* <i class="far fa-eye eye-icon"></i> *@
+                            @* style="position:absolute;top:60px; right:12px" *@
+
+                            <div class="icon-overlay position-absolute top-0 end-0 m-2 d-flex gap-2">
+                                <form method="post" asp-action="RemoveFromWishlist" asp-controller="WishList" asp-route-productId="@item.Product.Id">
+                                    <button type="submit" class="far fa-trash-alt del-icon btn btn-link text-danger p-0" style="font-size: 1.5em; text-decoration: none; cursor: pointer; margin-top:-18px;"></button>
+                                 </form>
+                                <a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@item.Product.Id"
+                                   
+                                    class="text-secondary text-decoration-none fs-5"
+                                    title="View Details"
+                                    aria-label="View Details">
+                                     <i class="fa fa-eye"></i>
+                                </a>
+                            </div>
+                            <img src="@Url.Content("~/images/product/" + item.Product.Image)" style="position:center;"/>
+                            <form method="post" asp-controller="Cart" asp-action="Index" asp-route-product_id="@item.Product.Id">
+                                <button type="submit" class="add-to-cart">Add to Cart</button>
                             </form>
                         </div>
                         <div class="product-info">
