@@ -1,0 +1,205 @@
+﻿@model CategoryViewModel
+@{
+    ViewData["Title"] = "Add Category";
+}
+<style>
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #007bff, #5dade2) !important;
+        color: white;
+    }
+
+    .form-control, .form-select {
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus, .form-select:focus {
+            box-shadow: 0 2px 8px rgba(0,123,255, 0.2);
+            border-color: #007bff;
+        }
+
+    .preview-section {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 15px;
+        height: 100%;
+    }
+
+    .image-container {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        border: 2px dashed #dee2e6;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        margin-bottom: 15px;
+        overflow: hidden;
+    }
+
+        .image-container:hover {
+            border-color: #007bff;
+            transform: translateY(-2px);
+        }
+
+    .preview-image {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+        .preview-image:hover {
+            transform: scale(1.03);
+        }
+
+    .image-container .action-buttons {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        display: none;
+        gap: 5px;
+    }
+
+    .image-container:hover .action-buttons {
+        display: flex;
+    }
+
+    .btn-create {
+        background: linear-gradient(135deg,#007bff, #5dade2);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+        .btn-create:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,123,255, 0.3);
+        }
+
+    .form-floating label {
+        color: #6c757d;
+        font-weight: 500;
+    }
+
+    .form-floating > .form-control:focus ~ label,
+    .form-floating > .form-control:not(:placeholder-shown) ~ label {
+        color: #007bff;
+    }
+
+    #unsavedImages {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .file-upload-wrapper {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+
+    .file-upload-label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1.5rem;
+        border: 2px dashed #dee2e6;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .file-upload-label:hover {
+            border-color: #007bff;
+            background-color: rgba(0, 123, 255, 0.05);
+        }
+
+    .file-upload-icon {
+        font-size: 2rem;
+        color: #007bff;
+        margin-bottom: 0.5rem;
+    }
+
+    .file-upload-text {
+        color: #6c757d;
+        font-weight: 500;
+    }
+
+    .file-upload-input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+
+    .custom-select-container {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+
+    .custom-select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23007bff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 16px 12px;
+        padding-right: 2.5rem;
+    }
+
+  
+ 
+</style>
+
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header py-3 text-center">
+        <h2 class="text-white m-0">Create New Product</h2>
+    </div>
+    <div class="card-body p-4">
+        <form asp-controller="Category" asp-action="AddCategory" method="post" enctype="multipart/form-data" class="row g-4">
+            <div class="col-md-8 col-lg-9">
+                <div class="border p-4 rounded-3">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Name" class="form-control border-0 shadow" placeholder="Category Name" />
+                        <label asp-for="Name" class="ms-2"></label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <textarea asp-for="Description" class="form-control border-0 shadow" style="height: 120px" placeholder="Category Description"></textarea>
+                        <label asp-for="Description" class="ms-2"></label>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>                  
+                
+
+                    <div class="d-flex justify-content-between pt-3">
+                        <button type="submit" class="btn btn-create text-white">
+                            <i class="bi bi-plus-circle me-2"></i>Create Category
+                        </button>
+                        <a asp-controller="Category" asp-action="CategoryDashBoard" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-2"></i>Cancel
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
