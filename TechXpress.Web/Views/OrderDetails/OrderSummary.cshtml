@@ -1,0 +1,178 @@
+﻿@model IEnumerable<OrderDetails>
+
+@{
+    ViewData["Title"] = "Order Summary";
+}
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}
+
+<style>
+    .order-summary-container {
+        max-width: 800px;
+        margin: 30px auto;
+        font-family: Arial, sans-serif;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-bar {
+        background-color: #333;
+        color: #fff;
+        padding: 15px;
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .summary-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .shipping-details, .order-details {
+        padding: 20px;
+    }
+
+    .shipping-details {
+        background-color: #fff;
+        border-bottom: 1px solid #eee;
+    }
+
+    .order-details {
+        background-color: #f9f9f9;
+    }
+
+        .shipping-details h3, .order-details h3 {
+            color: #ff0000;
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            font-weight: bold; /* جعل العناوين بولد */
+        }
+
+    .shipping-details .field {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .shipping-details label {
+        color: #555;
+        font-weight: bold;
+        width: 120px;
+        margin-right: 15px;
+    }
+
+    .shipping-details input {
+        flex: 1;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #fff;
+        color: #333;
+        font-size: 14px;
+    }
+
+    .order-details .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .order-details .product-name {
+        color: #333;
+        font-weight: bold;
+        flex: 2;
+    }
+
+    .order-details .product-details {
+        color: #666;
+        text-align: right;
+        flex: 1;
+    }
+
+    .total-cost {
+        text-align: right;
+        color: #333;
+        font-weight: bold;
+        margin: 20px 0;
+        font-size: 18px;
+    }
+
+    .place-order-btn {
+        background-color: #333;
+        color: #fff;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+        .place-order-btn:hover {
+            background-color: #555;
+        }
+</style>
+
+<div class="order-summary-container">
+    <div class="header-bar">Order Summary</div>
+    <div class="summary-content">
+        <div class="shipping-details">
+            <h3><strong style="color: #ff1010;">Shipping Details:</strong></h3>
+            <div class="field">
+                <label>First Name:</label>
+                <input type="text" value="@ViewData["FirstName"]" />
+            </div>
+            <div class="field">
+                <label>Last Name:</label>
+                <input type="text" value="@ViewData["LastName"]" />
+            </div>
+            <div class="field">
+                <label>Street Address:</label>
+                <input type="text" value="@ViewData["Street"]" />
+            </div>
+            <div class="field">
+                <label>City:</label>
+                <input type="text" value="@ViewData["City"]" />
+            </div>
+            <div class="field">
+                <label>Country:</label>
+                <input type="text" value="@ViewData["Country"]" />
+            </div>
+            <div class="field">
+                <label>Phone Number:</label>
+                <input type="text" value="@ViewData["PhoneNumber"]" />
+            </div>
+        </div>
+        <div class="order-details">
+            <h3><strong style="color: #ff1010;">Order Summary:</strong></h3>
+            @{
+                float totalCost = 0;
+            }
+            @foreach (var item in Model)
+            {
+                float itemTotal = item.Price * item.Quantity;
+                totalCost += itemTotal;
+
+                <div class="item">
+                    <div class="product-name">@ViewData[$"ProductName_{item.Product_ID}"] $@item.Price</div>
+                    <div class="product-details">Quantity: @item.Quantity | Total: $@itemTotal</div>
+                </div>
+            }
+            <div class="total-cost">Total Cost: $@totalCost</div>
+            <button class="place-order-btn">Place Order</button>
+        </div>
+    </div>
+</div>
