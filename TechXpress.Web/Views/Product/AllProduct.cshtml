@@ -31,7 +31,7 @@
                     <div class="product-img-wrapper overflow-hidden rounded-4 mb-3 position-relative">
                         @if (product.ProductImages != null && product.ProductImages.Any())
                         {
-                            <img src="@Url.Content(product.ProductImages.First().ImageURL)" alt="@product.Name" class="img-fluid rounded-4 product-image" style="width:100%;height:100%px;"/>
+                            <img src="@Url.Content(product.ProductImages.First().ImageURL)" alt="@product.Name" class="img-fluid rounded-4 product-image" style="width:100%;height:100%;"/>
                         }
                         else
                         {
@@ -74,12 +74,21 @@
 
                         <p class="price fw-bold fs-5 text-dark mb-3">$@product.Price</p>
 
-                        <a asp-controller="Cart"
-                           asp-action="Index"
-                           asp-route-product_id="@product.Product_ID"
-                           class="btn btn-custom w-100 py-2 fw-semibold add-to-cart">
-                            <i class="fa fa-cart-plus me-2"></i> Add To Cart
-                        </a>
+                        @* <a asp-controller="Cart" *@
+                        @*    asp-action="Index" *@
+                        @*    asp-route-product_id="@product.Product_ID" *@
+                        @*    class="btn btn-custom w-100 py-2 fw-semibold add-to-cart"> *@
+                        @*     <i class="fa fa-cart-plus me-2"></i> Add To Cart *@
+                        @* </a> *@
+
+                        <form method="post" asp-controller="Cart" asp-action="Index" asp-route-product_id="@product.Product_ID">
+                            <button type="submit" class="btn btn-custom w-100 py-2 fw-semibold add-to-cart">
+                                <i class="fa fa-cart-plus me-2">Add to Cart</i>
+                            </button>
+                        </form>
+
+
+
 
                         <div class="category-label">
                             <span>@product.Category.Name</span>

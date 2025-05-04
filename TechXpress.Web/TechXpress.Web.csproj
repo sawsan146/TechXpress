@@ -20,4 +20,12 @@
     <ProjectReference Include="..\TechXpress.Domain\TechXpress.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\fullstack training\TechXpress\TechXpress.Web\ViewModel\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="D:\fullstack training\TechXpress\TechXpress.Web\ViewModel\.editorconfig" />
+  </ItemGroup>
+
 </Project>

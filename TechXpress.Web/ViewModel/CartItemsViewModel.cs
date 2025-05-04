@@ -7,6 +7,7 @@
         //public int Product_ID { get; set; }
         public int Quantity { get; set; }
         public float Price { get; set; }
+       
         //public DateTime AdditionTime { get; set; }
         //public ShoppingCartViewModel Cart { get; set; }
 

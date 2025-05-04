@@ -60,12 +60,12 @@
                 {
                     <div class="cart-item d-flex justify-content-between align-items-center">
                         <div class="d-flex">
-                            <img src="~/images/Products/@item.Product.Image" alt="@item.Product.Name" class="product-img me-3" />
+                            <img src="~/images/product/@item.Product.Image" alt="@item.Product.Name" class="product-img me-3" />
                             <div>
                                 <h5>@item.Product.Name</h5>
                                 <p class="text-muted small mb-1">@Html.Raw(item.Product.Description)</p>
                                 <div class="d-flex align-items-center mt-2">
-                                    <form method="post" asp-action="Minus" asp-route-cartId="@item.Cart_Item_ID">
+                                    <form method="post" asp-action="Minus" asp-controller="Cart" asp-route-cartId="@item.Cart_Item_ID">
                                         <button type="submit" class="btn btn-sm btn-outline-secondary me-2">
                                             <i class="fas fa-minus"></i>
                                         </button>
@@ -73,7 +73,7 @@
 
                                     <input type="text" value="@item.Quantity" class="form-control form-control-sm text-center me-2" style="width: 50px;" readonly />
 
-                                    <form method="post" asp-action="Plus" asp-route-cartId="@item.Cart_Item_ID">
+                                    <form method="post" asp-action="Plus" asp-controller="Cart" asp-route-cartId="@item.Cart_Item_ID">
                                         <button type="submit" class="btn btn-sm btn-outline-secondary">
                                             <i class="fas fa-plus"></i>
                                         </button>
