@@ -3,54 +3,140 @@
 @{
     ViewBag.Title = "Products";
     Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+    var categories = Model.Select(p => p.Category?.Name).Distinct().Where(c => c != null).ToList();
 }
 
 <div class="p-6">
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-semibold">Products</h2>
-        <a asp-controller="Product" asp-action="AddProduct" class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">+ Add Product</a>
-           @* class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">+ Add Product</a> *@
+    <!-- Header -->
+    <div class="card shadow mb-6">
+        <div class="card-header text-white px-6 py-4 rounded-t-lg" style="background: linear-gradient(135deg, #1d3557, #457b9d);">
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold">🛍️ Products Dashboard</h2>
+                <a asp-controller="Product" asp-action="AddProduct"
+                   class="inline-block px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition duration-300">
+                    + Add Product
+                </a>
+            </div>
+        </div>
     </div>
 
-    <div class="overflow-x-auto bg-white shadow rounded-lg">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
+    <!-- Filters -->
+    <div class="bg-white shadow rounded-lg p-4 mb-6">
+        <div class="flex flex-col md:flex-row gap-4">
+            <div class="w-full md:w-1/3">
+                <label class="block text-gray-700 font-medium mb-1">Category</label>
+                <select id="categoryFilter" class="w-full px-3 py-2 border rounded focus:ring-blue-500">
+                    <option value="">All Categories</option>
+                    @foreach (var category in categories)
+                    {
+                        <option value="@category">@category</option>
+                    }
+                </select>
+            </div>
+            <div class="w-full md:w-1/3">
+                <label class="block text-gray-700 font-medium mb-1">Search</label>
+                <input type="text" id="searchInput" placeholder="Name or description"
+                       class="w-full px-3 py-2 border rounded focus:ring-blue-500" />
+            </div>
+            <div class="w-full md:w-1/3 flex items-end">
+                <button id="resetFilters" class="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200">
+                    Reset
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white shadow rounded-lg overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 text-base">
+            <thead class="bg-gray-100 text-gray-700 font-semibold">
                 <tr>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Name</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Category</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 w-1/4">Description</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Price</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Stock</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Reviews</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Edit</th>
-                    <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Delete</th>
+                    <th class="px-6 py-3 text-left">Name</th>
+                    <th class="px-6 py-3 text-left">Category</th>
+                    <th class="px-6 py-3 text-left">Description</th>
+                    <th class="px-6 py-3 text-left">Price</th>
+                    <th class="px-6 py-3 text-left">Stock</th>
+                    <th class="px-6 py-3 text-left">Reviews</th>
+                    <th class="px-6 py-3 text-left">Actions</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-100">
+            <tbody id="productsTableBody" class="divide-y divide-gray-100 text-gray-800">
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td class="px-6 py-4">@item.Name</td>
+                    <tr class="product-row hover:bg-gray-50 transition"
+                        data-category="@item.Category?.Name"
+                        data-search="@($"{item.Name} {item.Description}")">
+                        <td class="px-6 py-4 font-semibold">@item.Name</td>
                         <td class="px-6 py-4">@item.Category?.Name</td>
                         <td class="px-6 py-4 truncate max-w-xs">@item.Description</td>
                         <td class="px-6 py-4 text-green-600 font-bold">$@item.Price</td>
-                        <td class="px-6 py-4">@item.Stock</td>
-                        <td class="px-6 py-4">@item.Reviews?.Count()</td>
                         <td class="px-6 py-4">
-                            <a href="@Url.Action("UpdateProduct", "Product", new { id = item.Product_ID })"
-                               class="block w-full text-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                                Edit
-                            </a>
+                            <span class="px-3 py-1 rounded-full @(item.Stock > 10 ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800")">
+                                @item.Stock
+                            </span>
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4">@item.Reviews?.Count()</td>
+                        <td class="px-6 py-4 space-x-2">
+                            <a href="@Url.Action("UpdateProduct", "Product", new { id = item.Product_ID })"
+                               class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                                ✏️ Edit
+                            </a>
                             <a href="@Url.Action("DeleteProduct", "Product", new { id = item.Product_ID })"
-                               class="block w-full text-center px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
-                                Delete
+                               class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
+                                🗑️ Delete
                             </a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+
+        <!-- No Results Message -->
+        <div id="noResults" class="hidden p-6 text-center text-gray-500">
+            No products match your filters or search.
+        </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const categoryFilter = document.getElementById('categoryFilter');
+            const searchInput = document.getElementById('searchInput');
+            const resetFilters = document.getElementById('resetFilters');
+            const productRows = document.querySelectorAll('.product-row');
+            const noResultsDiv = document.getElementById('noResults');
+
+            function applyFilters() {
+                const selectedCategory = categoryFilter.value.toLowerCase();
+                const searchTerm = searchInput.value.toLowerCase();
+                let visibleCount = 0;
+
+                productRows.forEach(row => {
+                    const category = row.dataset.category?.toLowerCase() || '';
+                    const searchText = row.dataset.search?.toLowerCase() || '';
+
+                    const matchesCategory = !selectedCategory || category.includes(selectedCategory);
+                    const matchesSearch = !searchTerm || searchText.includes(searchTerm);
+
+                    if (matchesCategory && matchesSearch) {
+                        row.style.display = '';
+                        visibleCount++;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                noResultsDiv.classList.toggle('hidden', visibleCount > 0);
+            }
+
+            categoryFilter.addEventListener('change', applyFilters);
+            searchInput.addEventListener('input', applyFilters);
+            resetFilters.addEventListener('click', () => {
+                categoryFilter.value = '';
+                searchInput.value = '';
+                applyFilters();
+            });
+        });
+    </script>
+}

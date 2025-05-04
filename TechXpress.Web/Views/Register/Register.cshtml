@@ -3,6 +3,7 @@
     Layout = "_Layout";
 }
 
+@model RegisterViewModel
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
 <style>
@@ -56,28 +57,30 @@
         text-align: center;
     }
 
+
     .input-group {
         position: relative;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
     }
 
         .input-group input {
             width: 100%;
-            padding: 10px 15px 10px 40px;
+            padding: 14px 15px 14px 40px;
             border-radius: 0.5rem;
-            border: 1px solid #ddd;
-            font-size: 16px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            background-color: #fff;
         }
 
         .input-group label {
             position: absolute;
-            top: 50%;
-            left: 40px;
-            transform: translateY(-150%);
-            font-size: 14px;
-            color: #666;
+            top: -10px;
+            left: 45px;
             background: #fff;
             padding: 0 5px;
+            font-size: 15px;
+            color: #666;
+            pointer-events: none;
         }
 
     .form-icon {
@@ -164,6 +167,7 @@
 </style>
 
 <div class="exclusive-signup-container">
+   
     <div class="signup-image">
         <img src="/images/Login/Side Image.png" alt="Exclusive Sign Up" class="img-fluid">
     </div>
@@ -172,33 +176,57 @@
         <h2>Join TechXpress Today</h2>
         <p class="signup-subtitle">Create your account to get started</p>
 
-        <form method="post" action="/Register/Register" class="signup-form">
+        <form method="post" asp-controller="Register"  asp-action="Register" class="signup-form">
             <div class="input-group">
                 <i class="fa fa-user form-icon"></i>
-                <input type="text" id="name" name="name" required>
-                <label for="name">Name</label>
+                <input asp-for="Name"/>
+                <label asp-for="Name">Name</label>
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
             <div class="input-group">
                 <i class="fa fa-envelope form-icon"></i>
-                <input type="text" id="email" name="email" required>
-                <label for="email">Email or Phone Number</label>
+                <input asp-for="EmailOrPhone">
+                <label asp-for="EmailOrPhone">Email or Phone Number</label>
+                <span asp-validation-for="EmailOrPhone" class="text-danger"></span>
+
             </div>
 
             <div class="input-group">
                 <i class="fa fa-lock form-icon"></i>
-                <input type="password" id="password" name="password" required>
+                <input asp-for="Password">
                 <i class="fa fa-eye toggle-password" onclick="togglePasswordVisibility(this)"></i>
-                <label for="password">Password</label>
+                <label asp-for="Password">Password</label>
+                <span asp-validation-for="Password" class="text-danger"></span>
+
+            </div>
+
+            <div class="input-group">
+                <i class="fa fa-lock form-icon"></i>
+                <input asp-for="ConfirmPassword"/>
+                <i class="fa fa-eye toggle-password" onclick="togglePasswordVisibility(this)"></i>
+                <label asp-for="ConfirmPassword">Confirm Password</label>
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
 
             <button type="submit" class="signup-btn">Create Account</button>
 
-        
-            <p class="login-link">
-                Already have an account?
-                <a href="/Register/Login">Log in</a>
-            </p>
+             @{ @if (ViewBag.ToLogin == true)
+                {
+                    <div class="alert alert-warning mt-3 text-center">
+                       This User Already Have Account <a asp-action="Login" class="text-danger">Login</a>.
+                    </div>
+                }
+                else
+                {
+
+                    <p class="login-link">
+                        Already have an account?
+                        <a href="/Register/Login">Log in</a>
+                    </p>
+
+                }}
+          
         </form>
     </div>
 </div>

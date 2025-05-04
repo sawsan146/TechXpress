@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Add Product";
 }
-
 <style>
     .card {
         border-radius: 10px;
@@ -10,7 +9,8 @@
     }
 
     .card-header {
-        background: linear-gradient(135deg, darkred, #ef5350) !important;
+        background: linear-gradient(135deg, #007bff, #5dade2) !important;
+        color: white;
     }
 
     .form-control, .form-select {
@@ -20,8 +20,8 @@
     }
 
         .form-control:focus, .form-select:focus {
-            box-shadow: 0 2px 8px rgba(229, 57, 53, 0.2);
-            border-color: #e53935;
+            box-shadow: 0 2px 8px rgba(0,123,255, 0.2);
+            border-color: #007bff;
         }
 
     .preview-section {
@@ -43,7 +43,7 @@
     }
 
         .image-container:hover {
-            border-color: darkred;
+            border-color: #007bff;
             transform: translateY(-2px);
         }
 
@@ -72,7 +72,8 @@
     }
 
     .btn-create {
-        background: linear-gradient(135deg,darkred, #ef5350);
+        background: linear-gradient(135deg,#007bff, #5dade2);
+        color: white;
         border: none;
         border-radius: 8px;
         padding: 10px 25px;
@@ -82,7 +83,7 @@
 
         .btn-create:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(229, 57, 53, 0.3);
+            box-shadow: 0 4px 8px rgba(0,123,255, 0.3);
         }
 
     .form-floating label {
@@ -92,7 +93,7 @@
 
     .form-floating > .form-control:focus ~ label,
     .form-floating > .form-control:not(:placeholder-shown) ~ label {
-        color: darkred;
+        color: #007bff;
     }
 
     #unsavedImages {
@@ -118,13 +119,13 @@
     }
 
         .file-upload-label:hover {
-            border-color: darkred;
-            background-color: rgba(229, 57, 53, 0.05);
+            border-color: #007bff;
+            background-color: rgba(0, 123, 255, 0.05);
         }
 
     .file-upload-icon {
         font-size: 2rem;
-        color: darkred;
+        color: #007bff;
         margin-bottom: 0.5rem;
     }
 
@@ -143,7 +144,6 @@
         cursor: pointer;
     }
 
-    /* Improved dropdown styles */
     .custom-select-container {
         position: relative;
         margin-bottom: 1.5rem;
@@ -153,7 +153,7 @@
         appearance: none;
         -webkit-appearance: none;
         -moz-appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='darkred' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23007bff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
         background-repeat: no-repeat;
         background-position: right 0.75rem center;
         background-size: 16px 12px;
@@ -175,10 +175,9 @@
 
         .dropdown-item:hover, .dropdown-item:focus {
             background-color: #f8f9fa;
-            color: darkred;
+            color: #007bff;
         }
 
-    /* Gallery section below the form */
     .gallery-section {
         margin-top: 30px;
         padding: 20px;
@@ -191,7 +190,7 @@
         font-size: 1.5rem;
         font-weight: 600;
         margin-bottom: 20px;
-        color: darkred;
+        color: #007bff;
         border-bottom: 2px solid #dee2e6;
         padding-bottom: 10px;
     }
@@ -216,6 +215,7 @@
             margin-bottom: 10px;
         }
 </style>
+
 
 <div class="card shadow border-0 mt-4">
     <div class="card-header py-3 text-center">
@@ -272,6 +272,7 @@
                             <span class="file-upload-text">Drag & drop images here or click to browse</span>
                             <span class="text-muted small">Supports JPG, PNG up to 5MB</span>
                             <input type="file" asp-for="UploadedImages" class="file-upload-input" id="imageInput" multiple accept="image/*" />
+                            <span asp-validation-for="UploadedImages" class="text-danger"></span>
                         </label>
                     </div>
 
@@ -316,95 +317,33 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        // Improved dropdown functionality
-        document.querySelectorAll('.custom-select').forEach(select => {
-            // Add custom arrow
-            select.style.backgroundImage = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='darkred' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E\")";
+        // JavaScript for image preview
+        const input = document.getElementById('imageInput');
+        const unsavedImages = document.getElementById('unsavedImages');
+        const noImagesMessage = document.getElementById('noImagesMessage');
 
-            // Prevent dropdown from interfering with file upload
-            select.addEventListener('focus', function() {
-                this.blur();
-                const dropdown = new bootstrap.Dropdown(this.nextElementSibling);
-                dropdown.show();
+        input.addEventListener('change', () => {
+            unsavedImages.innerHTML = '';
+            if (input.files.length === 0) {
+                unsavedImages.appendChild(noImagesMessage);
+                return;
+            }
+
+            Array.from(input.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    const container = document.createElement('div');
+                    container.classList.add('image-container');
+
+                    const img = document.createElement('img');
+                    img.classList.add('preview-image');
+                    img.src = e.target.result;
+
+                    container.appendChild(img);
+                    unsavedImages.appendChild(container);
+                };
+                reader.readAsDataURL(file);
             });
-        });
-
-        // Image upload and preview functionality
-        document.getElementById('imageInput').addEventListener('change', function (e) {
-            const files = e.target.files;
-            const previewContainer = document.getElementById('unsavedImages');
-            const galleryContainer = document.getElementById('productGallery');
-            const noImagesMessage = document.getElementById('noImagesMessage');
-
-            if (files.length > 0) {
-                noImagesMessage.style.display = 'none';
-                previewContainer.innerHTML = '';
-                galleryContainer.innerHTML = '';
-
-                for (let i = 0; i < files.length; i++) {
-                    const reader = new FileReader();
-
-                    reader.onload = function (event) {
-                        // Create preview in right column
-                        const previewDiv = document.createElement('div');
-                        previewDiv.className = 'image-container';
-
-                        const previewImg = document.createElement('img');
-                        previewImg.src = event.target.result;
-                        previewImg.className = 'preview-image';
-
-                        const deleteBtn = document.createElement('button');
-                        deleteBtn.innerHTML = '<i class="bi bi-trash"></i>';
-                        deleteBtn.className = 'btn btn-sm btn-danger action-button';
-                        deleteBtn.onclick = function() {
-                            previewDiv.remove();
-                            if (previewContainer.children.length === 0) {
-                                noImagesMessage.style.display = 'block';
-                            }
-                        };
-
-                        const actionsDiv = document.createElement('div');
-                        actionsDiv.className = 'action-buttons';
-                        actionsDiv.appendChild(deleteBtn);
-
-                        previewDiv.appendChild(previewImg);
-                        previewDiv.appendChild(actionsDiv);
-                        previewContainer.appendChild(previewDiv);
-
-                        // Create gallery item below form
-                        const galleryItem = document.createElement('div');
-                        galleryItem.className = 'image-container';
-
-                        const galleryImg = document.createElement('img');
-                        galleryImg.src = event.target.result;
-                        galleryImg.className = 'preview-image';
-
-                        galleryItem.appendChild(galleryImg);
-                        galleryContainer.appendChild(galleryItem);
-                    };
-
-                    reader.readAsDataURL(files[i]);
-                }
-            } else {
-                noImagesMessage.style.display = 'block';
-                previewContainer.innerHTML = '';
-                previewContainer.appendChild(noImagesMessage);
-                galleryContainer.innerHTML = `
-                    <div class="empty-gallery">
-                        <i class="bi bi-images"></i>
-                        <p>No images selected yet</p>
-                        <p class="small text-muted">Upload images using the form above</p>
-                    </div>
-                `;
-            }
-        });
-
-        // Initialize Bootstrap dropdown
-        document.addEventListener('DOMContentLoaded', function() {
-            const categorySelect = document.querySelector('[asp-for="Category_ID"]');
-            if (categorySelect) {
-                const dropdown = new bootstrap.Dropdown(categorySelect.nextElementSibling);
-            }
         });
     </script>
 }

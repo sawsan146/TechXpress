@@ -2,6 +2,7 @@
 {
     public class LoginUserViewModel
     {
+
         public int User_ID { get; set; }
         public string User_Type { get; set; }
         public string Fname { get; set; }
