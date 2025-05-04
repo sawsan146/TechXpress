@@ -18,14 +18,14 @@ namespace TechXpress.Web.Controllers
                 {
                     Product_ID = 1,
                     Category_ID = 1,
-                    Name = "tablet",
+                    Name = "Tablet",
                     Price = 400.00f,
                     Stock = 50,
                     AddTime = DateTime.Now,
                     Category = new Category { Category_ID = 1, Name = "Phones" },
                     ProductImages = new List<ProductImg>
                     {
-                        new ProductImg { Image_ID = 1, Product_ID = 1, ImageURL = "~/controller-6032446_640.jpg" }
+                        new ProductImg { Image_ID = 1, Product_ID = 1, ImageURL = "~/product/dell3.jpeg" }
                     },
                     Reviews = new List<Review>
                     {
@@ -336,7 +336,6 @@ namespace TechXpress.Web.Controllers
             return View("HomeProductSection",products);
         }
 
-
         public IActionResult ProductDashBoard()
         {
             ViewData["ActivePage"] = "Product";
@@ -349,9 +348,9 @@ namespace TechXpress.Web.Controllers
 
             if (product == null)
             {
-                return RedirectToAction("Indedx");
+                return RedirectToAction("Index");
             }
-            return View();
+            return View(product);
         }
 
 
