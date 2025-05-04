@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using TechXpress.Domain.Entities;
 using TechXpress.Web.Models;
 using TechXpress.Web.ViewModel;
 
@@ -27,7 +28,8 @@ namespace TechXpress.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+  
+      public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -69,13 +71,58 @@ namespace TechXpress.Web.Controllers
         }
 
 
-
         public IActionResult Register()
         {
             return View();
         }
 
-         public async Task<IActionResult> Logout()
+
+        [HttpPost]
+        public IActionResult Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingUser = _useres.FirstOrDefault(u =>
+                    u.Email == model.EmailOrPhone || u.Phone == model.EmailOrPhone);
+
+                if (existingUser != null)
+                {
+                    ViewBag.ToLogin = true;
+                    ModelState.AddModelError("", "A user with this email or phone already exists.");
+                    return View(model);
+                }
+
+                var newUser = new LoginUserViewModel
+                {
+                    Fname = model.Name,
+                    Email = model.EmailOrPhone.Contains("@") ? model.EmailOrPhone : null,
+                    Phone = model.EmailOrPhone.Contains("@") ? null : model.EmailOrPhone,
+                    Password = model.Password,
+                    User_Type = "Customer" 
+                };
+
+                _useres.Add(newUser);
+
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, newUser.Fname),
+                    new Claim(ClaimTypes.NameIdentifier, newUser.User_ID.ToString()),
+                    new Claim(ClaimTypes.Email, newUser.Email ?? ""),
+                    new Claim(ClaimTypes.Role, newUser.User_Type)
+                };
+
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+                HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(model);
+        }
+
+
+        public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Register");
