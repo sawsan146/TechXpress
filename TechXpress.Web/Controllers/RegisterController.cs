@@ -20,7 +20,7 @@ namespace TechXpress.Web.Controllers
         {
             _useres = new List<LoginUserViewModel>{ 
                 new LoginUserViewModel{ Email="sawsanelsebay2@gmail.com", Fname="Sawsan", Lname="Elsba3y", Password="12345678", Phone="01000000000", User_ID=1, User_Type="Admin" },
-                new LoginUserViewModel{ Email="Admin2@gmain.com", Fname="Admin", Lname="2", Password="12345678", Phone="01000000000", User_ID=4, User_Type="Admin" },
+                new LoginUserViewModel{ Email="Admin2@gmail.com", Fname="Admin", Lname="2", Password="12345678", Phone="01000000000", User_ID=4, User_Type="Admin" },
                 new LoginUserViewModel{Email="user1@gmail.com" , Fname="User", Lname="1", Password="12345678", Phone="01000000001", User_ID=2, User_Type="User" },
                 new LoginUserViewModel{Email="user2@gmail.com" , Fname="User", Lname="2", Password="12345678", Phone="01000000001", User_ID=3, User_Type="User" },
 
