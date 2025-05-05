@@ -1,11 +1,8 @@
-﻿@model IEnumerable<OrderDetails>
+﻿@model OrderSummaryViewModel
 
 @{
     ViewData["Title"] = "Order Summary";
-}
-
-@section Scripts {
-    <script src="~/js/site.js"></script>
+    float totalCost = 0;
 }
 
 <style>
@@ -52,7 +49,7 @@
             margin-bottom: 15px;
             border-bottom: 1px solid #eee;
             padding-bottom: 10px;
-            font-weight: bold; /* جعل العناوين بولد */
+            font-weight: bold;
         }
 
     .shipping-details .field {
@@ -78,33 +75,43 @@
         font-size: 14px;
     }
 
-    .order-details .item {
+    .order-item-box {
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        background-color: #fff;
+    }
+
+    .order-header {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        margin-bottom: 12px;
-        padding: 8px 0;
-        border-bottom: 1px solid #eee;
-    }
-
-    .order-details .product-name {
-        color: #333;
         font-weight: bold;
-        flex: 2;
+        color: #000;
+        font-size: 16px;
     }
 
-    .order-details .product-details {
-        color: #666;
-        text-align: right;
-        flex: 1;
+    .order-quantity {
+        font-size: 13px;
+        color: gray;
+        margin-top: 5px;
+    }
+
+    .order-total-item {
+        font-size: 14px;
+        color: #000;
+        font-weight: bold;
+        margin-top: 8px;
     }
 
     .total-cost {
         text-align: right;
-        color: #333;
+        color: #000;
         font-weight: bold;
-        margin: 20px 0;
+        margin-top: 25px;
         font-size: 18px;
+        border-top: 1px solid #ccc;
+        padding-top: 15px;
     }
 
     .place-order-btn {
@@ -115,7 +122,7 @@
         border-radius: 4px;
         cursor: pointer;
         width: 100%;
-        margin-top: 10px;
+        margin-top: 20px;
         font-size: 16px;
         font-weight: bold;
         transition: background-color 0.3s;
@@ -130,48 +137,35 @@
     <div class="header-bar">Order Summary</div>
     <div class="summary-content">
         <div class="shipping-details">
-            <h3><strong style="color: #ff1010;">Shipping Details:</strong></h3>
-            <div class="field">
-                <label>First Name:</label>
-                <input type="text" value="@ViewData["FirstName"]" />
-            </div>
-            <div class="field">
-                <label>Last Name:</label>
-                <input type="text" value="@ViewData["LastName"]" />
-            </div>
-            <div class="field">
-                <label>Street Address:</label>
-                <input type="text" value="@ViewData["Street"]" />
-            </div>
-            <div class="field">
-                <label>City:</label>
-                <input type="text" value="@ViewData["City"]" />
-            </div>
-            <div class="field">
-                <label>Country:</label>
-                <input type="text" value="@ViewData["Country"]" />
-            </div>
-            <div class="field">
-                <label>Phone Number:</label>
-                <input type="text" value="@ViewData["PhoneNumber"]" />
-            </div>
+            <h3>Shipping Details:</h3>
+            <div class="field"><label>First Name:</label><input type="text" value="@Model.FirstName" /></div>
+            <div class="field"><label>Last Name:</label><input type="text" value="@Model.LastName" /></div>
+            <div class="field"><label>Street Address:</label><input type="text" value="@Model.Street" /></div>
+            <div class="field"><label>City:</label><input type="text" value="@Model.City" /></div>
+            <div class="field"><label>Country:</label><input type="text" value="@Model.Country" /></div>
+            <div class="field"><label>Phone Number:</label><input type="text" value="@Model.PhoneNumber" /></div>
         </div>
+
         <div class="order-details">
-            <h3><strong style="color: #ff1010;">Order Summary:</strong></h3>
-            @{
-                float totalCost = 0;
-            }
-            @foreach (var item in Model)
+            <h3>Order Summary:</h3>
+
+            @foreach (var item in Model.OrderItems)
             {
-                float itemTotal = item.Price * item.Quantity;
+                var itemTotal = item.Price * item.Quantity;
                 totalCost += itemTotal;
 
-                <div class="item">
-                    <div class="product-name">@ViewData[$"ProductName_{item.Product_ID}"] $@item.Price</div>
-                    <div class="product-details">Quantity: @item.Quantity | Total: $@itemTotal</div>
+                <div class="order-item-box">
+                    <div class="order-header">
+                        <span>@item.ProductName</span>
+                        <span>$@item.Price</span>
+                    </div>
+                    <div class="order-quantity">Quantity: @item.Quantity</div>
+                    <div class="order-total-item">Total: $@itemTotal</div>
                 </div>
             }
-            <div class="total-cost">Total Cost: $@totalCost</div>
+
+            <div class="total-cost">Total (USD): $@totalCost</div>
+
             <button class="place-order-btn">Place Order</button>
         </div>
     </div>

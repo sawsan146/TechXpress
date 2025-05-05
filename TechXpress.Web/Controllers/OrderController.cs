@@ -55,5 +55,27 @@ namespace TechXpress.Web.Controllers
     };
         }
 
+        public IActionResult OrderSummary()
+        {
+            var viewModel = new OrderSummaryViewModel
+            {
+                FirstName = "Md",
+                LastName = "Rimel",
+                Street = "Kingston, 5236, United States",
+                City = "LA",
+                Country = "United State",
+                PhoneNumber = "0123456789",
+                OrderItems = new List<OrderItemViewModel>
+        {
+            new OrderItemViewModel { ProductName = "Laptop", Price = 800, Quantity = 1 },
+            new OrderItemViewModel { ProductName = "Headphones", Price = 200, Quantity = 2 },
+            new OrderItemViewModel { ProductName = "Mouse", Price = 100, Quantity = 2 },
+        }
+            };
+
+            return View(viewModel);
+        }
+
+
     }
 }
