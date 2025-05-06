@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace TechXpress.Domain.Configurations
   
 {
-    class CartItemsConfiguration : IEntityTypeConfiguration<CartItems>
+    public class CartItemsConfiguration : IEntityTypeConfiguration<CartItems>
     {
         public void Configure(EntityTypeBuilder<CartItems> entity)
         {
@@ -20,16 +20,20 @@ namespace TechXpress.Domain.Configurations
             entity.Property(e => e.Quantity).IsRequired();
             entity.Property(e => e.AdditionTime).IsRequired();
 
+            // تعديل العلاقة بين CartItems و Product
             entity.HasOne(e => e.Product)
                   .WithMany(e => e.CartItems)
-                  .HasForeignKey(e => e.Product_ID);
+                  .HasForeignKey(e => e.Product_ID)
+                  .OnDelete(DeleteBehavior.Restrict);  // لا نريد حذف المنتج نفسه
 
+            // تعديل العلاقة بين CartItems و Cart
             entity.HasOne(e => e.Cart)
                   .WithMany(c => c.CartItems)
-                  .HasForeignKey(e => e.Cart_ID);
-
+                  .HasForeignKey(e => e.Cart_ID)
+                  .OnDelete(DeleteBehavior.Cascade);  // حذف الكارت عند حذف المستخدم
         }
+
     }
-    
-    
+
+
 }

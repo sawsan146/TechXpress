@@ -9,7 +9,7 @@ using TechXpress.Domain.Entities;
 
 namespace TechXpress.Domain.Configurations
 {
-    class PaymentConfiguration : IEntityTypeConfiguration<Payment>
+    public class PaymentConfiguration : IEntityTypeConfiguration<Payment>
     {
         public void Configure(EntityTypeBuilder<Payment> entity)
         {
@@ -19,12 +19,12 @@ namespace TechXpress.Domain.Configurations
             entity.Property(e => e.Amount).HasColumnType("decimal(18,2)");
             entity.Property(e => e.Status).IsRequired();
 
-            
             entity.HasOne(e => e.Order)
                   .WithOne(o => o.Payment)
                   .HasForeignKey<Payment>(e => e.Order_ID)
-                  .OnDelete(DeleteBehavior.Cascade);
+                  .OnDelete(DeleteBehavior.SetNull); // تعيين NULL بدل الحذف عند حذف الطلب
         }
+
     }
-    
+
 }

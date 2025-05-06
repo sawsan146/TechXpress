@@ -9,7 +9,7 @@ using TechXpress.Domain.Entities;
 
 namespace TechXpress.Domain.Configurations
 {
-    class ReturnConfiguration : IEntityTypeConfiguration<Return>
+    public class ReturnConfiguration : IEntityTypeConfiguration<Return>
     {
         public void Configure(EntityTypeBuilder<Return> entity)
         {
@@ -18,9 +18,19 @@ namespace TechXpress.Domain.Configurations
             entity.Property(e => e.ReturnDate).IsRequired();
             entity.Property(e => e.Status).IsRequired();
 
-            entity.HasOne(e => e.User).WithMany(e => e.Returns).HasForeignKey(e => e.User_ID);
-            entity.HasOne(e => e.Order).WithMany().HasForeignKey(e => e.Order_ID);
+            // عند حذف المستخدم، تعيين NULL في User_ID بدلاً من الحذف
+            entity.HasOne(e => e.User)
+                  .WithMany(e => e.Returns)
+                  .HasForeignKey(e => e.User_ID)
+                  .OnDelete(DeleteBehavior.SetNull);
+
+            // عند حذف الطلب، تعيين NULL في Order_ID بدلاً من الحذف
+            entity.HasOne(e => e.Order)
+                  .WithMany()
+                  .HasForeignKey(e => e.Order_ID)
+                  .OnDelete(DeleteBehavior.SetNull);  // الحذف هنا يكون SetNull بدلاً من الحذف التلقائي
         }
+
     }
-   
+
 }

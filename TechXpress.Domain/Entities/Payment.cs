@@ -9,13 +9,13 @@ namespace TechXpress.Domain.Entities
     public class Payment
     {
         public int Payment_ID { get; set; }
-        public int Order_ID { get; set; }
+        public int? Order_ID { get; set; }
         public string Payment_Method { get; set; }
         public DateTime Payment_Date { get; set; }
         public float Amount { get; set; }
         public string Status { get; set; }
 
-        public Order Order { get; set; }
+        public Order? Order { get; set; }
     }
 
 }

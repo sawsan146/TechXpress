@@ -10,7 +10,7 @@ using System.Reflection.Emit;
 
 namespace TechXpress.Domain.Configurations
 {
-    class UserConfiguration : IEntityTypeConfiguration<User>
+    public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> entity)
         {
@@ -23,12 +23,35 @@ namespace TechXpress.Domain.Configurations
             entity.Property(e => e.Email).IsRequired();
             entity.Property(e => e.Country).HasMaxLength(50);
 
-            entity.HasMany(e => e.Orders).WithOne(e => e.User).HasForeignKey(e => e.User_ID);
-            entity.HasMany(e => e.Returns).WithOne(e => e.User).HasForeignKey(e => e.User_ID);
-            entity.HasMany(e => e.Reviews).WithOne(e => e.User).HasForeignKey(e => e.User_ID);
-            entity.HasOne(u => u.ShoppingCart).WithOne(c => c.User).HasForeignKey<ShoppingCart>(c => c.User_ID);
-            entity.HasMany(e => e.WishLists).WithOne(e => e.User).HasForeignKey(e => e.User_ID);
+            // استخدام DeleteBehavior.Cascade لحذف الكيانات المرتبطة عند حذف المستخدم
+            entity.HasMany(e => e.Orders)
+                  .WithOne(e => e.User)
+                  .HasForeignKey(e => e.User_ID)
+                  .OnDelete(DeleteBehavior.Cascade);  // الحذف التلقائي للطلبات عند حذف المستخدم
+
+            entity.HasMany(e => e.Returns)
+                  .WithOne(e => e.User)
+                  .HasForeignKey(e => e.User_ID)
+                  .OnDelete(DeleteBehavior.Cascade);  // الحذف التلقائي للـ Returns عند حذف المستخدم
+
+            entity.HasMany(e => e.Reviews)
+                  .WithOne(e => e.User)
+                  .HasForeignKey(e => e.User_ID)
+                  .OnDelete(DeleteBehavior.Cascade);  // الحذف التلقائي للمراجعات عند حذف المستخدم
+
+            // العلاقة مع الـ ShoppingCart و WishList
+            entity.HasOne(u => u.ShoppingCart)
+                  .WithOne(c => c.User)
+                  .HasForeignKey<ShoppingCart>(c => c.User_ID)
+                  .OnDelete(DeleteBehavior.Cascade);  // الحذف التلقائي للعربة عند حذف المستخدم
+
+            entity.HasOne(u => u.WishList)
+                  .WithOne(w => w.User)
+                  .HasForeignKey<WishList>(w => w.User_ID)
+                  .OnDelete(DeleteBehavior.Cascade);  // الحذف التلقائي لقائمة الرغبات عند حذف المستخدم
         }
+
+
     }
-    
+
 }

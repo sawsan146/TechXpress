@@ -9,7 +9,7 @@ namespace TechXpress.Domain.Entities
     public class OrderDetails
     {
         public int Order_ID { get; set; }
-        public int Product_ID { get; set; }
+        public int  Product_ID { get; set; }
         public int Quantity { get; set; }
         public float Price { get; set; }
 

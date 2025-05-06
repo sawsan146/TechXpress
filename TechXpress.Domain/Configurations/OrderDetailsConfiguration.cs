@@ -9,7 +9,7 @@ using TechXpress.Domain.Entities;
 
 namespace TechXpress.Domain.Configurations
 {
-    class OrderDetailsConfiguration : IEntityTypeConfiguration<OrderDetails>
+    public class OrderDetailsConfiguration : IEntityTypeConfiguration<OrderDetails>
     {
         public void Configure(EntityTypeBuilder<OrderDetails> entity)
         {
@@ -21,14 +21,20 @@ namespace TechXpress.Domain.Configurations
             entity.Property(e => e.Quantity)
                   .IsRequired();
 
+          // د حذف تلقائي عند حذف الطلب
             entity.HasOne(e => e.Order)
                   .WithMany(o => o.OrderDetails)
-                  .HasForeignKey(e => e.Order_ID);
+                  .HasForeignKey(e => e.Order_ID)
+                  .OnDelete(DeleteBehavior.Cascade); // حذف تلقائي للتفاصيل عند حذف الطلب
 
+            // العلاقة بين OrderDetails و Product مع تعيين القيمة NULL بدلاً من الحذف عند حذف المنتج
             entity.HasOne(e => e.Product)
                   .WithMany(p => p.OrderDetails)
-                  .HasForeignKey(e => e.Product_ID);
+                  .HasForeignKey(e => e.Product_ID)
+                  .OnDelete(DeleteBehavior.Restrict); // تعيين NULL بدلاً من الحذف عند حذف المنتج
         }
+
+
     }
-   
+
 }

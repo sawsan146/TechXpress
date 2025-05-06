@@ -14,4 +14,5 @@ namespace TechXpress.Domain.Entities
         public User User { get; set; }
         public List<WishListItems> WishListItems { get; set; }
     }
+
 }

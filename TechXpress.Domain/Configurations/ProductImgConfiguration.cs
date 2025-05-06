@@ -9,15 +9,20 @@ using TechXpress.Domain.Entities;
 
 namespace TechXpress.Domain.Configurations
 {
-    class ProductImgConfiguration : IEntityTypeConfiguration<ProductImg>
+    public class ProductImgConfiguration : IEntityTypeConfiguration<ProductImg>
     {
         public void Configure(EntityTypeBuilder<ProductImg> entity)
         {
             entity.HasKey(e => e.Image_ID);
             entity.Property(e => e.ImageURL).IsRequired();
 
-            entity.HasOne(e => e.Product).WithMany(e => e.ProductImages).HasForeignKey(e => e.Product_ID);
+            // عند حذف المنتج، يتم حذف الصور المرتبطة به
+            entity.HasOne(e => e.Product)
+                  .WithMany(e => e.ProductImages)
+                  .HasForeignKey(e => e.Product_ID)
+                  .OnDelete(DeleteBehavior.Cascade); // الحذف التلقائي للصور عند حذف المنتج
         }
+
     }
-   
+
 }

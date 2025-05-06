@@ -20,10 +20,10 @@ namespace TechXpress.Domain.Entities
         public List<Order> Orders { get; set; }
         public List<Return> Returns { get; set; }
         public List<Review> Reviews { get; set; }
-        public List<WishList> WishLists { get; set; }
+        public WishList WishList { get; set; }
         public ShoppingCart ShoppingCart { get; set; }
 
-        public List<ContactMessage> ContactMessages { get; set; } 
+        public List<ContactMessage> ContactMessages { get; set; }
     }
 
 }

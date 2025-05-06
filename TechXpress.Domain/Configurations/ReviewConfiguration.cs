@@ -9,7 +9,7 @@ using TechXpress.Domain.Entities;
 
 namespace TechXpress.Domain.Configurations
 {
-    class ReviewConfiguration : IEntityTypeConfiguration<Review>
+    public class ReviewConfiguration : IEntityTypeConfiguration<Review>
     {
         public void Configure(EntityTypeBuilder<Review> entity)
         {
@@ -18,10 +18,20 @@ namespace TechXpress.Domain.Configurations
             entity.Property(e => e.Comment).HasMaxLength(1000);
             entity.Property(e => e.ReviewDate).IsRequired();
 
-            entity.HasOne(e => e.User).WithMany(e => e.Reviews).HasForeignKey(e => e.User_ID);
-            entity.HasOne(e => e.Product).WithMany(e => e.Reviews).HasForeignKey(e => e.Product_ID);
+            // عند حذف المستخدم، يتم حذف المراجعات المرتبطة به
+            entity.HasOne(e => e.User)
+                  .WithMany(e => e.Reviews)
+                  .HasForeignKey(e => e.User_ID)
+                  .OnDelete(DeleteBehavior.Cascade);  // حذف المراجعات عند حذف المستخدم
+
+            // عند حذف المنتج، يتم حذف المراجعات المرتبطة به
+            entity.HasOne(e => e.Product)
+                  .WithMany(e => e.Reviews)
+                  .HasForeignKey(e => e.Product_ID)
+                  .OnDelete(DeleteBehavior.Cascade);  // حذف المراجعات عند حذف المنتج
         }
+
     }
 
-   
+
 }
