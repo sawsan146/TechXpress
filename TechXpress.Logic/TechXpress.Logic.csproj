@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TechXpress.Domain\TechXpress.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Repository\Contracts\" />
+    <Folder Include="Repository\Implementations\" />
+    <Folder Include="Services\Contracts\" />
+    <Folder Include="Services\Implementations\" />
+  </ItemGroup>
+
+</Project>

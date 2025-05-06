@@ -16,7 +16,7 @@ namespace TechXpress.Web
 
 
             builder.Services.AddDbContext<AppDbContext>(options =>
-              options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+              options.UseSqlServer(builder.Configuration.GetConnectionString("Sawsan'sConnection"))
             );
 
             builder.Services.AddSession();
