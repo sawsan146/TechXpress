@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace TechXpress.Web.ViewModel
 {
     public class ProductDashBoardViewModel
     {
         [Required]
+        [MaxLength(100)]
         public string Name { get; set; }
 
         [Required]
@@ -15,8 +17,33 @@ namespace TechXpress.Web.ViewModel
         [Required]
         [Range(0, int.MaxValue)]
         public int Stock { get; set; }
+        
+        public string Description { get; set; }        
+        public DateTime AddTime { get; set; }
 
-        public string Description { get; set; }
+        [Required]
+        [MaxLength(100)]        
+        public string Brand { get; set; }
+
+        [Required]
+        public string Processor { get; set; }
+
+        [Required]
+        public int RAM { get; set; }
+
+        [Required]
+        public string Storage { get; set; }
+
+        [Required]
+        public string? GPU { get; set; }
+        [Required]
+        public decimal ScreenSize { get; set; }
+        [Required]
+        public string? Resolution { get; set; }
+
+
+
+
 
         [Required]
         [Display(Name = "Category")]
@@ -25,5 +52,10 @@ namespace TechXpress.Web.ViewModel
         public IEnumerable<SelectListItem> Categories { get; set; }
 
         public List<IFormFile> UploadedImages { get; set; }
+
+
+     
+
+
     }
 }

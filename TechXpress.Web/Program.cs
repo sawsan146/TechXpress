@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
-using TechXpress.Domain.Infrastructure;
+//using TechXpress.Domain.Infrastructure;
+//using TechXpress.Logic.Repository.Contracts;
+//using TechXpress.Logic.Repository.Implementations;
+//using TechXpress.BLL.UnitOfWork;
 
 namespace TechXpress.Web
 {
@@ -15,9 +19,12 @@ namespace TechXpress.Web
             builder.Services.AddControllersWithViews();
 
 
-            builder.Services.AddDbContext<AppDbContext>(options =>
-              options.UseSqlServer(builder.Configuration.GetConnectionString("SawsanConnection"))
-            );
+            //builder.Services.AddDbContext<AppDbContext>(options =>
+            //  options.UseSqlServer(builder.Configuration.GetConnectionString("SawsanConnection"))
+            //);
+
+            //builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
             builder.Services.AddSession();
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
