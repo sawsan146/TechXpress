@@ -12,4 +12,8 @@
     <Folder Include="Mapping\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\TechXpress.BLL.csproj" />
+  </ItemGroup>
+
 </Project>
