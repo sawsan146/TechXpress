@@ -383,8 +383,7 @@ namespace TechXpress.Web.Controllers
 
             vm.Categories = GetCategories();
             return View("AddProductDashBoard", vm);
-        }
-      
+        }     
 
 
         private List<SelectListItem> GetCategories()

@@ -28,8 +28,7 @@ namespace TechXpress.Web.Controllers
 
         }
 
-        [HttpPost]
-  
+        [HttpPost]  
       public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
