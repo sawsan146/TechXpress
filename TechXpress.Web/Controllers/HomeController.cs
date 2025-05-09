@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using TechXpress.Domain.Entities;
+using TechXpress.DAL.Entities;
 using TechXpress.Web.Models;
 using TechXpress.Web.ViewModel;
 

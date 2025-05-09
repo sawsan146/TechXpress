@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using TechXpress.Domain.Entities;
+using TechXpress.DAL.Entities;
 using TechXpress.Web.Models;
 using TechXpress.Web.ViewModel;
 

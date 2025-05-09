@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TechXpress.Application\TechXpress.Application.csproj" />
+    <ProjectReference Include="..\TechXpress.DAL\TechXpress.DAL.csproj" />
   </ItemGroup>
 
 </Project>

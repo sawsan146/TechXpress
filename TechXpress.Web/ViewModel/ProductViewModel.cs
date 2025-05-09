@@ -1,4 +1,4 @@
-﻿using TechXpress.Domain.Entities;
+﻿using TechXpress.DAL.Entities;
 
 namespace TechXpress.Web.ViewModel
 {

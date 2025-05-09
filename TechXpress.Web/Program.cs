@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using TechXpress.DAL;
 //using TechXpress.Domain.Infrastructure;
 //using TechXpress.Logic.Repository.Contracts;
 //using TechXpress.Logic.Repository.Implementations;

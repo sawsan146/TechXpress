@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using TechXpress.Domain.Entities;
+using TechXpress.DAL.Entities;
 using TechXpress.Web.ViewModel;
 
 namespace TechXpress.Web.Controllers

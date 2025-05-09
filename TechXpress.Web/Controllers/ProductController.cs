@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using TechXpress.Domain.Entities;
+using TechXpress.DAL.Entities;
 using TechXpress.Web.ViewModel;
 
 namespace TechXpress.Web.Controllers
