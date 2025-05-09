@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using TechXpress.DAL;
+﻿using FluentAssertions.Common;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Identity;
+using TechXpress.DAL.Entities;
+using TechXpress.DAL.Infrastructure;
+using TechXpress.Services.ApplicationServicesConfigrations;
 //using TechXpress.Domain.Infrastructure;
 //using TechXpress.Logic.Repository.Contracts;
 //using TechXpress.Logic.Repository.Implementations;
@@ -19,6 +19,13 @@ namespace TechXpress.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDistributedMemoryCache(); // استخدام الذاكرة لتخزين الجلسة
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
 
             //builder.Services.AddDbContext<AppDbContext>(options =>
@@ -28,13 +35,26 @@ namespace TechXpress.Web
             //builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             //builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
-            builder.Services.AddSession();
-            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-       
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+            builder.Services.Configure<FormOptions>(options =>
+            {
+                options.MultipartBodyLengthLimit = 400000000; // 100 MB
+            });
+            builder.Services.AddApplicationDbContext(builder.Configuration.GetConnectionString("DefaultConnection")
+                , builder.Configuration.GetConnectionString("Redis"));
 
-                 options.LoginPath = "/Register/Login");
-            
+            builder.Services.AddIdentity<User, IdentityRole>()
+                      .AddEntityFrameworkStores<AppDbContext>()
+                      .AddDefaultTokenProviders();
+            builder.Services.AddApplicationServices(builder.Configuration);
+
+            builder.Services.AddCors(
+              option => {
+                  option.AddPolicy("MyPolicy", options => {
+                      options.AllowAnyHeader().
+                       AllowAnyMethod()
+                     .AllowAnyOrigin();
+                  });
+              });
 
 
             var app = builder.Build();

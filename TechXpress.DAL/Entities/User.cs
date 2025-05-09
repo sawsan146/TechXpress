@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace TechXpress.DAL.Entities
 {
-    public class User
+    public class User : IdentityUser
     {
         public int User_ID { get; set; }
         public string User_Type { get; set; }
