@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechXpress.DAL.Entities;
+using TechXpress.DAL.Infrastructure;
 using TechXpress.Logic.Repository.Contracts;
 using TechXpress.Logic.Repository.Implementations;
 
@@ -13,15 +14,20 @@ namespace TechXpress.Logic.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         private bool disposedValue;
-        private readonly DbContext _context;
+        private readonly AppDbContext _context;
 
         public IProductRepository Products { get; }
 
-        public UnitOfWork(DbContext context)
+        public UnitOfWork(AppDbContext context)
         {
             _context = context;
             Products = new ProductRepository(_context);
           
+        }
+
+        public async Task<int> CompleteAsync()
+        {
+            return await _context.SaveChangesAsync();
         }
 
 

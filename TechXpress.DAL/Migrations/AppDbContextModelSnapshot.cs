@@ -8,7 +8,7 @@ using TechXpress.DAL.Infrastructure;
 
 #nullable disable
 
-namespace TechXpress.Logic.Migrations
+namespace TechXpress.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace TechXpress.Logic.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.CartItems", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.CartItems", b =>
                 {
                     b.Property<int>("Cart_Item_ID")
                         .ValueGeneratedOnAdd()
@@ -54,7 +54,7 @@ namespace TechXpress.Logic.Migrations
                     b.ToTable("CartItems");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.Category", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.Category", b =>
                 {
                     b.Property<int>("Category_ID")
                         .ValueGeneratedOnAdd()
@@ -77,7 +77,7 @@ namespace TechXpress.Logic.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.ContactMessage", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.ContactMessage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -119,7 +119,7 @@ namespace TechXpress.Logic.Migrations
                     b.ToTable("ContactMessages");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.Order", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.Order", b =>
                 {
                     b.Property<int>("Order_ID")
                         .ValueGeneratedOnAdd()
@@ -154,7 +154,7 @@ namespace TechXpress.Logic.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.OrderDetails", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.OrderDetails", b =>
                 {
                     b.Property<int>("Order_ID")
                         .HasColumnType("int");
@@ -175,7 +175,7 @@ namespace TechXpress.Logic.Migrations
                     b.ToTable("OrderDetails");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.Payment", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.Payment", b =>
                 {
                     b.Property<int>("Payment_ID")
                         .ValueGeneratedOnAdd()
@@ -209,7 +209,7 @@ namespace TechXpress.Logic.Migrations
                     b.ToTable("Payments");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.Product", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.Product", b =>
                 {
                     b.Property<int>("Product_ID")
                         .ValueGeneratedOnAdd()
@@ -233,6 +233,7 @@ namespace TechXpress.Logic.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("GPU")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -240,8 +241,14 @@ namespace TechXpress.Logic.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<float?>("PercentageDiscount")
+                        .HasColumnType("real");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<float?>("PriceAfterDiscount")
+                        .HasColumnType("real");
 
                     b.Property<string>("Processor")
                         .IsRequired()
@@ -251,6 +258,7 @@ namespace TechXpress.Logic.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Resolution")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("ScreenSize")
@@ -270,7 +278,7 @@ namespace TechXpress.Logic.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.ProductImg", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.ProductImg", b =>
                 {
                     b.Property<int>("Image_ID")
                         .ValueGeneratedOnAdd()
@@ -292,7 +300,7 @@ namespace TechXpress.Logic.Migrations
                     b.ToTable("ProductImages");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.Return", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.Return", b =>
                 {
                     b.Property<int>("Return_ID")
                         .ValueGeneratedOnAdd()
@@ -327,7 +335,7 @@ namespace TechXpress.Logic.Migrations
                     b.ToTable("Returns");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.Review", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.Review", b =>
                 {
                     b.Property<int>("Review_ID")
                         .ValueGeneratedOnAdd()
@@ -361,7 +369,7 @@ namespace TechXpress.Logic.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.ShoppingCart", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.ShoppingCart", b =>
                 {
                     b.Property<int>("Cart_ID")
                         .ValueGeneratedOnAdd()
@@ -386,13 +394,19 @@ namespace TechXpress.Logic.Migrations
                     b.ToTable("ShoppingCarts");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.User", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.User", b =>
                 {
                     b.Property<int>("User_ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("User_ID"));
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
                         .IsRequired()
@@ -403,24 +417,60 @@ namespace TechXpress.Logic.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Fname")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Lname")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("User_Type")
                         .IsRequired()
@@ -431,7 +481,7 @@ namespace TechXpress.Logic.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.WishList", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.WishList", b =>
                 {
                     b.Property<int>("WishList_ID")
                         .ValueGeneratedOnAdd()
@@ -450,7 +500,7 @@ namespace TechXpress.Logic.Migrations
                     b.ToTable("WishLists");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.WishListItems", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.WishListItems", b =>
                 {
                     b.Property<int>("WishList_Item_ID")
                         .ValueGeneratedOnAdd()
@@ -473,15 +523,15 @@ namespace TechXpress.Logic.Migrations
                     b.ToTable("WishListItems");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.CartItems", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.CartItems", b =>
                 {
-                    b.HasOne("TechXpress.Domain.Entities.ShoppingCart", "Cart")
+                    b.HasOne("TechXpress.DAL.Entities.ShoppingCart", "Cart")
                         .WithMany("CartItems")
                         .HasForeignKey("Cart_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TechXpress.Domain.Entities.Product", "Product")
+                    b.HasOne("TechXpress.DAL.Entities.Product", "Product")
                         .WithMany("CartItems")
                         .HasForeignKey("Product_ID")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -492,9 +542,9 @@ namespace TechXpress.Logic.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.ContactMessage", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.ContactMessage", b =>
                 {
-                    b.HasOne("TechXpress.Domain.Entities.User", "User")
+                    b.HasOne("TechXpress.DAL.Entities.User", "User")
                         .WithMany("ContactMessages")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -502,9 +552,9 @@ namespace TechXpress.Logic.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.Order", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.Order", b =>
                 {
-                    b.HasOne("TechXpress.Domain.Entities.User", "User")
+                    b.HasOne("TechXpress.DAL.Entities.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("User_ID")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -512,15 +562,15 @@ namespace TechXpress.Logic.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.OrderDetails", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.OrderDetails", b =>
                 {
-                    b.HasOne("TechXpress.Domain.Entities.Order", "Order")
+                    b.HasOne("TechXpress.DAL.Entities.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("Order_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TechXpress.Domain.Entities.Product", "Product")
+                    b.HasOne("TechXpress.DAL.Entities.Product", "Product")
                         .WithMany("OrderDetails")
                         .HasForeignKey("Product_ID")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -531,19 +581,19 @@ namespace TechXpress.Logic.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.Payment", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.Payment", b =>
                 {
-                    b.HasOne("TechXpress.Domain.Entities.Order", "Order")
+                    b.HasOne("TechXpress.DAL.Entities.Order", "Order")
                         .WithOne("Payment")
-                        .HasForeignKey("TechXpress.Domain.Entities.Payment", "Order_ID")
+                        .HasForeignKey("TechXpress.DAL.Entities.Payment", "Order_ID")
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.Product", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.Product", b =>
                 {
-                    b.HasOne("TechXpress.Domain.Entities.Category", "Category")
+                    b.HasOne("TechXpress.DAL.Entities.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("Category_ID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -552,9 +602,9 @@ namespace TechXpress.Logic.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.ProductImg", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.ProductImg", b =>
                 {
-                    b.HasOne("TechXpress.Domain.Entities.Product", "Product")
+                    b.HasOne("TechXpress.DAL.Entities.Product", "Product")
                         .WithMany("ProductImages")
                         .HasForeignKey("Product_ID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -563,14 +613,14 @@ namespace TechXpress.Logic.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.Return", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.Return", b =>
                 {
-                    b.HasOne("TechXpress.Domain.Entities.Order", "Order")
+                    b.HasOne("TechXpress.DAL.Entities.Order", "Order")
                         .WithMany()
                         .HasForeignKey("Order_ID")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("TechXpress.Domain.Entities.User", "User")
+                    b.HasOne("TechXpress.DAL.Entities.User", "User")
                         .WithMany("Returns")
                         .HasForeignKey("User_ID")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -580,15 +630,15 @@ namespace TechXpress.Logic.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.Review", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.Review", b =>
                 {
-                    b.HasOne("TechXpress.Domain.Entities.Product", "Product")
+                    b.HasOne("TechXpress.DAL.Entities.Product", "Product")
                         .WithMany("Reviews")
                         .HasForeignKey("Product_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TechXpress.Domain.Entities.User", "User")
+                    b.HasOne("TechXpress.DAL.Entities.User", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("User_ID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -599,37 +649,37 @@ namespace TechXpress.Logic.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.ShoppingCart", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.ShoppingCart", b =>
                 {
-                    b.HasOne("TechXpress.Domain.Entities.User", "User")
+                    b.HasOne("TechXpress.DAL.Entities.User", "User")
                         .WithOne("ShoppingCart")
-                        .HasForeignKey("TechXpress.Domain.Entities.ShoppingCart", "User_ID")
+                        .HasForeignKey("TechXpress.DAL.Entities.ShoppingCart", "User_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.WishList", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.WishList", b =>
                 {
-                    b.HasOne("TechXpress.Domain.Entities.User", "User")
+                    b.HasOne("TechXpress.DAL.Entities.User", "User")
                         .WithOne("WishList")
-                        .HasForeignKey("TechXpress.Domain.Entities.WishList", "User_ID")
+                        .HasForeignKey("TechXpress.DAL.Entities.WishList", "User_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.WishListItems", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.WishListItems", b =>
                 {
-                    b.HasOne("TechXpress.Domain.Entities.Product", "Product")
+                    b.HasOne("TechXpress.DAL.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("Product_ID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("TechXpress.Domain.Entities.WishList", "WishList")
+                    b.HasOne("TechXpress.DAL.Entities.WishList", "WishList")
                         .WithMany("WishListItems")
                         .HasForeignKey("WishList_ID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -640,12 +690,12 @@ namespace TechXpress.Logic.Migrations
                     b.Navigation("WishList");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.Category", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.Category", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.Order", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.Order", b =>
                 {
                     b.Navigation("OrderDetails");
 
@@ -653,7 +703,7 @@ namespace TechXpress.Logic.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.Product", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.Product", b =>
                 {
                     b.Navigation("CartItems");
 
@@ -664,12 +714,12 @@ namespace TechXpress.Logic.Migrations
                     b.Navigation("Reviews");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.ShoppingCart", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.ShoppingCart", b =>
                 {
                     b.Navigation("CartItems");
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.User", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.User", b =>
                 {
                     b.Navigation("ContactMessages");
 
@@ -686,7 +736,7 @@ namespace TechXpress.Logic.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TechXpress.Domain.Entities.WishList", b =>
+            modelBuilder.Entity("TechXpress.DAL.Entities.WishList", b =>
                 {
                     b.Navigation("WishListItems");
                 });

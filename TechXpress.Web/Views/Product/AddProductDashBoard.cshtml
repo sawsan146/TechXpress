@@ -255,16 +255,77 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Brand" class="form-control border-0 shadow" placeholder="Brand" />
+                        <label asp-for="Brand" class="ms-2"></label>
+                        <span asp-validation-for="Brand" class="text-danger"></span>
+                    </div>
 
-                    <div class="form-floating mb-4">
+                    <div class="form-floating mb-3">
+                        <input asp-for="Processor" class="form-control border-0 shadow" placeholder="Processor" />
+                        <label asp-for="Processor" class="ms-2"></label>
+                        <span asp-validation-for="Processor" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="RAM" class="form-control border-0 shadow" placeholder="RAM" />
+                        <label asp-for="RAM" class="ms-2"></label>
+                        <span asp-validation-for="RAM" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Storage" class="form-control border-0 shadow" placeholder="Storage" />
+                        <label asp-for="Storage" class="ms-2"></label>
+                        <span asp-validation-for="Storage" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="GPU" class="form-control border-0 shadow" placeholder="GPU" />
+                        <label asp-for="GPU" class="ms-2"></label>
+                        <span asp-validation-for="GPU" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="ScreenSize" class="form-control border-0 shadow" placeholder="Screen Size" />
+                        <label asp-for="ScreenSize" class="ms-2"></label>
+                        <span asp-validation-for="ScreenSize" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Resolution" class="form-control border-0 shadow" placeholder="Resolution" />
+                        <label asp-for="Resolution" class="ms-2"></label>
+                        <span asp-validation-for="Resolution" class="text-danger"></span>
+                    </div>
+
+                    @* <div class="form-floating mb-4">
                         <select asp-for="Category_ID" asp-items="Model.Categories" class="form-select custom-select border-0 shadow">
                             <option disabled selected value="">Select a category</option>
                         </select>
                         <label asp-for="Category_ID" class="ms-2"></label>
                         <span asp-validation-for="Category_ID" class="text-danger"></span>
+                    </div> *@
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="PercentageDiscount" class="form-control border-0 shadow" placeholder="Percentage Discount" />
+                        <label asp-for="PercentageDiscount" class="ms-2"></label>
+                        <span asp-validation-for="PercentageDiscount" class="text-danger"></span>
                     </div>
 
-                    <div class="file-upload-wrapper mb-4">
+                    <div class="form-floating mb-3">
+                        <input asp-for="PriceAfterDiscount" class="form-control border-0 shadow" placeholder="Price After Discount" />
+                        <label asp-for="PriceAfterDiscount" class="ms-2"></label>
+                        <span asp-validation-for="PriceAfterDiscount" class="text-danger"></span>
+                    </div>
+
+                    @* <div class="form-floating mb-4">
+                        <select asp-for="Category_ID" asp-items="Model.Categories" class="form-select custom-select border-0 shadow">
+                            <option disabled selected value="">Select a category</option>
+                        </select>
+                        <label asp-for="Category_ID" class="ms-2"></label>
+                        <span asp-validation-for="Category_ID" class="text-danger"></span>
+                    </div> *@
+
+                    @* <div class="file-upload-wrapper mb-4">
                         <label class="file-upload-label">
                             <div class="file-upload-icon">
                                 <i class="bi bi-cloud-arrow-up"></i>
@@ -274,7 +335,7 @@
                             <input type="file" asp-for="UploadedImages" class="file-upload-input" id="imageInput" multiple accept="image/*" />
                             <span asp-validation-for="UploadedImages" class="text-danger"></span>
                         </label>
-                    </div>
+                    </div> *@
 
                     <div class="d-flex justify-content-between pt-3">
                         <button type="submit" class="btn btn-create text-white">
@@ -317,11 +378,11 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        // JavaScript for image preview
         const input = document.getElementById('imageInput');
         const unsavedImages = document.getElementById('unsavedImages');
         const noImagesMessage = document.getElementById('noImagesMessage');
 
+        // Handle image preview
         input.addEventListener('change', () => {
             unsavedImages.innerHTML = '';
             if (input.files.length === 0) {
@@ -344,6 +405,27 @@
                 };
                 reader.readAsDataURL(file);
             });
+        });
+
+        // Optional: basic form field validation on submit
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function (event) {
+            let isValid = true;
+
+            const requiredFields = ['Name', 'Price', 'Stock', 'Description', 'Brand', 'Processor', 'RAM', 'Storage', 'GPU', 'ScreenSize', 'Resolution', 'Category_ID'];
+            requiredFields.forEach(id => {
+                const field = document.getElementById(id);
+                if (field && !field.value.trim()) {
+                    isValid = false;
+                    field.classList.add('is-invalid');
+                } else if (field) {
+                    field.classList.remove('is-invalid');
+                }
+            });
+
+            if (!isValid) {
+                event.preventDefault();
+            }
         });
     </script>
 }

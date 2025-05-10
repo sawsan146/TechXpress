@@ -7,13 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
-    <Folder Include="ApplicationServices\" />
-    <Folder Include="Mapping\" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TechXpress.BLL\TechXpress.BLL.csproj" />
+    <ProjectReference Include="..\TechXpress.DAL\TechXpress.DAL.csproj" />
   </ItemGroup>
 
 </Project>

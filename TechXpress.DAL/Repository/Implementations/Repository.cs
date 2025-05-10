@@ -4,34 +4,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechXpress.DAL.Infrastructure;
 using TechXpress.Logic.Repository.Contracts;
 
 namespace TechXpress.Logic.Repository.Implementations
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly DbContext _dbContext;
-        public Repository(DbContext dbContext)
+        private readonly AppDbContext _dbContext;
+        public Repository(AppDbContext dbContext)
         { 
             _dbContext = dbContext;
         }
-        public bool Add(T entity)
+        public void Add(T entity)
         {
             _dbContext.Add<T>(entity);
-            int res = _dbContext.SaveChanges();
-
-            return res > 0;
+            _dbContext.SaveChanges();
 
         }
 
+        public List<T> GetAll()
+        {
+            var list = _dbContext.Set<T>().ToList();
+            return list;
+        }
         public T GetById(int id)
         {
             var e=_dbContext.Find<T>(id);
-
             return e;
         }
 
-        public bool Delete(int id)
+        public void Delete(int id)
         {
 
             var e=GetById(id);
@@ -39,10 +42,8 @@ namespace TechXpress.Logic.Repository.Implementations
             if (e != null)
             {
                 _dbContext.Remove(e);       
-                return true;
+                _dbContext.SaveChanges();
             }
-
-            return false;
 
         }
 
@@ -57,15 +58,13 @@ namespace TechXpress.Logic.Repository.Implementations
 
         //}
    
-        public bool Update(T entity)
+        public void Update(T entity)
         {
             if (entity != null)
             {
                 _dbContext.Update<T>(entity);
-                return true;
+                _dbContext.SaveChanges();
             }
-
-            return false;
         }
 
     }

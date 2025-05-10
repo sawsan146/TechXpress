@@ -1,16 +1,25 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using TechXpress.Application.ApplicationServices.Contract;
+using TechXpress.Application.DTOs;
 using TechXpress.DAL.Entities;
+using TechXpress.DAL.Infrastructure;
 using TechXpress.Web.ViewModel;
 
 namespace TechXpress.Web.Controllers
 {
     public class ProductController : Controller
     {
-        List<Product> products;
 
-        public ProductController()
+        private readonly ILogger<ProductController> _logger;
+
+        private readonly IProductAppService _productAppService;
+        private readonly IMapper _mapper;
+
+        List<Product> products;
+        public ProductController(ILogger<ProductController> logger, IProductAppService productAppService, IMapper mapper)
         {
             products = new List<Product>
             {
@@ -303,12 +312,14 @@ namespace TechXpress.Web.Controllers
                     }
                 }
             };
-
+            _logger = logger;
+            _productAppService = productAppService;
+            _mapper = mapper;
         }
+
 
         public IActionResult Index(string category = "All Products")
         {
-
 
             ViewBag.Category = category;
             ViewBag.Categories = new List<string>
@@ -328,9 +339,11 @@ namespace TechXpress.Web.Controllers
                 "Monitors",
                 "Speakers"
             };
+
             return View("AllProduct", products);
         }
 
+        
         public IActionResult HomeProductSection()
         {
             return View("HomeProductSection", products);
@@ -353,17 +366,16 @@ namespace TechXpress.Web.Controllers
             return View(product);
         }
 
-
         [Authorize(Roles = "Admin")]
         public IActionResult AddProduct()
         {
             var userName = Request.Cookies["UserName"] ?? "Guest";
             ViewBag.UserName = userName;
 
-            ProductDashBoardViewModel vm = new ProductDashBoardViewModel
-            {
-                Categories = GetCategories()
-            };
+            ProductDashBoardViewModel vm = new ProductDashBoardViewModel();
+            //{
+            //    Categories = GetCategories()
+            //};
 
             return View("AddProductDashBoard", vm);
         }
@@ -376,14 +388,16 @@ namespace TechXpress.Web.Controllers
 
             if (ModelState.IsValid)
             {
+                var productDto = _mapper.Map<ProductDTO>(vm);
+                _productAppService.AddProduct(productDto);
 
                 TempData["SuccessMessage"] = "Product added successfully!";
                 return RedirectToAction("ProductDashBoard");
             }
 
-            vm.Categories = GetCategories();
+            //vm.Categories = GetCategories();
             return View("AddProductDashBoard", vm);
-        }     
+        }
 
 
         private List<SelectListItem> GetCategories()
@@ -420,9 +434,10 @@ namespace TechXpress.Web.Controllers
                 vm.Price = product.Price;
                 vm.Stock = product.Stock;
                 vm.Description = product.Description;
-                vm.Category_ID = product.Category_ID.ToString();
-                vm.Categories = GetCategories();
-                vm.UploadedImages = new List<IFormFile>();
+                vm.Category_ID = product.Category_ID;
+                //    vm.Categories = GetCategories();
+                //    vm.UploadedImages = new List<IFormFile>();
+                //}
             }
             else
             {
@@ -441,7 +456,7 @@ namespace TechXpress.Web.Controllers
                 TempData["SuccessMessage"] = "Product updated successfully!";
                 return RedirectToAction("ProductDashBoard");
             }
-            vm.Categories = GetCategories();
+            //vm.Categories = GetCategories();
             return View(vm);
         }
 

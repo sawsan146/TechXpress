@@ -1,11 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using TechXpress.DAL.Entities;
 
-namespace TechXpress.Web.ViewModel
+namespace TechXpress.Application.DTOs
 {
-    public class ProductDashBoardViewModel
+    public class ProductDTO
     {
         [Required]
         [MaxLength(100)]
@@ -18,12 +24,12 @@ namespace TechXpress.Web.ViewModel
         [Required]
         [Range(0, int.MaxValue)]
         public int Stock { get; set; }
-        
+
         public string Description { get; set; }
-        public DateTime AddTime { get; set; } = DateTime.Now;
+        public DateTime AddTime { get; set; }= DateTime.Now;
 
         [Required]
-        [MaxLength(100)]        
+        [MaxLength(100)]
         public string Brand { get; set; }
 
         [Required]
@@ -49,12 +55,12 @@ namespace TechXpress.Web.ViewModel
         //public IEnumerable<SelectListItem> Categories { get; set; }
 
         //[Required(ErrorMessage = "Please upload an image file.")]
-        //public List<IFormFile> UploadedImages { get; set; }      
-       
+        //public List<IFormFile> UploadedImages { get; set; }
+
         public float? PercentageDiscount { get; set; }
-        public float? PriceAfterDiscount { get; set; }
-      
-
-
+        public float? PriceAfterDiscount { get; set; }     
+    
     }
+
 }
+

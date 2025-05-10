@@ -9,15 +9,15 @@ namespace TechXpress.Logic.Repository.Contracts
 {
     public interface IRepository<T> where T : class
     {
-        //public List<T> GetAll();
+         public List<T> GetAll();
 
         public T GetById(int id);
 
-        public bool Add(T entity);
+        public void Add(T entity);
 
-        public bool Update(T entity);
+        public void Update(T entity);
 
-        public bool Delete(int id);
+        public void Delete(int id);
 
     //    public bool DeleteAll();
 

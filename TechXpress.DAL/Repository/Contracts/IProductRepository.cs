@@ -10,7 +10,7 @@ namespace TechXpress.Logic.Repository.Contracts
     public interface IProductRepository :IRepository<Product>
     {
 
-
+        //public Product Find();
 
     }
 }
