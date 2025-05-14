@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using TechXpress.DAL.Entities;
 
-namespace TechXpress.Logic.Repository.Contracts
+namespace TechXpress.BLL.Services.Contracts
 {
-    public interface IProductRepository :IRepository<Product,int>
+    public interface ICategoryService : IService<Category, string>
     {
-
-
+      
     }
 }

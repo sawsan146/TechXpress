@@ -8,10 +8,10 @@ namespace TechXpress.DAL.Entities
 {
     public class Category
     {
-        public int Category_ID { get; set; }
+        public string Category_ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-
+        public bool IsSelected { get; set; }
         public List<Product> Products { get; set; }
     }
 

@@ -263,14 +263,15 @@ namespace TechXpress.Web.Controllers
             {
                 OrderId = 1,
                 OrderDate = new DateTime(2025, 3, 19, 15, 17, 0), 
-                TotalAmount = 350.00m,
+                TotalAmount = 350.00f
+,
                 Status = "Delivered"
             },
             new OrderViewModel
             {
                 OrderId = 2,
                 OrderDate = new DateTime(2025, 3, 19, 15, 17, 0),
-                TotalAmount = 575.00m,
+                TotalAmount = 575.00f,
                 Status = "Delivered"
             }
         };
@@ -285,7 +286,7 @@ namespace TechXpress.Web.Controllers
         {
             OrderId = 1,
             OrderDate = new DateTime(2025, 3, 30, 18, 18, 0),
-            TotalAmount = 350.00m,
+            TotalAmount = 350.00f,
             Status = "RETURNED"
         }
     };

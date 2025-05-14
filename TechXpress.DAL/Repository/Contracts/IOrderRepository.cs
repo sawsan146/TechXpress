@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechXpress.DAL.Entities;
+using TechXpress.Logic.Repository.Contracts;
 
-namespace TechXpress.Logic.Repository.Contracts
+namespace TechXpress.DAL.Repository.Contracts
 {
-    public interface IProductRepository :IRepository<Product,int>
+    public interface IOrderRepository : IRepository<Order, int>
     {
-
 
     }
 }

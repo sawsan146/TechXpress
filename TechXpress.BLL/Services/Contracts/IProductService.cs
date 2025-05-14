@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TechXpress.DAL.Entities;
 namespace TechXpress.BLL.Services.Contracts
 {
-    public interface IProductService : IService<Product>
+    public interface IProductService : IService<Product, int>
     {
        //public void AddProduct(ProductDTO product);
         //public void UpdateProduct(ProductDTO product);

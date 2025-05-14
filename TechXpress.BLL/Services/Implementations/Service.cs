@@ -2,21 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechXpress.BLL.Services.Contracts;
 using TechXpress.Logic.Repository.Contracts;
 using TechXpress.Logic.UnitOfWork;
 
 namespace TechXpress.BLL.Services.Implementations
 {
-    public class Service<T> : IService<T> where T : class
+    public class Service<T, TKey> : IService<T, TKey> where T : class
     {
-        private readonly IRepository<T> _repository;
+        private readonly IRepository<T, TKey> _repository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger<Service<T>> _logger;
+        private readonly ILogger<Service<T, TKey>> _logger;
 
-        public Service(IRepository<T> repository, IUnitOfWork unitOfWork, ILogger<Service<T>> logger)
+        public Service(IRepository<T, TKey> repository, IUnitOfWork unitOfWork, ILogger<Service<T, TKey>> logger)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
@@ -31,7 +29,6 @@ namespace TechXpress.BLL.Services.Implementations
             try
             {
                 _repository.Add(entity);
-
                 //_unitOfWork.CompleteAsync();
                 return true;
             }
@@ -42,13 +39,13 @@ namespace TechXpress.BLL.Services.Implementations
             }
         }
 
-        public bool Delete(int id)
+        public bool Delete(TKey id)
         {
             try
             {
                 var entity = _repository.GetById(id);
                 if (entity == null)
-                    throw new KeyNotFoundException($"Entity with ID {id} not found.");
+                    throw new KeyNotFoundException($"Entity with ID '{id}' not found.");
 
                 _repository.Delete(id);
                 //_unitOfWork.CompleteAsync();
@@ -56,7 +53,7 @@ namespace TechXpress.BLL.Services.Implementations
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Error deleting entity with ID {id}");
+                _logger.LogError(ex, $"Error deleting entity with ID '{id}'.");
                 return false;
             }
         }
@@ -74,15 +71,13 @@ namespace TechXpress.BLL.Services.Implementations
             }
         }
 
-        public T GetById(int id)
+        public T GetById(TKey id)
         {
             var entity = _repository.GetById(id);
             if (entity == null)
-                throw new KeyNotFoundException($"Entity with ID {id} not found.");
+                throw new KeyNotFoundException($"Entity with ID '{id}' not found.");
             return entity;
         }
-
-      
 
         public bool Update(T entity)
         {
@@ -102,6 +97,4 @@ namespace TechXpress.BLL.Services.Implementations
             }
         }
     }
-
-
 }

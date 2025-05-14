@@ -1,34 +1,39 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TechXpress.Application.ApplicationServices.Contract;
+using TechXpress.Application.DTOs.TechXpress.Web.DTO;
 using TechXpress.Web.ViewModel;
 
 namespace TechXpress.Web.Controllers
 {
     public class CategoryController : Controller
     {
-        public IActionResult Index()
-        {
+        private readonly ICategoryAppService _categoryAppService;
 
-            return View();
+        public CategoryController(ICategoryAppService categoryAppService)
+        {
+            _categoryAppService = categoryAppService;
         }
 
-
-        private List<CategoryViewModel> categories = new List<CategoryViewModel>
-            {
-                new CategoryViewModel { Id = "1", Name = "Electronics", Description="this is c1" },
-                new CategoryViewModel { Id = "2", Name = "Clothing", Description="This is c2" },
-                new CategoryViewModel { Id = "3", Name = "Home Appliances",  Description="This is c3"},
-                new CategoryViewModel { Id = "4", Name = "Books", Description="This is c4"},
-            };
-
+        public IActionResult Index()
+        {
+            return View();
+        }
 
         [Authorize(Roles = "Admin")]
         public IActionResult CategoryDashboard()
         {
             ViewData["ActivePage"] = "Category";
+            var categories = _categoryAppService.GetAllCategories();
+            var viewModelList = categories.Select(c => new CategoryViewModel
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Description = c.Description,
+                IsSelected = c.IsSelected
+            }).ToList();
 
-
-            return View(categories);
+            return View(viewModelList);
         }
 
         [Authorize(Roles = "Admin")]
@@ -37,77 +42,84 @@ namespace TechXpress.Web.Controllers
             var userName = Request.Cookies["UserName"] ?? "Guest";
             ViewBag.UserName = userName;
 
-            var category = new CategoryViewModel();
-            return View("AddCategory",category);
+            return View(new CategoryViewModel());
         }
-
 
         [HttpPost]
         public IActionResult AddCategory(CategoryViewModel model)
         {
-            ModelState.Remove("Id"); // Remove Id from ModelState validation
+            ModelState.Remove("Id"); // Because Id is generated automatically
+
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
-            var newCategory = new CategoryViewModel
+
+            var dto = new CategoryDto
             {
-                Id = (categories.Count + 1).ToString(),
+                Id = Guid.NewGuid().ToString(), // or let your DB handle it
                 Name = model.Name,
-                Description = model.Description
+                Description = model.Description,
+                IsSelected = model.IsSelected
             };
-            categories.Add(newCategory);
+
+            _categoryAppService.AddCategory(dto);
             TempData["SuccessMessage"] = "Category added successfully.";
+
             return RedirectToAction("CategoryDashboard");
         }
 
-
         [Authorize(Roles = "Admin")]
-        public IActionResult UpdateCategory(int id)
+        public IActionResult UpdateCategory(string id)
         {
+            var dto = _categoryAppService.GetCategoryById(id);
+            if (dto == null) return NotFound();
 
-            var category = categories.FirstOrDefault(c => c.Id == id.ToString());
-            return View("UpdateCategory", category);
+            var viewModel = new CategoryViewModel
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                Description = dto.Description,
+                IsSelected = dto.IsSelected
+            };
+
+            return View("UpdateCategory", viewModel);
         }
+
         [Authorize(Roles = "Admin")]
-        [HttpPost]
         [HttpPost]
         public IActionResult UpdateCategory(CategoryViewModel model)
         {
             if (!ModelState.IsValid)
-            {
                 return View(model);
-            }
 
-            var category = categories.FirstOrDefault(c => c.Id == model.Id);
-            if (category == null)
+            var dto = new CategoryDto
             {
-                return NotFound();
-            }
+                Id = model.Id,
+                Name = model.Name,
+                Description = model.Description,
+                IsSelected = model.IsSelected
+            };
 
-            category.Name = model.Name;
-            category.Description = model.Description;
-
+            _categoryAppService.UpdateCategory(dto);
             TempData["SuccessMessage"] = "Category updated successfully.";
 
             return RedirectToAction("CategoryDashboard");
         }
 
         [HttpPost]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
-            var category = categories.FirstOrDefault(c => c.Id == id.ToString());
+            var category = _categoryAppService.GetCategoryById(id);
             if (category != null)
             {
-                categories.Remove(category);
+                _categoryAppService.DeleteCategory(id);
                 TempData["SuccessMessage"] = "Category deleted successfully.";
             }
             else
             {
                 TempData["ErrorMessage"] = "Category not found.";
             }
-            return RedirectToAction("CategoryDashboard");
 
+            return RedirectToAction("CategoryDashboard");
         }
     }
 }

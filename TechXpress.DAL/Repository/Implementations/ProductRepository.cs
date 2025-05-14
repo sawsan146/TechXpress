@@ -10,7 +10,7 @@ using TechXpress.Logic.Repository.Contracts;
 
 namespace TechXpress.Logic.Repository.Implementations
 {
-    public class ProductRepository : Repository<Product>, IProductRepository
+    public class ProductRepository : Repository<Product,int>, IProductRepository
     {
         public ProductRepository(AppDbContext dbContext) : base(dbContext)
         {

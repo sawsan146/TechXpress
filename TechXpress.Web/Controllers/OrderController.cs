@@ -2,80 +2,106 @@
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TechXpress.Web.ViewModel;
+using TechXpress.DAL.Entities;
+using TechXpress.DAL.Infrastructure; // Assuming your entities are in the DAL namespace
 
 namespace TechXpress.Web.Controllers
 {
     public class OrderController : Controller
     {
+        private readonly AppDbContext _context;
 
-        //List<OrderViewModel> orders = new List<OrderViewModel>
-        //{
-        //    new OrderViewModel { OrderId = 1, CustomerName = "Ahmed Ali", OrderDate = DateTime.Now.AddDays(-2), TotalAmount = 245.50m, Status = "Pending" },
-        //    new OrderViewModel { OrderId = 2, CustomerName = "Sara Mostafa", OrderDate = DateTime.Now.AddDays(-1), TotalAmount = 100.00m, Status = "Shipped" },
-        //    new OrderViewModel { OrderId = 3, CustomerName = "Youssef Kamal", OrderDate = DateTime.Now, TotalAmount = 500.00m, Status = "Delivered" }
-        //};
+        // Inject AppDbContext into the controller
+        public OrderController(AppDbContext context)
+        {
+            _context = context;
+        }
 
+        // Fetch all orders for admin
         public IActionResult Index()
         {
-
-            List<OrderViewModel> orders=GetFakeOrders();
             var role = User.FindFirstValue(ClaimTypes.Role);
             if (role != "Admin")
             {
-                return Unauthorized(); 
+                return Unauthorized();
             }
+
             ViewData["ActivePage"] = "Order";
 
-
+            // Get orders from database
+            var orders = _context.Orders
+                .Include(o => o.User) // Include user data
+                .Select(o => new OrderViewModel
+                {
+                    OrderId = o.Order_ID,
+                    CustomerName = o.User.Fname + " " + o.User.Lname,
+                    OrderDate = o.CreationTime,
+                    TotalAmount = o.TotalAmount,
+                    Status = o.Status
+                })
+                .ToList();
 
             return View("AllOrdersForAdmin", orders);
         }
 
+        // Filter orders based on status
         public IActionResult Filter(string status)
         {
-            var fakeOrders = GetFakeOrders();
-
-            if (!string.IsNullOrEmpty(status) && status != "All")
+            var role = User.FindFirstValue(ClaimTypes.Role);
+            if (role != "Admin")
             {
-                fakeOrders = fakeOrders.Where(o => o.Status == status).ToList();
+                return Unauthorized();
             }
 
-            return PartialView("_OrdersTablePartial", fakeOrders);
+            // Get filtered orders from database
+            var orders = _context.Orders
+                .Include(o => o.User)
+                .Where(o => string.IsNullOrEmpty(status) || status == "All" || o.Status == status)
+                .Select(o => new OrderViewModel
+                {
+                    OrderId = o.Order_ID,
+                    CustomerName = o.User.Fname + " " + o.User.Lname,
+                    OrderDate = o.CreationTime,
+                    TotalAmount = o.TotalAmount,
+                    Status = o.Status
+                })
+                .ToList();
+
+            return PartialView("_OrdersTablePartial", orders);
         }
 
-        private List<OrderViewModel> GetFakeOrders()
+        // Show order summary
+        public IActionResult OrderSummary(int orderId)
         {
-            return new List<OrderViewModel>
-    {
-        new OrderViewModel { OrderId = 1, CustomerName = "Ali", OrderDate = DateTime.Today.AddDays(-1), TotalAmount = 120, Status = "Pending" },
-        new OrderViewModel { OrderId = 2, CustomerName = "Sara", OrderDate = DateTime.Today.AddDays(-3), TotalAmount = 80, Status = "Delivered" },
-        new OrderViewModel { OrderId = 3, CustomerName = "Omar", OrderDate = DateTime.Today.AddDays(-2), TotalAmount = 50, Status = "Shipped" },
-        new OrderViewModel { OrderId = 4, CustomerName = "Lina", OrderDate = DateTime.Today.AddDays(-5), TotalAmount = 200, Status = "Cancelled" },
-        new OrderViewModel { OrderId = 5, CustomerName = "Mona", OrderDate = DateTime.Today.AddDays(-4), TotalAmount = 150, Status = "Delivered" }
-    };
-        }
+            // Fetch the order with details and products from the database
+            var order = _context.Orders
+                .Include(o => o.User) // Get the user for the order
+                .Include(o => o.OrderDetails)
+                    .ThenInclude(od => od.Product) // Include product details for each order detail
+                .FirstOrDefault(o => o.Order_ID == orderId);
 
-        public IActionResult OrderSummary()
-        {
+            if (order == null)
+            {
+                return NotFound(); // Return 404 if the order doesn't exist
+            }
+
             var viewModel = new OrderSummaryViewModel
             {
-                FirstName = "Md",
-                LastName = "Rimel",
-                Street = "Kingston, 5236, United States",
-                City = "LA",
-                Country = "United State",
-                PhoneNumber = "0123456789",
-                OrderItems = new List<OrderItemViewModel>
-        {
-            new OrderItemViewModel { ProductName = "Laptop", Price = 800, Quantity = 1 },
-            new OrderItemViewModel { ProductName = "Headphones", Price = 200, Quantity = 2 },
-            new OrderItemViewModel { ProductName = "Mouse", Price = 100, Quantity = 2 },
-        }
+                FirstName = order.User.Fname,
+                LastName = order.User.Lname,
+                Street = order.ShippingGoal ?? "N/A", // You can replace it with actual address if available
+                City = "N/A", // Add logic to fetch city from the address if available
+                Country = order.User.Country ?? "N/A",
+                PhoneNumber = order.User.Phone,
+                OrderItems = order.OrderDetails.Select(item => new OrderItemViewModel
+                {
+                    ProductName = item.Product?.Name ?? "Unknown", // Handle null product gracefully
+                    Price = item.Price,
+                    Quantity = item.Quantity
+                }).ToList()
             };
 
-            return View(viewModel);
+            return View(viewModel); // Pass the view model to the view
         }
-
-
     }
 }

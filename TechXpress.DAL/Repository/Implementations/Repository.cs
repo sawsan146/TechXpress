@@ -9,63 +9,49 @@ using TechXpress.Logic.Repository.Contracts;
 
 namespace TechXpress.Logic.Repository.Implementations
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T, TKey> : IRepository<T, TKey> where T : class
     {
         private readonly AppDbContext _dbContext;
+
         public Repository(AppDbContext dbContext)
-        { 
+        {
             _dbContext = dbContext;
         }
+
         public void Add(T entity)
         {
-            _dbContext.Add<T>(entity);
+            _dbContext.Add(entity);
             _dbContext.SaveChanges();
-
         }
 
         public List<T> GetAll()
         {
-            var list = _dbContext.Set<T>().ToList();
-            return list;
-        }
-        public T GetById(int id)
-        {
-            var e=_dbContext.Find<T>(id);
-            return e;
+            return _dbContext.Set<T>().ToList();
         }
 
-        public void Delete(int id)
+        public T GetById(TKey id)
         {
+            return _dbContext.Find<T>(id);
+        }
 
-            var e=GetById(id);
-
-            if (e != null)
+        public void Delete(TKey id)
+        {
+            var entity = GetById(id);
+            if (entity != null)
             {
-                _dbContext.Remove(e);       
+                _dbContext.Remove(entity);
                 _dbContext.SaveChanges();
             }
-
         }
 
-        //public bool DeleteAll()
-        //{
-
-        //}
-
-        //public List<T> GetAll()
-        //{
-        //    var list = _dbContext
-
-        //}
-   
         public void Update(T entity)
         {
             if (entity != null)
             {
-                _dbContext.Update<T>(entity);
+                _dbContext.Update(entity);
                 _dbContext.SaveChanges();
             }
         }
-
     }
+
 }

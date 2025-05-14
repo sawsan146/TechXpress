@@ -44,7 +44,7 @@ namespace TechXpress.Web.ViewModel
 
         [Required]
         [Display(Name = "Category")]
-        public int Category_ID { get; set; } = 2;
+        public string Category_ID { get; set; } = "2";
 
         //public IEnumerable<SelectListItem> Categories { get; set; }
 

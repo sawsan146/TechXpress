@@ -6,14 +6,18 @@ using System.Threading.Tasks;
 
 namespace TechXpress.BLL.Services.Contracts
 {
-    public interface IService<T> where T : class
+    public interface IService<T, TKey> where T : class
     {
-       T GetById(int id);
+        T GetById(TKey id);
 
-       List<T> GetAll();
+        List<T> GetAll();
+
         bool Add(T entity);
+
         bool Update(T entity);
-        bool Delete(int id);
+
+        bool Delete(TKey id);
     }
- 
+
+
 }

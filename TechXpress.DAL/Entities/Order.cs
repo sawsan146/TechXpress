@@ -19,6 +19,7 @@ namespace TechXpress.DAL.Entities
         public User? User { get; set; }
         public Payment Payment { get; set; }
         public List<OrderDetails> OrderDetails { get; set; }
+
     }
 
 }

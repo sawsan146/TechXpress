@@ -7,20 +7,13 @@ using System.Threading.Tasks;
 
 namespace TechXpress.Logic.Repository.Contracts
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T, TKey> where T : class
     {
-         public List<T> GetAll();
-
-        public T GetById(int id);
-
-        public void Add(T entity);
-
-        public void Update(T entity);
-
-        public void Delete(int id);
-
-    //    public bool DeleteAll();
-
-
+        List<T> GetAll();
+        T GetById(TKey id);
+        void Add(T entity);
+        void Update(T entity);
+        void Delete(TKey id);
     }
+
 }

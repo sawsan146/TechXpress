@@ -11,14 +11,13 @@ using TechXpress.Logic.UnitOfWork;
 
 namespace TechXpress.BLL.Services.Implementations
 {
-    public class ProductService : Service<Product, int>, IProductService
+    public class CategoryService : Service<Category, string>, ICategoryService
     {
-         private readonly IUnitOfWork _unitOfWork;
-        public ProductService(IRepository<Product,int> repository, IUnitOfWork unitOfWork, ILogger<Service<Product, int>> logger)
+        private readonly IUnitOfWork _unitOfWork;
+        public CategoryService(IRepository<Category, string> repository, IUnitOfWork unitOfWork, ILogger<Service<Category, string>> logger)
             : base(repository, unitOfWork, logger)
         {
             _unitOfWork = unitOfWork;
         }
     }
-
 }

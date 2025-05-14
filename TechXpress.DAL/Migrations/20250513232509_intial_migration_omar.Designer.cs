@@ -12,8 +12,8 @@ using TechXpress.DAL.Infrastructure;
 namespace TechXpress.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250510124830_init")]
-    partial class init
+    [Migration("20250513232509_intial_migration_omar")]
+    partial class intial_migration_omar
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,16 +59,16 @@ namespace TechXpress.DAL.Migrations
 
             modelBuilder.Entity("TechXpress.DAL.Entities.Category", b =>
                 {
-                    b.Property<int>("Category_ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Category_ID"));
+                    b.Property<string>("Category_ID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsSelected")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -227,8 +227,9 @@ namespace TechXpress.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Category_ID")
-                        .HasColumnType("int");
+                    b.Property<string>("Category_ID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .IsRequired()
