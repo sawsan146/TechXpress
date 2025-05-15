@@ -36,12 +36,9 @@ namespace TechXpress.Web
 
             // Register DbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
-       options.UseSqlServer(
-     
-           builder.Configuration.GetConnectionString("SawsanConnection"),
-           sqlOptions => sqlOptions.MigrationsAssembly("TechXpress.DAL") ));
-
-       
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection"),
+                    sqlOptions => sqlOptions.MigrationsAssembly("TechXpress.DAL")));
 
             // Register generic repository
             builder.Services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
@@ -58,8 +55,9 @@ namespace TechXpress.Web
             builder.Services.AddScoped<IProductImageService, ProductImageService>();
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<ICartAppService, CartAppService>();
-
-
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddScoped<IOrderAppService, OrderAppService>();
 
             // Register AutoMapper profiles
             builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
@@ -71,7 +69,6 @@ namespace TechXpress.Web
                 {
                     options.LoginPath = "/Register/Login";
                 });
-
 
             var app = builder.Build();
 

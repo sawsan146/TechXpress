@@ -1,4 +1,6 @@
-﻿@{
+﻿@model TechXpress.Web.ViewModel.UserProfileViewModel
+
+@{
     ViewData["Title"] = "My Account";
     Layout = "_Layout";
 }
@@ -186,65 +188,72 @@
                 </ol>
             </nav>
             <div class="welcome-message">
-                Welcome! <span>Md Rimel</span>
+                Welcome! <span>@Model.FirstName</span>
             </div>
         </div>
     </div>
 
     <div class="container my-4">
         <div class="row content-wrapper">
-            <!-- Sidebar -->
             @await Html.PartialAsync("_Sidebar")
 
-            <!-- Main Content -->
             <div class="col-md-9">
                 <div class="account-content">
                     <h4 class="content-title">EDIT YOUR PROFILE</h4>
 
-                    <form class="account-form">
-                        <!-- Personal Info -->
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["Success"]
+                        </div>
+                    }
+
+                    <form asp-action="UpdateProfile" asp-controller="Account" method="post" class="account-form">
                         <div class="form-section">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label>First Name</label>
-                                    <input type="text" class="form-control" value="Md">
+                                    <label asp-for="FirstName">First Name</label>
+                                    <input asp-for="FirstName" class="form-control" />
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label>Last Name</label>
-                                    <input type="text" class="form-control" value="Rimel">
+                                    <label asp-for="LastName">Last Name</label>
+                                    <input asp-for="LastName" class="form-control" />
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label>Email</label>
-                                <input type="email" class="form-control" value="rimel1111@gmail.com">
+                                <label asp-for="Email">Email</label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
 
                             <div class="mb-3">
-                                <label>Address</label>
-                                <input type="text" class="form-control" value="Kingston, 5236, United States">
+                                <label asp-for="Address">Address</label>
+                                <input asp-for="Address" class="form-control" />
+                                <span asp-validation-for="Address" class="text-danger"></span>
                             </div>
                         </div>
 
-                        <!-- Password Change -->
                         <div class="form-section">
                             <h6 class="section-title">PASSWORD CHANGE</h6>
                             <div class="mb-3">
                                 <label>Current Password</label>
-                                <input type="password" class="form-control">
+                                <input type="password" class="form-control" name="CurrentPassword">
                             </div>
                             <div class="mb-3">
                                 <label>New Password</label>
-                                <input type="password" class="form-control">
+                                <input type="password" class="form-control" name="NewPassword">
                             </div>
                             <div class="mb-3">
                                 <label>Confirm New Password</label>
-                                <input type="password" class="form-control">
+                                <input type="password" class="form-control" name="ConfirmNewPassword">
                             </div>
                         </div>
 
                         <div class="form-actions">
-                            <button type="button" class="btn btn-outline-dark">CANCEL</button>
+                            <button type="button" class="btn btn-outline-dark" onclick="window.location.href='@Url.Action("MyAccount", "Account")'">CANCEL</button>
                             <button type="submit" class="btn btn-danger">SAVE CHANGES</button>
                         </div>
                     </form>
@@ -253,3 +262,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

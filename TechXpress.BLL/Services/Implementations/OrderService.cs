@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TechXpress.BLL.Services.Contracts.TechXpress.BLL.Services.Contracts;
+using TechXpress.BLL.Services.Contracts;
 using TechXpress.DAL.Entities;
 using TechXpress.DAL.Repository.Contracts;
 
@@ -26,6 +24,11 @@ namespace TechXpress.BLL.Services.Implementations
         public List<Order> GetAll()
         {
             return _orderRepository.GetAll();
+        }
+
+        public List<Order> GetOrdersByUserId(int userId)
+        {
+            return _orderRepository.GetAll().Where(o => o.User_ID == userId).ToList();
         }
 
         public bool Add(Order entity)
