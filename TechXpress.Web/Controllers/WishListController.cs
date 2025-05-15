@@ -329,8 +329,7 @@ namespace TechXpress.Web.Controllers
                     Image = item.ProductImageUrl,
                     Price = item.Price,
                     // ReviewCount and Rating are not available from DTO, default to 0 or remove from UI
-                    ReviewCount = 0,
-                    Rating = 0
+                   
                 }
             }).ToList();
 

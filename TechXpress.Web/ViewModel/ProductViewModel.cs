@@ -9,8 +9,8 @@ namespace TechXpress.Web.ViewModel
         public string Description { get; set; }
         public  string Image { get; set; }
         public  float Price { get; set; }
-        public int ReviewCount { get; set; }
-        public  int  Rating { get; set; }
+        //public int ReviewCount { get; set; }
+        //public  int  Rating { get; set; }
 
         public string Category { get; set; }
 

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Threading.Tasks;
 using TechXpress.Application.ApplicationServices.Contract;
 using TechXpress.Application.DTOs;
 using TechXpress.DAL.Entities;
@@ -83,32 +84,7 @@ namespace TechExpress.Web.Controllers
             ViewBag.categories = _categoryAppService.GetAllCategories().Select(c => new { c.Name ,c.Id} ).ToList();
             return View(viewModels);
         }
-
-        //public IActionResult AddProduct()
-        //{
-        //    var categories = _categoryAppService.GetAllCategories();
-        //    var viewModel = new ProductDashBoardViewModel
-        //    {
-        //        Categories = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(categories, "ID", "Name")
-        //    };
-        //    return View("AddProductDashBoard", viewModel);
-        //}
-
-        //[HttpPost]
-        //public IActionResult AddProduct(ProductDashBoardViewModel viewModel)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        var categories = _categoryAppService.GetAllCategories();
-        //        viewModel.Categories = new Microsoft.AspNetCore.Mvc.Rendering.SelectList(categories, "ID", "Name");
-        //        return View("AddProductDashBoard", viewModel);
-        //    }
-
-        //    var productDto = _mapper.Map<ProductDTO>(viewModel);
-        //    _productAppService.AddProduct(productDto);
-
-        //    return RedirectToAction("ProductDashBoard");
-        //}
+    
 
         [Authorize(Roles = "Admin")]
         public IActionResult AddProduct()
@@ -130,7 +106,7 @@ namespace TechExpress.Web.Controllers
             return View("AddProductDashBoard", vm);
         }
         [HttpPost]
-        public IActionResult AddProduct(ProductDashBoardViewModel vm)
+        public async Task<IActionResult> AddProduct(ProductDashBoardViewModel vm)
         {
             ModelState.Remove("Categories");
             ModelState.Remove("CategoryName");
@@ -155,7 +131,7 @@ namespace TechExpress.Web.Controllers
 
                         using (var stream = new FileStream(filePath, FileMode.Create))
                         {
-                            image.CopyTo(stream);
+                            await image.CopyToAsync(stream);
                         }
 
                         productDto.UploadedImages.Add(uniqueFileName);
