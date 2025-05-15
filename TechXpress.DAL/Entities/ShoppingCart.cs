@@ -13,6 +13,8 @@ namespace TechXpress.DAL.Entities
         public DateTime Create_Date { get; set; }
         public float Total_Price { get; set; }
 
+        public string CookieValue { get; set; }
+
         public User User { get; set; }
         public List<CartItems> CartItems { get; set; }
     }

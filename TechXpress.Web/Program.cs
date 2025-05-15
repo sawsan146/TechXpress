@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using TechXpress.Application.ApplicationServices.Contract;
 using TechXpress.Application.ApplicationServices.Implementation;
+using TechXpress.Application.ApplicationServices.Implementations;
 using TechXpress.BLL.Services.Contracts;
 using TechXpress.BLL.Services.Implementations;
 using TechXpress.DAL.Entities;
@@ -55,6 +56,8 @@ namespace TechXpress.Web
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<IWishListAppService, WishListAppService>();
             builder.Services.AddScoped<IProductImageService, ProductImageService>();
+            builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddScoped<ICartAppService, CartAppService>();
 
 
 

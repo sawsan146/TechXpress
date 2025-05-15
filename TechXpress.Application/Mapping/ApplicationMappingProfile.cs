@@ -18,7 +18,6 @@ namespace TechXpress.Web.Mapping
                    ImageURL = imgUrl,
                    Product_ID = dest.Product_ID
                }).ToList()));
-            //.ForPath(dest => dest.Category.Name, opt => opt.MapFrom(src => src.CategoryName));
                
             
 
@@ -40,6 +39,15 @@ namespace TechXpress.Web.Mapping
 
             CreateMap<CategoryDto, Category>()
                 .ForMember(dest => dest.Category_ID, opt => opt.MapFrom(src => src.Id));
+
+
+            // Cart mapping
+            CreateMap<CartItems, CartItemDTO>()
+           .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
+           .ForMember(dest => dest.ProductImage, opt => opt.MapFrom(src => src.Product.ProductImages.First()));
+
+            CreateMap<ShoppingCart, ShoppingCartDTO>()
+                .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src => src.Total_Price));
         }
     }
 
