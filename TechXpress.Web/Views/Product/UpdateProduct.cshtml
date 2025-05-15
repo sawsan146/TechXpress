@@ -1,7 +1,7 @@
 ﻿@model ProductDashBoardViewModel
-@{
+@* @{
     ViewData["Title"] = "Update Product";
-}
+} *@
 
 <style>
     .card {
@@ -255,15 +255,15 @@
                         </div>
                     </div>
 
-                    @* <div class="form-floating mb-4">
+                    <div class="form-floating mb-4">
                         <select asp-for="Category_ID" asp-items="Model.Categories" class="form-select custom-select border-0 shadow">
                             <option disabled value="">Select a category</option>
                         </select>
                         <label asp-for="Category_ID" class="ms-2"></label>
                         <span asp-validation-for="Category_ID" class="text-danger"></span>
-                    </div> *@
+                    </div> 
 
-                    @* <div class="file-upload-wrapper mb-4">
+                    <div class="file-upload-wrapper mb-4">
                         <label class="file-upload-label">
                             <div class="file-upload-icon">
                                 <i class="bi bi-cloud-arrow-up"></i>
@@ -273,7 +273,7 @@
                             <input type="file" asp-for="UploadedImages" class="file-upload-input" id="imageInput" multiple accept="image/*" />
                             <span asp-validation-for="UploadedImages" class="text-danger"></span>
                         </label>
-                    </div> *@
+                    </div>
 
                     <div class="d-flex justify-content-between pt-3">
                         <button type="submit" class="btn btn-create text-white">

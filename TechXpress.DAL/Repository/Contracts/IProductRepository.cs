@@ -5,11 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using TechXpress.DAL.Entities;
 
-namespace TechXpress.Logic.Repository.Contracts
+namespace TechXpress.DAL.Repository.Contracts
 {
     public interface IProductRepository :IRepository<Product,int>
     {
+        public IEnumerable<Product> GetAllProductIncludingCategory();
+        public IEnumerable<Product> GetAllProductIncludingCategoryAndImages();
 
+        public IEnumerable<Product> GetAllProducts();
 
     }
 }

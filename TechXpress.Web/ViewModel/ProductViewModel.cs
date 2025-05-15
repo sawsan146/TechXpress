@@ -12,7 +12,7 @@ namespace TechXpress.Web.ViewModel
         public int ReviewCount { get; set; }
         public  int  Rating { get; set; }
 
-        public Category category = new Category();
+        public string Category { get; set; }
 
 
     }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TechXpress.Logic.Repository.Contracts
+namespace TechXpress.DAL.Repository.Contracts
 {
     public interface IRepository<T, TKey> where T : class
     {

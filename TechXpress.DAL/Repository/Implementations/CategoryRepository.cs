@@ -11,7 +11,7 @@ namespace TechXpress.DAL.Repository.Implementations
 {
     using TechXpress.DAL.Infrastructure;
     using TechXpress.DAL.Entities;
-    using TechXpress.Logic.Repository.Implementations;
+    using TechXpress.DAL.Repository.Implementations;
 
     public class CategoryRepository : Repository<Category, string>, ICategoryRepository
     {

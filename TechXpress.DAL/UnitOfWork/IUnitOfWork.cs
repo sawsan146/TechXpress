@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TechXpress.Logic.Repository.Contracts;
+using TechXpress.DAL.Repository.Contracts;
 
-namespace TechXpress.Logic.UnitOfWork
+namespace TechXpress.DAL.UnitOfWork
 {
     public interface IUnitOfWork:IDisposable
     {
         IProductRepository Products { get; }
+        IProductImageRepository ProductImages { get; }
         Task<int> CompleteAsync();
 
     }

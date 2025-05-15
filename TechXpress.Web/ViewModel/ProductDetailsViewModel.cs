@@ -1,21 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TechXpress.DAL.Entities;
 
-namespace TechXpress.Application.DTOs
+namespace TechXpress.Web.ViewModel
 {
-    public class ProductDTO
+    public class ProductDetailsViewModel
     {
 
         public int ProductID { get; set; }
-
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
@@ -29,7 +20,7 @@ namespace TechXpress.Application.DTOs
         public int Stock { get; set; }
 
         public string Description { get; set; }
-        public DateTime AddTime { get; set; }= DateTime.Now;
+        public DateTime AddTime { get; set; } = DateTime.Now;
 
         [Required]
         [MaxLength(100)]
@@ -53,7 +44,7 @@ namespace TechXpress.Application.DTOs
 
         [Required]
         [Display(Name = "Category")]
-        public string Category_ID { get; set; } 
+        public string Category_ID { get; set; }
 
         public string CategoryName { get; set; }
 
@@ -63,10 +54,6 @@ namespace TechXpress.Application.DTOs
         public float? PercentageDiscount { get; set; }
         public float? PriceAfterDiscount { get; set; }
 
-        public int Id { get; set; } 
-        public string Image { get; set; }
 
     }
-
 }
-

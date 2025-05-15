@@ -8,11 +8,11 @@ namespace TechXpress.BLL.Services.Contracts
 {
     public interface IProductService : IService<Product, int>
     {
-       //public void AddProduct(ProductDTO product);
-        //public void UpdateProduct(ProductDTO product);
-        //public void DeleteProduct(int id);
-        //public ProductDTO GetProductById(int id);
-        //public IEnumerable<ProductDTO> GetAllProducts();
+        
+        public IEnumerable<Product> GetAllProductsWithCategories();
+        public IEnumerable<Product> GetAllProductsWithCategoriesAndImages();
+
+        public IEnumerable<Product> GetAllProducts();
     }
 
 }

@@ -13,7 +13,12 @@ namespace TechXpress.Application.ApplicationServices.Contract
         public void UpdateProduct(ProductDTO productDto);
         public void DeleteProduct(int id);
         public ProductDTO GetProductById(int id);
+
         public List<ProductDTO> GetAllProducts();
+
+        public List<ProductDTO> GetAllProductsWithCategories();
+
+        public List<ProductDTO> GetAllProductsWithCategoriesAndImages();
 
     }
 }

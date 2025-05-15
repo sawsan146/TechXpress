@@ -3,7 +3,7 @@ using System.Linq;
 using TechXpress.Application.ApplicationServices.Contracts.TechXpress.BLL.Services.Contracts;
 using TechXpress.BLL.Services.Contracts;
 using TechXpress.DAL.Entities;
-using TechXpress.Logic.Repository.Contracts;
+using TechXpress.DAL.Repository.Contracts;
 
 namespace TechXpress.BLL.Services.Implementations
 {

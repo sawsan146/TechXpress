@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechXpress.DAL.Entities;
-using TechXpress.Logic.Repository.Contracts;
+using TechXpress.DAL.Repository.Contracts;
 
 namespace TechXpress.DAL.Repository.Contracts
 {
-    public interface IProductImageRepository:IRepository<ProductImg>
+    public interface IProductImageRepository:IRepository<ProductImg,int>
     {
 
     }

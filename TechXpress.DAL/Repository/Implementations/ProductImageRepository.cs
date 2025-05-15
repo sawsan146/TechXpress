@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using TechXpress.DAL.Entities;
 using TechXpress.DAL.Infrastructure;
 using TechXpress.DAL.Repository.Contracts;
-using TechXpress.Logic.Repository.Implementations;
+
+//using TechXpress.DAL.Repository.Contracts;
+using TechXpress.DAL.Repository.Implementations;
 
 namespace TechXpress.DAL.Repository.Implementations
 {
-    public class ProductImageRepository : Repository<ProductImg>, IProductImageRepository
+    public class ProductImageRepository : Repository<ProductImg,int>, IProductImageRepository
     {
         public ProductImageRepository(AppDbContext dbContext) : base(dbContext)
         {

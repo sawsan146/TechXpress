@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using TechXpress.DAL.Entities;
 using TechXpress.DAL.Infrastructure;
-using TechXpress.Logic.Repository.Contracts;
-using TechXpress.Logic.Repository.Implementations;
+using TechXpress.DAL.Repository.Contracts;
+using TechXpress.DAL.Repository.Implementations;
 
-namespace TechXpress.Logic.UnitOfWork
+namespace TechXpress.DAL.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -17,12 +17,14 @@ namespace TechXpress.Logic.UnitOfWork
         private readonly AppDbContext _context;
 
         public IProductRepository Products { get; }
+        public IProductImageRepository ProductImages { get; }
 
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
             Products = new ProductRepository(_context);
-          
+            ProductImages = new ProductImageRepository(_context);
+
         }
 
         public async Task<int> CompleteAsync()
@@ -46,12 +48,7 @@ namespace TechXpress.Logic.UnitOfWork
             }
         }
 
-        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-        // ~UnitOfWork()
-        // {
-        //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-        //     Dispose(disposing: false);
-        // }
+      
 
         public void Dispose()
         {

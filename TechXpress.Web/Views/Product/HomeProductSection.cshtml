@@ -1,5 +1,4 @@
-﻿
-@model List<ProductViewModel>
+﻿@model List<ProductViewModel>
 
 @{
     ViewBag.Title = "Our Products";
@@ -40,7 +39,7 @@
 
                 <div class="product-body px-2">
                     <h5 class="fw-semibold mb-1">@product.Name</h5>
-                    <p class="text-muted mb-2 small d-flex justify-content-center align-items-center gap-1">
+                    @* <p class="text-muted mb-2 small d-flex justify-content-center align-items-center gap-1">
                         <span class="star-rating text-warning" data-rating="@product.Rating" data-product-id="@product.Id">
                             @for (int i = 1; i <= 5; i++)
                             {
@@ -48,8 +47,8 @@
                                 <i class="fa fa-star @isActive" data-value="@i"></i>
                             }
                         </span>
-                        <span>(@product.ReviewCount reviews)</span>
-                    </p>
+                        <span>(@product.r reviews)</span>
+                    </p> *@
 
                     <p class="price fw-bold fs-5 text-dark mb-3">$@product.Price</p>
 

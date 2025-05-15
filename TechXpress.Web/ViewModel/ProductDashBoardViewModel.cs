@@ -7,6 +7,8 @@ namespace TechXpress.Web.ViewModel
 {
     public class ProductDashBoardViewModel
     {
+
+        public int ProductID { get; set; }
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
@@ -44,13 +46,14 @@ namespace TechXpress.Web.ViewModel
 
         [Required]
         [Display(Name = "Category")]
-        public string Category_ID { get; set; } = "2";
+        public string Category_ID { get; set; }
 
-        //public IEnumerable<SelectListItem> Categories { get; set; }
+        public string CategoryName { get; set; }
+        public IEnumerable<SelectListItem> Categories { get; set; }
 
-        //[Required(ErrorMessage = "Please upload an image file.")]
-        //public List<IFormFile> UploadedImages { get; set; }      
-       
+        [Required(ErrorMessage = "Please upload an image file.")]
+        public List<IFormFile> UploadedImages { get; set; }
+
         public float? PercentageDiscount { get; set; }
         public float? PriceAfterDiscount { get; set; }
       

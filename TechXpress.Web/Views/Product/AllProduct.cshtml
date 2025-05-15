@@ -1,97 +1,73 @@
-﻿@model List<TechXpress.DAL.Entities.Product>
+﻿@model ProductListViewModel
 
 @{
     ViewData["Title"] = "All Products";
-    var selectedCategory = ViewBag.Category ?? "All Products";
-    var categories = ViewBag.Categories as List<string>;
+    var selectedCategory = Model.SelectedCategory;
+    var categories = Model.Categories;
+    var search = Model.SearchQuery;
 }
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <div class="container">
     <div class="sidebar">
         <h2>Categories</h2>
         <ul>
-            @foreach (var category in categories)
+            @foreach (var cat in categories)
             {
-                <li class="@(category == selectedCategory ? "active" : "")">
-                    <a href="@Url.Action("Index", "Product", new { category = category })">@category</a>
+                <li class="@(cat == selectedCategory ? "active" : "")">
+                    <a href="@Url.Action("Index", "Product", new { category = cat, search = search })">@cat</a>
                 </li>
             }
         </ul>
+
+        <form method="get" asp-action="Index" asp-controller="Product" class="mt-4">
+            <input type="hidden" name="category" value="@selectedCategory" />
+            <input type="text" name="search" class="form-control mb-2" placeholder="Search products..." value="@search" />
+            <button type="submit" class="btn btn-custom w-100">Search</button>
+        </form>
     </div>
 
     <div class="main-content">
-        <p id="product-count">Showing @Model.Count products</p>
+        <p id="product-count">Showing @Model.Products.Count products</p>
 
         <div class="product-list">
-            @foreach (var product in Model)
+            @foreach (var product in Model.Products)
             {
-                <div class="product-item bg-white shadow-lg rounded-4 p-3 position-relative text-center" data-category="@product.Category.Name">
-                    <div class="product-img-wrapper overflow-hidden rounded-4 mb-3 position-relative">
-                        @if (product.ProductImages != null && product.ProductImages.Any())
+                <div class="product-item" data-category="@product.CategoryName">
+                    <div class="product-img-wrapper">
+                        @if (product.UploadedImages?.Any() == true)
                         {
-                            <img src="@Url.Content(product.ProductImages.First().ImageURL)" alt="@product.Name" class="img-fluid rounded-4 product-image" style="width:100%;height:100%;"/>
+                            <img src="@Url.Content(product.UploadedImages.First().FileName)" alt="@product.Name" />
                         }
                         else
                         {
-                            <img src="/images/placeholder.jpg" alt="@product.Name" class="img-fluid rounded-4 product-image" />
+                            <img src="/images/placeholder.jpg" alt="@product.Name" />
                         }
 
-                        <div class="icon-overlay position-absolute top-0 end-0 m-2 d-flex gap-2">
-                            <a href="@Url.Action("Wishlist", "User", new { id = product.Product_ID })"
-                               class="text-danger text-decoration-none fs-5"
-                               title="Add to Wishlist"
-                               aria-label="Add to Wishlist">
+                        <div class="icon-overlay">
+                            <a href="@Url.Action("Wishlist", "User", new { id = product.ProductID })">
                                 <i class="fa fa-heart"></i>
                             </a>
-                            <a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@product.Product_ID"
-                               class="text-secondary text-decoration-none fs-5"
-                               title="View Details"
-                               aria-label="View Details">
+                            <a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@product.ProductID">
                                 <i class="fa fa-eye"></i>
                             </a>
                         </div>
                     </div>
 
-                    <div class="product-body px-2">
-                        <h5 class="fw-semibold mb-1">@product.Name</h5>
-                        <p class="text-muted mb-2 small d-flex justify-content-center align-items-center gap-1">
-                            <span class="star-rating text-warning" data-rating="@(product.Reviews != null && product.Reviews.Any() ? product.Reviews.Average(r => r.Rating) : 0)" data-product-id="@product.Product_ID">
-                                @{
-                                    var averageRating = product.Reviews != null && product.Reviews.Any()
-                                    ? product.Reviews.Average(r => r.Rating)
-                                    : 0;
-                                    for (int i = 1; i <= 5; i++)
-                                    {
-                                        var isActive = i <= averageRating ? "active" : "";
-                                        <i class="fa fa-star @isActive" data-value="@i"></i>
-                                    }
-                                }
-                            </span>
-                            <span>(@(product.Reviews?.Count ?? 0) reviews)</span>
-                        </p>
+                    <div class="product-body">
+                        <h5>@product.Name</h5>
+                        <p class="price">$@product.Price</p>
 
-                        <p class="price fw-bold fs-5 text-dark mb-3">$@product.Price</p>
-
-                        @* <a asp-controller="Cart" *@
-                        @*    asp-action="Index" *@
-                        @*    asp-route-product_id="@product.Product_ID" *@
-                        @*    class="btn btn-custom w-100 py-2 fw-semibold add-to-cart"> *@
-                        @*     <i class="fa fa-cart-plus me-2"></i> Add To Cart *@
-                        @* </a> *@
-
-                        <form method="post" asp-controller="Cart" asp-action="Index" asp-route-product_id="@product.Product_ID">
-                            <button type="submit" class="btn btn-custom w-100 py-2 fw-semibold add-to-cart">
-                                <i class="fa fa-cart-plus me-2">Add to Cart</i>
+                        <form method="post" asp-controller="Cart" asp-action="Index" asp-route-product_id="@product.ProductID">
+                            <button type="submit" class="btn btn-custom">
+                                <i class="fa fa-cart-plus me-2"></i> Add to Cart
                             </button>
                         </form>
 
-
-
-
                         <div class="category-label">
-                            <span>@product.Category.Name</span>
+                            @{
+                                var categoryItem = product.Categories != null ? product.Categories.FirstOrDefault(c => c.Value == product.Category_ID):null;
+                            }
+                            <span>@categoryItem?.Text</span>
                         </div>
                     </div>
                 </div>
@@ -99,6 +75,7 @@
         </div>
     </div>
 </div>
+
 <style>
     .container {
         display: flex;

@@ -9,18 +9,30 @@ namespace TechXpress.Web.Mapping
     {
         public ApplicationMappingProfile()
         {
-            // Product mapping
-            CreateMap<Product, ProductDTO>();
 
+            // Product mapping
             CreateMap<ProductDTO, Product>()
-                .ForMember(dest => dest.Product_ID, opt => opt.Ignore())
+            .ForMember(dest => dest.ProductImages, opt => opt.MapFrom((src, dest) =>
+               src.UploadedImages.Select(imgUrl => new ProductImg
+               {
+                   ImageURL = imgUrl,
+                   Product_ID = dest.Product_ID
+               }).ToList()));
+            //.ForPath(dest => dest.Category.Name, opt => opt.MapFrom(src => src.CategoryName));
+               
+            
+
+            CreateMap<Product, ProductDTO>()
+                .ForMember(dest => dest.UploadedImages, opt => opt.MapFrom(src => src.ProductImages.Select(img => img.ImageURL).ToList()))
+                .ForMember(dest => dest.ProductID, opt => opt.MapFrom(src => src.Product_ID))
                 .ForMember(dest => dest.Category_ID, opt => opt.MapFrom(src => src.Category_ID))
-                .ForMember(dest => dest.AddTime, opt => opt.MapFrom(src =>
-                    src.AddTime == default ? DateTime.Now : src.AddTime))
-                .ForMember(dest => dest.ProductImages, opt => opt.Ignore())
-                .ForMember(dest => dest.OrderDetails, opt => opt.Ignore())
-                .ForMember(dest => dest.CartItems, opt => opt.Ignore())
-                .ForMember(dest => dest.Reviews, opt => opt.Ignore());
+                .ForPath(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+                
+         
+
+
+
+
 
             // Category mapping
             CreateMap<Category, CategoryDto>()

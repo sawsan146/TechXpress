@@ -9,9 +9,7 @@ using TechXpress.DAL.Entities;
 using TechXpress.DAL.Infrastructure;
 using TechXpress.DAL.Repository.Contracts;
 using TechXpress.DAL.Repository.Implementations;
-using TechXpress.Logic.Repository.Contracts;
-using TechXpress.Logic.Repository.Implementations;
-using TechXpress.Logic.UnitOfWork;
+using TechXpress.DAL.UnitOfWork;
 using TechXpress.Services.ApplicationServicesConfigrations;
 using TechXpress.Web.Mapping;
 
@@ -38,8 +36,13 @@ namespace TechXpress.Web
             // Register DbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
        options.UseSqlServer(
+<<<<<<< HEAD
            builder.Configuration.GetConnectionString("DefaultConnection"),
            sqlOptions => sqlOptions.MigrationsAssembly("TechXpress.DAL")
+=======
+           builder.Configuration.GetConnectionString("SawsanConnection"),
+           sqlOptions => sqlOptions.MigrationsAssembly("TechXpress.DAL") 
+>>>>>>> #conect product controller with DB
        )
    );
 
@@ -54,7 +57,13 @@ namespace TechXpress.Web
             builder.Services.AddScoped<IProductAppService, ProductAppService>();
             builder.Services.AddScoped<ICategoryAppService, CategoryAppService>();
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+<<<<<<< HEAD
             builder.Services.AddScoped<IWishListAppService, WishListAppService>();
+=======
+            builder.Services.AddScoped<IProductImageService, ProductImageService>();
+
+
+>>>>>>> #conect product controller with DB
 
             // Register AutoMapper profiles
             builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);

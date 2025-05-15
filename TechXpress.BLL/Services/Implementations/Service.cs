@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TechXpress.BLL.Services.Contracts;
-using TechXpress.Logic.Repository.Contracts;
-using TechXpress.Logic.UnitOfWork;
+using TechXpress.DAL.Repository.Contracts;
+using TechXpress.DAL.UnitOfWork;
 
 namespace TechXpress.BLL.Services.Implementations
 {

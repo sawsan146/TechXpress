@@ -6,14 +6,54 @@ using System.Text;
 using System.Threading.Tasks;
 using TechXpress.DAL.Entities;
 using TechXpress.DAL.Infrastructure;
-using TechXpress.Logic.Repository.Contracts;
+using TechXpress.DAL.Repository.Contracts;
 
-namespace TechXpress.Logic.Repository.Implementations
+namespace TechXpress.DAL.Repository.Implementations
 {
     public class ProductRepository : Repository<Product,int>, IProductRepository
     {
+        private readonly AppDbContext _dbContext;
         public ProductRepository(AppDbContext dbContext) : base(dbContext)
         {
+            _dbContext = dbContext;
+        }
+
+        public IEnumerable<Product> GetAllProductIncludingCategory()
+        {
+            try
+            {
+                return _dbContext.Products.Include(p => p.Category).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving products with categories.", ex);
+            }
+        }
+
+        public IEnumerable<Product> GetAllProductIncludingCategoryAndImages()
+        {
+            try
+            {
+                return _dbContext.Products.Include(p => p.Category).Include(p => p.ProductImages).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving products with categories and images.", ex);
+            }
+        }
+
+        public  IEnumerable<Product> GetAllProducts()
+        {
+
+            try
+            {
+                return _dbContext.Products.Include(p => p.Category).Include(p => p.ProductImages).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while retrieving all products.", ex);
+            }
+
         }
     }
 }
