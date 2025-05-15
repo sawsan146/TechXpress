@@ -39,7 +39,7 @@ namespace TechXpress.Web
             builder.Services.AddDbContext<AppDbContext>(options =>
        options.UseSqlServer(
            builder.Configuration.GetConnectionString("DefaultConnection"),
-           sqlOptions => sqlOptions.MigrationsAssembly("TechXpress.DAL") 
+           sqlOptions => sqlOptions.MigrationsAssembly("TechXpress.DAL")
        )
    );
 
@@ -54,7 +54,7 @@ namespace TechXpress.Web
             builder.Services.AddScoped<IProductAppService, ProductAppService>();
             builder.Services.AddScoped<ICategoryAppService, CategoryAppService>();
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-
+            builder.Services.AddScoped<IWishListAppService, WishListAppService>();
 
             // Register AutoMapper profiles
             builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
@@ -66,6 +66,7 @@ namespace TechXpress.Web
                 {
                     options.LoginPath = "/Register/Login";
                 });
+
 
             var app = builder.Build();
 

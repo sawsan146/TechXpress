@@ -17,5 +17,7 @@ namespace TechXpress.DAL.Entities
         public int WishList_ID { get; set; }
 
         public WishList WishList { get; set; }
+        public float Price { get; set; }
+
     }
 }
