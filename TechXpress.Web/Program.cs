@@ -36,15 +36,11 @@ namespace TechXpress.Web
             // Register DbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
        options.UseSqlServer(
-<<<<<<< HEAD
-           builder.Configuration.GetConnectionString("DefaultConnection"),
-           sqlOptions => sqlOptions.MigrationsAssembly("TechXpress.DAL")
-=======
+     
            builder.Configuration.GetConnectionString("SawsanConnection"),
-           sqlOptions => sqlOptions.MigrationsAssembly("TechXpress.DAL") 
->>>>>>> #conect product controller with DB
-       )
-   );
+           sqlOptions => sqlOptions.MigrationsAssembly("TechXpress.DAL") ));
+
+       
 
             // Register generic repository
             builder.Services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
@@ -57,13 +53,10 @@ namespace TechXpress.Web
             builder.Services.AddScoped<IProductAppService, ProductAppService>();
             builder.Services.AddScoped<ICategoryAppService, CategoryAppService>();
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-<<<<<<< HEAD
             builder.Services.AddScoped<IWishListAppService, WishListAppService>();
-=======
             builder.Services.AddScoped<IProductImageService, ProductImageService>();
 
 
->>>>>>> #conect product controller with DB
 
             // Register AutoMapper profiles
             builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
