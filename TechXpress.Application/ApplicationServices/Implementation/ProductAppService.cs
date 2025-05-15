@@ -64,7 +64,7 @@ namespace TechXpress.Application.ApplicationServices.Implementation
 
         public List<ProductDTO> GetAllProducts()
         {
-            var products = _ProductService.GetAll().ToList();
+            var products = _ProductService.GetAllProducts().ToList();
             var productDtos = _mapper.Map<List<ProductDTO>>(products);
             return productDtos;
         }

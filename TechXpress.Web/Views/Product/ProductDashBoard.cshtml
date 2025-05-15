@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProductDashBoardViewModel>
+﻿@* @model IEnumerable<ProductDashBoardViewModel>
 
 @{
     ViewBag.Title = "Products";
@@ -57,7 +57,9 @@
                     <th class="px-6 py-3 text-left">Price</th>
                     <th class="px-6 py-3 text-left">Stock</th>
                     @* <th class="px-6 py-3 text-left">Reviews</th> *@
-                    <th class="px-6 py-3 text-left">Actions</th>
+@*                     <th class="px-6 py-3 text-left">Update</th>
+                    <th class="px-6 py-3 text-left">Delete</th>
+
                 </tr>
             </thead>
             <tbody id="productsTableBody" class="divide-y divide-gray-100 text-gray-800">
@@ -86,15 +88,174 @@
                             </span>
                         </td>
                         @* <td class="px-6 py-4">@item.Reviews?.Count()</td> *@
+                     @* <td class="px-6 py-4 space-x-2">
+                            
+                            <a asp-action="UpdateProduct" asp-controller="Product" asp-route-id="@item.ProductID"
+                               class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition  btn btn-primary btn-sm" title="Edit" >
+                                <i class="fa fa-edit"></i> Edit
+
+                            </a>                          
+                        </td>
                         <td class="px-6 py-4 space-x-2">
-                            <a href="@Url.Action("UpdateProduct", "Product", new { id = item.ProductID })"
-                               class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-                                ✏️ Edit
+
+                          
+
+
+                            <form asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@item.ProductID" method="post" onsubmit="return confirm('Are you sure you want to delete this category?');">
+                                <button type="submit" class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- No Results Message -->
+        <div id="noResults" class="hidden p-6 text-center text-gray-500">
+            No products match your filters or search.
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const categoryFilter = document.getElementById('categoryFilter');
+            const searchInput = document.getElementById('searchInput');
+            const resetFilters = document.getElementById('resetFilters');
+            const productRows = document.querySelectorAll('.product-row');
+            const noResultsDiv = document.getElementById('noResults');
+
+            function applyFilters() {
+                const selectedCategory = categoryFilter.value.toLowerCase();
+                const searchTerm = searchInput.value.toLowerCase();
+                let visibleCount = 0;
+
+                productRows.forEach(row => {
+                    const category = row.dataset.category?.toLowerCase() || '';
+                    const searchText = row.dataset.search?.toLowerCase() || '';
+
+                    const matchesCategory = !selectedCategory || category.includes(selectedCategory);
+                    const matchesSearch = !searchTerm || searchText.includes(searchTerm);
+
+                    if (matchesCategory && matchesSearch) {
+                        row.style.display = '';
+                        visibleCount++;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                noResultsDiv.classList.toggle('hidden', visibleCount > 0);
+            }
+
+            categoryFilter.addEventListener('change', applyFilters);
+            searchInput.addEventListener('input', applyFilters);
+            resetFilters.addEventListener('click', () => {
+                categoryFilter.value = '';
+                searchInput.value = '';
+                applyFilters();
+            });
+        });
+    </script>
+}
+
+ *@ 
+
+@model IEnumerable<ProductDashBoardViewModel>
+
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_DashBoardLayout.cshtml";
+}
+
+<div class="p-6">
+    <!-- Header -->
+    <div class="card shadow mb-6">
+        <div class="card-header text-white px-6 py-4 rounded-t-lg" style="background: linear-gradient(135deg, #1d3557, #457b9d);">
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold">🛍️ Products Dashboard</h2>
+                <a asp-controller="Product" asp-action="AddProduct"
+                   class="inline-block px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition duration-300">
+                    + Add Product
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white shadow rounded-lg p-4 mb-6">
+        <div class="flex flex-col md:flex-row gap-4">
+            <div class="w-full md:w-1/3">
+                <label class="block text-gray-700 font-medium mb-1">Category</label>
+                <select id="categoryFilter" class="w-full px-3 py-2 border rounded focus:ring-blue-500">
+                    <option value="">All Categories</option>
+                    @foreach (var category in ViewBag.categories)
+                    {
+                        <option value="@category.Name">@category.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="w-full md:w-1/3">
+                <label class="block text-gray-700 font-medium mb-1">Search</label>
+                <input type="text" id="searchInput" placeholder="Name or description"
+                       class="w-full px-3 py-2 border rounded focus:ring-blue-500" />
+            </div>
+            <div class="w-full md:w-1/3 flex items-end">
+                <button id="resetFilters" class="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200">
+                    Reset
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white shadow rounded-lg overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 text-base">
+            <thead class="bg-gray-100 text-gray-700 font-semibold">
+                <tr>
+                    <th class="px-6 py-3 text-left">Name</th>
+                    <th class="px-6 py-3 text-left">Category</th>
+                    <th class="px-6 py-3 text-left">Description</th>
+                    <th class="px-6 py-3 text-left">Price</th>
+                    <th class="px-6 py-3 text-left">Stock</th>
+                    <th class="px-6 py-3 text-left">Update</th>
+                    <th class="px-6 py-3 text-left">Delete</th>
+                </tr>
+            </thead>
+            <tbody id="productsTableBody" class="divide-y divide-gray-100 text-gray-800">
+                @foreach (var item in Model)
+                {
+                    <tr class="product-row hover:bg-gray-50 transition"
+                        data-category="@item.CategoryName"
+                        data-search="@($"{item.Name} {item.Description}")">
+                        <td class="px-6 py-4 font-semibold">@item.Name</td>
+                        <td class="px-6 py-4">
+                            <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
+                                @item.CategoryName
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 truncate max-w-xs">@item.Description</td>
+                        <td class="px-6 py-4 text-green-600 font-bold">$@item.Price</td>
+                        <td class="px-6 py-4">
+                            <span class="px-3 py-1 rounded-full @(item.Stock > 10 ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800")">
+                                @item.Stock
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 space-x-2">
+                            <a asp-action="UpdateProduct" asp-controller="Product" asp-route-id="@item.ProductID"
+                               class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition btn btn-primary btn-sm" title="Edit">
+                                <i class="fa fa-edit"></i> Edit
                             </a>
-                            <a href="@Url.Action("DeleteProduct", "Product", new { id = item.ProductID })"
-                               class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">
-                                🗑️ Delete
-                            </a>
+                        </td>
+                        <td class="px-6 py-4 space-x-2">
+                            <form asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@item.ProductID" method="post" onsubmit="return confirm('Are you sure you want to delete this category?');">
+                                <button type="submit" class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Delete
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 }

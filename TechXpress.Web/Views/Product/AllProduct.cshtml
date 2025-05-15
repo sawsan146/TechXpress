@@ -34,9 +34,9 @@
             {
                 <div class="product-item" data-category="@product.CategoryName">
                     <div class="product-img-wrapper">
-                        @if (product.UploadedImages?.Any() == true)
+                        @if (product.ImageNamesForDisplay?.Any() == true)
                         {
-                            <img src="@Url.Content(product.UploadedImages.First().FileName)" alt="@product.Name" />
+                            <img src="~/images/product/@product.ImageNamesForDisplay.First()" alt="@product.Name" />
                         }
                         else
                         {

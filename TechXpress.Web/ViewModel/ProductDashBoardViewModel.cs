@@ -54,6 +54,8 @@ namespace TechXpress.Web.ViewModel
         [Required(ErrorMessage = "Please upload an image file.")]
         public List<IFormFile> UploadedImages { get; set; }
 
+        public List<string> ImageNamesForDisplay { get; set; } 
+
         public float? PercentageDiscount { get; set; }
         public float? PriceAfterDiscount { get; set; }
       

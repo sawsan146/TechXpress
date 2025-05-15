@@ -22,27 +22,10 @@ namespace TechExpress.Web.Controllers
             _categoryAppService = categoryAppService;
             _mapper = mapper;
         }
-
-        //public IActionResult Index(string category)
-        //{
-        //    var products = _productAppService.GetAllProducts(); 
-        //    if (!string.IsNullOrEmpty(category) && category != "All Products")
-        //    {
-        //        var categoryDto = _categoryAppService.GetAllCategories().FirstOrDefault(c => c.Name == category);
-        //        products = products.Where(p => categoryDto.Id == category).ToList();
-        //    }
-
-        //    var viewModel = _mapper.Map<List<ProductDashBoardViewModel>>(products);
-
-        //    ViewBag.Categories = _categoryAppService.GetAllCategories().Select(c => new { c.Name ,c.Id}).ToList();
-        //    ViewBag.Category = category ?? "All Products";
-
-        //    return View("AllProduct", viewModel);
-        //}
+      
 
         public IActionResult Index(string category, string search)
         {
-                System.Diagnostics.Debug.WriteLine($"[DEBUG] category = '{category}', search = '{search}'");
 
             var allProducts = _productAppService.GetAllProductsWithCategories();
 
@@ -62,7 +45,8 @@ namespace TechExpress.Web.Controllers
 
             var viewModel = new ProductListViewModel
             {
-                Products = _mapper.Map<List<ProductDashBoardViewModel>>(allProducts),
+                Products = _mapper.Map<List<ProductDashBoardViewModel>>(allProducts),                
+
                 Categories = _categoryAppService.GetAllCategories().Select(c => c.Name).ToList(),
                 SelectedCategory = category ?? "All Products",
                 SearchQuery = search ?? string.Empty
@@ -150,6 +134,7 @@ namespace TechExpress.Web.Controllers
         {
             ModelState.Remove("Categories");
             ModelState.Remove("CategoryName");
+            ModelState.Remove("ImageNamesForDisplay");
 
             if (ModelState.IsValid)
             {
@@ -173,7 +158,7 @@ namespace TechExpress.Web.Controllers
                             image.CopyTo(stream);
                         }
 
-                        productDto.UploadedImages.Add(image.FileName);
+                        productDto.UploadedImages.Add(uniqueFileName);
                     }
                 }
 
