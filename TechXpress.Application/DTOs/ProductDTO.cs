@@ -58,8 +58,11 @@ namespace TechXpress.Application.DTOs
         //public List<IFormFile> UploadedImages { get; set; }
 
         public float? PercentageDiscount { get; set; }
-        public float? PriceAfterDiscount { get; set; }     
-    
+        public float? PriceAfterDiscount { get; set; }
+
+        public int Id { get; set; } 
+        public string Image { get; set; }
+
     }
 
 }
