@@ -40,6 +40,10 @@ namespace TechXpress.Web.Mapping
             CreateMap<ShoppingCartDTO, ShoppingCartViewModel>()
                 .ForMember(dest => dest.OrderTotal, opt => opt.MapFrom(src => src.TotalPrice))
                 .ForMember(dest => dest.ShoppingCartList, opt => opt.MapFrom(src => src.CartItems));
+
+            //Contact Message Mapping
+            CreateMap<ContactMessageViewModel, ContactMassegeDTO>();
+
         }
     }
 }

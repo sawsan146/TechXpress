@@ -58,6 +58,8 @@ namespace TechXpress.Web
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<IOrderAppService, OrderAppService>();
+            builder.Services.AddScoped<IContactMessagesService, ContactMessagesService>();
+            builder.Services.AddScoped<IContactMessageAppService, ContactMessageAppService>();
 
             // Register AutoMapper profiles
             builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TechXpress.DAL.Repository;
 using TechXpress.DAL.Repository.Contracts;
 
 namespace TechXpress.DAL.UnitOfWork
@@ -14,6 +13,7 @@ namespace TechXpress.DAL.UnitOfWork
         IProductImageRepository ProductImages { get; }
         ICartRepository CartRepository { get; }
 
+        IContactMessagesRepository ContactMessages { get; }
         Task<int> CompleteAsync();
 
     }

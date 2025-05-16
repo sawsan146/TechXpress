@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TechXpress.DAL.Entities;
 
-namespace TechXpress.DAL.Repository
+namespace TechXpress.DAL.Repository.Contracts
 {
     public interface ICartRepository
     {

@@ -53,6 +53,10 @@ namespace TechXpress.Web.Mapping
                 .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.TotalAmount))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
                 .ForMember(dest => dest.User_ID, opt => opt.Ignore());
+
+
+            //ContactMessage
+            CreateMap<ContactMassegeDTO, ContactMessage>();
         }
     }
 }
