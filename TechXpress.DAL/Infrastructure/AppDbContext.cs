@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using TechXpress.DAL.Configurations;
 using TechXpress.DAL.Entities;
 
@@ -46,8 +47,205 @@ namespace TechXpress.DAL.Infrastructure
             modelBuilder.ApplyConfiguration(new PaymentConfiguration());
             modelBuilder.ApplyConfiguration(new ContactMessageConfiguration());
 
+
+
+            var hasher = new PasswordHasher<User>();
+
+            var user1 = new User
+            {
+                Id = "user1-guid", 
+                User_ID = 1,
+                User_Type = "Customer",
+                Fname = "Sawsan",
+                Lname = "Abdelaziz",
+                Phone = "01000000001",
+                Email = "sawsan1@example.com",
+                UserName = "sawsan1@example.com",
+                NormalizedUserName = "SAWSAN1@EXAMPLE.COM",
+                NormalizedEmail = "SAWSAN1@EXAMPLE.COM",
+                Country = "Egypt",
+                EmailConfirmed = true,
+                PhoneNumber = "01000000001",
+                PasswordHash = hasher.HashPassword(null, "P@ssword123")
+            };
+
+            var user2 = new User
+            {
+                Id = "user2-guid",
+                User_ID = 2,
+                User_Type = "Admin",
+                Fname = "Ahmed",
+                Lname = "Ali",
+                Phone = "01000000002",
+                Email = "ahmed@example.com",
+                UserName = "ahmed@example.com",
+                NormalizedUserName = "AHMED@EXAMPLE.COM",
+                NormalizedEmail = "AHMED@EXAMPLE.COM",
+                Country = "Egypt",
+                EmailConfirmed = true,
+                PhoneNumber = "01000000002",
+                PasswordHash = hasher.HashPassword(null, "Admin123$")
+            };
+
+            var user3 = new User
+            {
+                Id = "user3-guid",
+                User_ID = 3,
+                User_Type = "Customer",
+                Fname = "Mona",
+                Lname = "Ibrahim",
+                Phone = "01000000003",
+                Email = "mona@example.com",
+                UserName = "mona@example.com",
+                NormalizedUserName = "MONA@EXAMPLE.COM",
+                NormalizedEmail = "MONA@EXAMPLE.COM",
+                Country = "Egypt",
+                EmailConfirmed = true,
+                PhoneNumber = "01000000003",
+                PasswordHash = hasher.HashPassword(null, "User123$")
+            };
+
+            modelBuilder.Entity<Product>().HasData(
+     new Product
+     {
+         Product_ID = 1,
+         Category_ID = "1",
+         Name = "HP Pavilion 15",
+         Price = 15000f,
+         Stock = 20,
+         AddTime = DateTime.Now,
+         Description = "Powerful laptop with Intel i7, 16GB RAM, and 512GB SSD.",
+         Brand = "HP",
+         Processor = "Intel Core i7",
+         RAM = 16,
+         Storage = "512GB SSD",
+         GPU = "NVIDIA GTX 1650",
+         ScreenSize = 15.6m,
+         Resolution = "1920x1080",
+         PercentageDiscount = 10,
+         PriceAfterDiscount = 13500f
+     },
+     new Product
+     {
+         Product_ID = 2,
+         Category_ID = "2",
+         Name = "Dell Inspiron 14",
+         Price = 12000f,
+         Stock = 15,
+         AddTime = DateTime.Now,
+         Description = "Affordable performance laptop with 8GB RAM and 256GB SSD.",
+         Brand = "Dell",
+         Processor = "Intel Core i5",
+         RAM = 8,
+         Storage = "256GB SSD",
+         GPU = "Intel Iris Xe",
+         ScreenSize = 14.0m,
+         Resolution = "1920x1080",
+         PercentageDiscount = null,
+         PriceAfterDiscount = null
+     },
+     new Product
+     {
+         Product_ID = 3,
+         Category_ID = "3",
+         Name = "Lenovo Legion 5",
+         Price = 22000f,
+         Stock = 10,
+         AddTime = DateTime.Now,
+         Description = "Gaming laptop with Ryzen 7, 16GB RAM, and RTX 3060.",
+         Brand = "Lenovo",
+         Processor = "AMD Ryzen 7",
+         RAM = 16,
+         Storage = "1TB SSD",
+         GPU = "NVIDIA RTX 3060",
+         ScreenSize = 15.6m,
+         Resolution = "2560x1440",
+         PercentageDiscount = 5,
+         PriceAfterDiscount = 20900f
+     }
+ );
+            modelBuilder.Entity<Category>().HasData(
+                 new Category
+                 {
+                     Category_ID = "1",
+                     Name = "Laptops",
+                     Description = "All types of personal and gaming laptops."
+                 },
+                 new Category
+                 {
+                     Category_ID = "2",
+                     Name = "Ultrabooks",
+                     Description = "Lightweight, thin laptops with high performance."
+                 },
+                 new Category
+                 {
+                     Category_ID = "3",
+                     Name = "Gaming",
+                     Description = "High-end gaming laptops and accessories."
+                 }
+             );
+            modelBuilder.Entity<ProductImg>().HasData(
+                new ProductImg
+                {
+                    Image_ID = 1,
+                    Product_ID = 1,
+                    ImageURL = "HP1.jpeg"
+                },
+                new ProductImg
+                {
+                    Image_ID = 2,
+                    Product_ID = 1,
+                    ImageURL = "HP2.jpeg"
+                },
+                new ProductImg
+                {
+                    Image_ID = 7,
+                    Product_ID = 1,
+                    ImageURL = "HP3.jpeg"
+                },
+                new ProductImg
+                {
+                    Image_ID = 3,
+                    Product_ID = 2,
+                    ImageURL = "Dell1.jpeg"
+                },
+                new ProductImg
+                {
+                    Image_ID = 4,
+                    Product_ID = 2,
+                    ImageURL = "dell2.jpeg"
+                },
+                new ProductImg
+                {
+                    Image_ID = 8,
+                    Product_ID =2 ,
+                    ImageURL = "dell3.jpeg"
+                },
+                new ProductImg
+                {
+                    Image_ID = 5,
+                    Product_ID = 3,
+                    ImageURL = "Lenovo1.jpeg"
+                },
+                new ProductImg
+                {
+                    Image_ID = 6,
+                    Product_ID = 3,
+                    ImageURL = "Lenovo2.jpeg"
+                },
+                new ProductImg
+                {
+                    Image_ID = 9,
+                    Product_ID = 3,
+                    ImageURL = "Lenovo3.jpeg"
+                }
+            );
+
             base.OnModelCreating(modelBuilder);
         }
+
+
+
     }
 }
     

@@ -36,20 +36,16 @@ namespace TechXpress.Application.DTOs
         public string Brand { get; set; }
 
         [Required]
-        public string Processor { get; set; }
+        public string? Processor { get; set; }
 
-        [Required]
-        public int RAM { get; set; }
+        
+        public int? RAM { get; set; }
 
-        [Required]
-        public string Storage { get; set; }
+        public string? Storage { get; set; }
 
-        [Required]
-        public string GPU { get; set; }
-        [Required]
-        public decimal ScreenSize { get; set; }
-        [Required]
-        public string Resolution { get; set; }
+        public string? GPU { get; set; }
+        public decimal? ScreenSize { get; set; }
+        public string?  Resolution { get; set; }
 
         [Required]
         [Display(Name = "Category")]

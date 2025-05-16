@@ -17,14 +17,14 @@ namespace TechXpress.DAL.Entities
         public DateTime AddTime { get; set; }
         public string Description { get; set; }
         public string Brand { get; set; }
-        public string Processor { get; set; }
-        public int RAM { get; set; }
-        public string Storage { get; set; }
-        public string GPU { get; set; }
+        public string? Processor { get; set; }
+        public int? RAM { get; set; }
+        public string? Storage { get; set; }
+        public string? GPU { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal ScreenSize { get; set; }
-        public string Resolution { get; set; }
+        public decimal? ScreenSize { get; set; }
+        public string? Resolution { get; set; }
         public float? PercentageDiscount { get; set; }
         public float? PriceAfterDiscount { get; set; }
         public Category Category { get; set; }

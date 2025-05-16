@@ -37,7 +37,7 @@ namespace TechXpress.Web
             // Register DbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
-                    builder.Configuration.GetConnectionString("DefaultConnection"),
+                    builder.Configuration.GetConnectionString("SawsanConnection"),
                     sqlOptions => sqlOptions.MigrationsAssembly("TechXpress.DAL")));
 
             // Register generic repository
