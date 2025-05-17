@@ -14,8 +14,8 @@ namespace TechXpress.BLL.Services.Implementations
     public class ProductService : Service<Product, int>, IProductService
     {
          private readonly IUnitOfWork _unitOfWork;
-        public ProductService(IRepository<Product,int> repository, IUnitOfWork unitOfWork, ILogger<Service<Product, int>> logger)
-            : base(repository, unitOfWork, logger)
+        public ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork, ILogger<Service<Product, int>> logger)
+            : base(productRepository, unitOfWork, logger)
         {
             _unitOfWork = unitOfWork;
         }

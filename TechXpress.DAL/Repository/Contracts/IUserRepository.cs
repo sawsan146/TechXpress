@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using TechXpress.DAL.Entities;
 
-namespace TechXpress.BLL.Services.Contracts
+namespace TechXpress.DAL.Repository.Contracts
 {
-    public interface IUserService:IService<User, int>
+    public interface IUserRepository:IRepository<User, int>
     {
-      
         User GetUserByEmail(string email);
     }
+  
 }

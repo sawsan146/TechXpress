@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using TechXpress.Application.ApplicationServices.Contract;
@@ -40,8 +41,15 @@ namespace TechXpress.Web
                     builder.Configuration.GetConnectionString("SawsanConnection"),
                     sqlOptions => sqlOptions.MigrationsAssembly("TechXpress.DAL")));
 
+            builder.Services.AddIdentity<User, ApplicationRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+
             // Register generic repository
             builder.Services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             // Register UnitOfWork
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -60,20 +68,28 @@ namespace TechXpress.Web
             builder.Services.AddScoped<IOrderAppService, OrderAppService>();
             builder.Services.AddScoped<IContactMessagesService, ContactMessagesService>();
             builder.Services.AddScoped<IContactMessageAppService, ContactMessageAppService>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IUserAppService, UserAppService>();
 
             // Register AutoMapper profiles
             builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
             builder.Services.AddAutoMapper(typeof(ApplicationMappingProfile));
 
+            builder.Services.AddHttpContextAccessor();
+           
             // Configure authentication
+
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-                {
-                    options.LoginPath = "/Register/Login";
-                });
+             .AddCookie(options =>
+             {
+                 options.LoginPath = "/Register/Login";
+             //    options.LogoutPath = "/Register/Logout";
+             });
+
+         
 
             var app = builder.Build();
-
+            
             // Configure the HTTP request pipeline
             if (!app.Environment.IsDevelopment())
             {

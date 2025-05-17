@@ -10,10 +10,10 @@ namespace TechXpress.Application.ApplicationServices.Contract
     public interface ICartAppService
     {
 
-       public ShoppingCartDTO GetCartFromCookie(string cookieValue);
-       public ShoppingCartDTO AddToCart(string cookieValue, ProductDTO product);
-       public ShoppingCartDTO UpdateCartQuantity(string cookieValue, int cartItemId, int quantityChange);
-       public ShoppingCartDTO RemoveFromCart(string cookieValue, int cartItemId);
+       public ShoppingCartDTO GetCartFromCookie(string cookieValue, int? CurrentUserId);
+       public ShoppingCartDTO AddToCart(string cookieValue, ProductDTO product, int? CurrentUserId);
+       public ShoppingCartDTO UpdateCartQuantity(string cookieValue, int cartItemId, int quantityChange, int? CurrentUserId);
+       public ShoppingCartDTO RemoveFromCart(string cookieValue, int cartItemId, int? CurrentUserId);
        public int PlaceOrder(string cookieValue, int userId);
     }
 }

@@ -12,8 +12,8 @@ using TechXpress.DAL.Infrastructure;
 namespace TechXpress.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250515155733_CookieCol")]
-    partial class CookieCol
+    [Migration("20250517094643_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,139 @@ namespace TechXpress.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("TechXpress.DAL.Entities.ApplicationRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
 
             modelBuilder.Entity("TechXpress.DAL.Entities.CartItems", b =>
                 {
@@ -78,6 +211,29 @@ namespace TechXpress.DAL.Migrations
                     b.HasKey("Category_ID");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Category_ID = "1",
+                            Description = "All types of personal and gaming laptops.",
+                            IsSelected = false,
+                            Name = "Laptops"
+                        },
+                        new
+                        {
+                            Category_ID = "2",
+                            Description = "Lightweight, thin laptops with high performance.",
+                            IsSelected = false,
+                            Name = "Ultrabooks"
+                        },
+                        new
+                        {
+                            Category_ID = "3",
+                            Description = "High-end gaming laptops and accessories.",
+                            IsSelected = false,
+                            Name = "Gaming"
+                        });
                 });
 
             modelBuilder.Entity("TechXpress.DAL.Entities.ContactMessage", b =>
@@ -237,7 +393,6 @@ namespace TechXpress.DAL.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("GPU")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -255,24 +410,21 @@ namespace TechXpress.DAL.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("Processor")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RAM")
+                    b.Property<int?>("RAM")
                         .HasColumnType("int");
 
                     b.Property<string>("Resolution")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("ScreenSize")
+                    b.Property<decimal?>("ScreenSize")
                         .HasColumnType("decimal(5,2)");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
 
                     b.Property<string>("Storage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Product_ID");
@@ -280,6 +432,63 @@ namespace TechXpress.DAL.Migrations
                     b.HasIndex("Category_ID");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Product_ID = 1,
+                            AddTime = new DateTime(2025, 5, 17, 12, 46, 43, 121, DateTimeKind.Local).AddTicks(431),
+                            Brand = "HP",
+                            Category_ID = "1",
+                            Description = "Powerful laptop with Intel i7, 16GB RAM, and 512GB SSD.",
+                            GPU = "NVIDIA GTX 1650",
+                            Name = "HP Pavilion 15",
+                            PercentageDiscount = 10f,
+                            Price = 15000m,
+                            PriceAfterDiscount = 13500f,
+                            Processor = "Intel Core i7",
+                            RAM = 16,
+                            Resolution = "1920x1080",
+                            ScreenSize = 15.6m,
+                            Stock = 20,
+                            Storage = "512GB SSD"
+                        },
+                        new
+                        {
+                            Product_ID = 2,
+                            AddTime = new DateTime(2025, 5, 17, 12, 46, 43, 121, DateTimeKind.Local).AddTicks(557),
+                            Brand = "Dell",
+                            Category_ID = "2",
+                            Description = "Affordable performance laptop with 8GB RAM and 256GB SSD.",
+                            GPU = "Intel Iris Xe",
+                            Name = "Dell Inspiron 14",
+                            Price = 12000m,
+                            Processor = "Intel Core i5",
+                            RAM = 8,
+                            Resolution = "1920x1080",
+                            ScreenSize = 14.0m,
+                            Stock = 15,
+                            Storage = "256GB SSD"
+                        },
+                        new
+                        {
+                            Product_ID = 3,
+                            AddTime = new DateTime(2025, 5, 17, 12, 46, 43, 121, DateTimeKind.Local).AddTicks(624),
+                            Brand = "Lenovo",
+                            Category_ID = "3",
+                            Description = "Gaming laptop with Ryzen 7, 16GB RAM, and RTX 3060.",
+                            GPU = "NVIDIA RTX 3060",
+                            Name = "Lenovo Legion 5",
+                            PercentageDiscount = 5f,
+                            Price = 22000m,
+                            PriceAfterDiscount = 20900f,
+                            Processor = "AMD Ryzen 7",
+                            RAM = 16,
+                            Resolution = "2560x1440",
+                            ScreenSize = 15.6m,
+                            Stock = 10,
+                            Storage = "1TB SSD"
+                        });
                 });
 
             modelBuilder.Entity("TechXpress.DAL.Entities.ProductImg", b =>
@@ -302,6 +511,62 @@ namespace TechXpress.DAL.Migrations
                     b.HasIndex("Product_ID");
 
                     b.ToTable("ProductImages");
+
+                    b.HasData(
+                        new
+                        {
+                            Image_ID = 1,
+                            ImageURL = "HP1.jpeg",
+                            Product_ID = 1
+                        },
+                        new
+                        {
+                            Image_ID = 2,
+                            ImageURL = "HP2.jpeg",
+                            Product_ID = 1
+                        },
+                        new
+                        {
+                            Image_ID = 7,
+                            ImageURL = "HP3.jpeg",
+                            Product_ID = 1
+                        },
+                        new
+                        {
+                            Image_ID = 3,
+                            ImageURL = "Dell1.jpeg",
+                            Product_ID = 2
+                        },
+                        new
+                        {
+                            Image_ID = 4,
+                            ImageURL = "dell2.jpeg",
+                            Product_ID = 2
+                        },
+                        new
+                        {
+                            Image_ID = 8,
+                            ImageURL = "dell3.jpeg",
+                            Product_ID = 2
+                        },
+                        new
+                        {
+                            Image_ID = 5,
+                            ImageURL = "Lenovo1.jpeg",
+                            Product_ID = 3
+                        },
+                        new
+                        {
+                            Image_ID = 6,
+                            ImageURL = "Lenovo2.jpeg",
+                            Product_ID = 3
+                        },
+                        new
+                        {
+                            Image_ID = 9,
+                            ImageURL = "Lenovo3.jpeg",
+                            Product_ID = 3
+                        });
                 });
 
             modelBuilder.Entity("TechXpress.DAL.Entities.Return", b =>
@@ -404,40 +669,36 @@ namespace TechXpress.DAL.Migrations
 
             modelBuilder.Entity("TechXpress.DAL.Entities.User", b =>
                 {
-                    b.Property<int>("User_ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("User_ID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Fname")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Lname")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -448,10 +709,12 @@ namespace TechXpress.DAL.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -461,7 +724,6 @@ namespace TechXpress.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
@@ -478,15 +740,27 @@ namespace TechXpress.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("User_ID")
+                        .HasColumnType("int");
 
                     b.Property<string>("User_Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("User_ID");
+                    b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("TechXpress.DAL.Entities.WishList", b =>
@@ -532,6 +806,57 @@ namespace TechXpress.DAL.Migrations
                     b.HasIndex("WishList_ID");
 
                     b.ToTable("WishListItems");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.HasOne("TechXpress.DAL.Entities.ApplicationRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.HasOne("TechXpress.DAL.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.HasOne("TechXpress.DAL.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.HasOne("TechXpress.DAL.Entities.ApplicationRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TechXpress.DAL.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.HasOne("TechXpress.DAL.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TechXpress.DAL.Entities.CartItems", b =>

@@ -19,7 +19,7 @@ namespace TechXpress.DAL.Repository.Implementations
             _context = context;
         }
 
-        public ShoppingCart GetCartByCookie(string cookieValue)
+        public ShoppingCart GetCartByCookie(string cookieValue, int? CurrentUserId)
         {
             return _context.ShoppingCarts
                 .Include(c => c.CartItems)
@@ -27,8 +27,12 @@ namespace TechXpress.DAL.Repository.Implementations
                 .FirstOrDefault(c => c.CookieValue == cookieValue);
         }
 
-        public ShoppingCart AddToCart(string cookieValue, Product product)
+        public ShoppingCart AddToCart(string cookieValue, int productId, int? CurrentUserId)
         {
+            var product = _context.Products.Find(productId);
+            if (product == null)
+                throw new Exception("Product not found");
+
             var cart = _context.ShoppingCarts
                 .Include(c => c.CartItems)
                 .FirstOrDefault(c => c.CookieValue == cookieValue);
@@ -39,7 +43,8 @@ namespace TechXpress.DAL.Repository.Implementations
                 {
                     CookieValue = cookieValue,
                     Create_Date = DateTime.Now,
-                    CartItems = new List<CartItems>()
+                    CartItems = new List<CartItems>(),
+                    User_ID = CurrentUserId ?? 0
                 };
                 _context.ShoppingCarts.Add(cart);
             }
@@ -64,7 +69,7 @@ namespace TechXpress.DAL.Repository.Implementations
         }
 
 
-        public ShoppingCart UpdateCartItemQuantity(string cookieValue, int cartItemId, int quantityChange)
+        public ShoppingCart UpdateCartItemQuantity(string cookieValue, int cartItemId, int quantityChange, int? CurrentUserId)
         {
             var cart = _context.ShoppingCarts
                 .Include(c => c.CartItems)
@@ -87,7 +92,7 @@ namespace TechXpress.DAL.Repository.Implementations
         }
 
 
-        public ShoppingCart RemoveFromCart(string cookieValue, int cartItemId)
+        public ShoppingCart RemoveFromCart(string cookieValue, int cartItemId, int? CurrentUserId)
         {
             var cart = _context.ShoppingCarts
                 .Include(c => c.CartItems)

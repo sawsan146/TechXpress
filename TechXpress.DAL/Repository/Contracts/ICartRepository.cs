@@ -9,10 +9,10 @@ namespace TechXpress.DAL.Repository.Contracts
 {
     public interface ICartRepository
     {
-        ShoppingCart GetCartByCookie(string cookieValue);
-        ShoppingCart AddToCart(string cookieValue, Product product);
-        ShoppingCart UpdateCartItemQuantity(string cookieValue, int cartItemId, int quantityChange);
-        ShoppingCart RemoveFromCart(string cookieValue, int cartItemId);
+        ShoppingCart GetCartByCookie(string cookieValue, int? CurrentUserId);
+        ShoppingCart AddToCart(string cookieValue, int productId, int? CurrentUserId);
+        ShoppingCart UpdateCartItemQuantity(string cookieValue, int cartItemId, int quantityChange, int? CurrentUserId);
+        ShoppingCart RemoveFromCart(string cookieValue, int cartItemId, int? CurrentUserId);
         int PlaceOrder(string cookieValue, int userId);
     }
 }

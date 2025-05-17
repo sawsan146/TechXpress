@@ -21,12 +21,17 @@ namespace TechXpress.DAL.UnitOfWork
         public ICartRepository CartRepository { get; }
 
         public IContactMessagesRepository ContactMessages { get; }
+
+        public IUserRepository Users { get; }
+
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
             Products = new ProductRepository(_context);
             ProductImages = new ProductImageRepository(_context);
             CartRepository = new CartRepository(_context);
+            ContactMessages = new ContactMessagesRepository(_context);
+            Users = new UserRepository(_context);
 
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,31 +7,33 @@ using System.Threading.Tasks;
 using TechXpress.BLL.Services.Contracts;
 using TechXpress.DAL.Entities;
 using TechXpress.DAL.Repository.Contracts;
+using TechXpress.DAL.Repository.Implementations;
+using TechXpress.DAL.UnitOfWork;
 
 namespace TechXpress.BLL.Services.Implementations
 {
-    public class UserService : IUserService
+    public class UserService :Service<User,int>, IUserService
     {
-        private readonly IRepository<User, int> _userRepository;
 
-        public UserService(IRepository<User, int> userRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        public UserService(IUserRepository repository, IUnitOfWork unitOfWork, ILogger<UserService> logger)
+            : base(repository, unitOfWork, logger)
         {
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public User GetUserById(int id)
-        {
-            return _userRepository.GetById(id);
-        }
+
 
         public User GetUserByEmail(string email)
         {
-            return _userRepository.GetAll().FirstOrDefault(u => u.Email == email);
+            var user = _unitOfWork.Users.GetUserByEmail(email);
+            //if (user == null)
+            //{
+            //    throw new Exception("User not found");
+            //}
+            return user;
         }
 
-        public void UpdateUser(User user)
-        {
-            _userRepository.Update(user);
-        }
+
     }
 }

@@ -25,7 +25,7 @@ namespace TechXpress.BLL.Services
         {
             var authClaims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier,user.Id),
+                new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
                 new Claim(ClaimTypes.GivenName,user.UserName),
                 new Claim("Fname",user.Fname),
                 new Claim("Lname",user.Lname),

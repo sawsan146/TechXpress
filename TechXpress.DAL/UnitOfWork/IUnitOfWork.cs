@@ -12,8 +12,10 @@ namespace TechXpress.DAL.UnitOfWork
         IProductRepository Products { get; }
         IProductImageRepository ProductImages { get; }
         ICartRepository CartRepository { get; }
-
         IContactMessagesRepository ContactMessages { get; }
+
+       IUserRepository Users { get; }
+
         Task<int> CompleteAsync();
 
     }

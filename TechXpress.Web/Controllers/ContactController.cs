@@ -10,12 +10,14 @@ namespace TechXpress.Web.Controllers
     {
 
         private readonly IContactMessageAppService contactMessageAppService;
+        private readonly IUserAppService userAppService;
         private readonly IMapper mapper;
 
-        public ContactController(IContactMessageAppService contactMessageAppService, IMapper mapper)
+        public ContactController(IContactMessageAppService contactMessageAppService, IMapper mapper, IUserAppService userAppService)
         {
             this.contactMessageAppService = contactMessageAppService;
             this.mapper = mapper;
+            this.userAppService = userAppService;
         }
 
 
@@ -33,6 +35,7 @@ namespace TechXpress.Web.Controllers
                 return RedirectToAction(nameof(Contact));   
             }
             var Dto=mapper.Map<ContactMassegeDTO>(vm);
+            Dto.UserId= userAppService.GetCurrentUser().User_ID;
             contactMessageAppService.SendMessage(Dto);
             ViewBag.Confirmation = "Your message has been sent successfully!";
 

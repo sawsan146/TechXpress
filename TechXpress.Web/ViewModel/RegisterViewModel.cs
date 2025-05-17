@@ -10,7 +10,7 @@ namespace TechXpress.Web.ViewModel
         [StringLength(100, ErrorMessage = "Name cannot be longer than 100 characters")]
         [Display(Name = "Name")]
         [DataType(DataType.Text)]
-        [RegularExpression(@"^[A-Za-z]\w{5,29}$", ErrorMessage = "Name can only contain letters and spaces")]
+       // [RegularExpression(@"^[A-Za-z]\w{5,29}$", ErrorMessage = "Name can only contain letters and spaces")]
         public  string Name { get; set; }
 
 
@@ -21,7 +21,7 @@ namespace TechXpress.Web.ViewModel
         [Required]
         [StringLength(100, ErrorMessage = "Password must be at least 6 characters long", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$", ErrorMessage = "Password must contain at least one uppercase letter, one lowercase letter, and one number.")]
+        //[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$", ErrorMessage = "Password must contain at least one uppercase letter, one lowercase letter, and one number.")]
 
         public string Password { get; set; }
 

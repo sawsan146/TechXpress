@@ -18,24 +18,25 @@ namespace TechXpress.BLL.Services.Implementations
             _unitOfWork = unitOfWork;
         }
 
-        public ShoppingCart GetCartByCookie(string cookieValue)
+        public ShoppingCart GetCartByCookie(string cookieValue, int? CurrentUserId)
         {
-            return _unitOfWork.CartRepository.GetCartByCookie(cookieValue);
+            return _unitOfWork.CartRepository.GetCartByCookie(cookieValue, CurrentUserId);
         }
 
-        public ShoppingCart AddToCart(string cookieValue, Product product)
+        public ShoppingCart AddToCart(string cookieValue, int productId, int? CurrentUserId)
         {
-            return _unitOfWork.CartRepository.AddToCart(cookieValue, product);
+            return _unitOfWork.CartRepository.AddToCart(cookieValue, productId, CurrentUserId);
         }
 
-        public ShoppingCart UpdateCartItemQuantity(string cookieValue, int cartItemId, int quantityChange)
+
+        public ShoppingCart UpdateCartItemQuantity(string cookieValue, int cartItemId, int quantityChange, int? CurrentUserId)
         {
-            return _unitOfWork.CartRepository.UpdateCartItemQuantity(cookieValue, cartItemId, quantityChange);
+            return _unitOfWork.CartRepository.UpdateCartItemQuantity(cookieValue, cartItemId, quantityChange,CurrentUserId);
         }
 
-        public ShoppingCart RemoveFromCart(string cookieValue, int cartItemId)
+        public ShoppingCart RemoveFromCart(string cookieValue, int cartItemId, int? CurrentUserId)
         {
-            return _unitOfWork.CartRepository.RemoveFromCart(cookieValue, cartItemId);
+            return _unitOfWork.CartRepository.RemoveFromCart(cookieValue, cartItemId, CurrentUserId);
         }
 
         public int PlaceOrder(string cookieValue, int userId)

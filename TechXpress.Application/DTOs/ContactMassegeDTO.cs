@@ -22,6 +22,8 @@ namespace TechXpress.Application.DTOs
 
         [Required]
         public string Message { get; set; }
+        
+        public int UserId { get; set; }
 
     }
 }

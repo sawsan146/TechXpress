@@ -17,28 +17,27 @@ namespace TechXpress.Application.ApplicationServices.Implementations
             _mapper = mapper;
         }
 
-        public ShoppingCartDTO GetCartFromCookie(string cookieValue)
+        public ShoppingCartDTO GetCartFromCookie(string cookieValue, int? CurrentUserId)
         {
-            var cart = _cartService.GetCartByCookie(cookieValue);
+            var cart = _cartService.GetCartByCookie(cookieValue, CurrentUserId);
             return _mapper.Map<ShoppingCartDTO>(cart);
         }
 
-        public ShoppingCartDTO AddToCart(string cookieValue, ProductDTO product)
+        public ShoppingCartDTO AddToCart(string cookieValue, ProductDTO product, int? CurrentUserId)
         {
-            var productEntity = _mapper.Map<Product>(product);
-            var updatedCart = _cartService.AddToCart(cookieValue, productEntity);
+            var updatedCart = _cartService.AddToCart(cookieValue, product.ProductID, CurrentUserId);
             return _mapper.Map<ShoppingCartDTO>(updatedCart);
         }
 
-        public ShoppingCartDTO UpdateCartQuantity(string cookieValue, int cartItemId, int quantityChange)
+        public ShoppingCartDTO UpdateCartQuantity(string cookieValue, int cartItemId, int quantityChange, int? CurrentUserId)
         {
-            var updatedCart = _cartService.UpdateCartItemQuantity(cookieValue, cartItemId, quantityChange);
+            var updatedCart = _cartService.UpdateCartItemQuantity(cookieValue, cartItemId, quantityChange,CurrentUserId);
             return _mapper.Map<ShoppingCartDTO>(updatedCart);
         }
 
-        public ShoppingCartDTO RemoveFromCart(string cookieValue, int cartItemId)
+        public ShoppingCartDTO RemoveFromCart(string cookieValue, int cartItemId, int? CurrentUserId)
         {
-            var updatedCart = _cartService.RemoveFromCart(cookieValue, cartItemId);
+            var updatedCart = _cartService.RemoveFromCart(cookieValue, cartItemId, CurrentUserId);
             return _mapper.Map<ShoppingCartDTO>(updatedCart);
         }
 

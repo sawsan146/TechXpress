@@ -57,6 +57,11 @@ namespace TechXpress.Web.Mapping
 
             //ContactMessage
             CreateMap<ContactMassegeDTO, ContactMessage>();
+
+            //User mapping
+            CreateMap<UserDTO, User>();
+            CreateMap<User, UserDTO>();
+                
         }
     }
 }

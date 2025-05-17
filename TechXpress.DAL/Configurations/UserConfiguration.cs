@@ -19,7 +19,6 @@ namespace TechXpress.DAL.Configurations
             entity.Property(e => e.Fname).HasMaxLength(50);
             entity.Property(e => e.Lname).HasMaxLength(50);
             entity.Property(e => e.Phone).HasMaxLength(15);
-            entity.Property(e => e.Password).IsRequired();
             entity.Property(e => e.Email).IsRequired();
             entity.Property(e => e.Country).HasMaxLength(50);
 

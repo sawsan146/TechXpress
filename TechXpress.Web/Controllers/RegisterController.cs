@@ -1,133 +1,107 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using TechXpress.DAL.Entities;
-using TechXpress.Web.Models;
+using System.Threading.Tasks;
+using TechXpress.DAL.Entities; 
 using TechXpress.Web.ViewModel;
 
 namespace TechXpress.Web.Controllers
 {
     public class RegisterController : Controller
     {
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
+
+        public RegisterController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<ApplicationRole> roleManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
+        }
+
         public IActionResult Login()
         {
             return View();
         }
 
-        private readonly  List<LoginUserViewModel> _useres;
-        public RegisterController()
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            _useres = new List<LoginUserViewModel>{ 
-                new LoginUserViewModel{ Email="sawsanelsebay2@gmail.com", Fname="Sawsan", Lname="Elsba3y", Password="12345678", Phone="01000000000", User_ID=1, User_Type="Admin" },
-                 new LoginUserViewModel{ Email="elbermawyomar0@gmail.com", Fname="Omar", Lname="Elbermawy", Password="OmarElbermawy", Phone="01000000000", User_ID=2, User_Type="Admin" },
-                new LoginUserViewModel{ Email="mo.arafa0000@gmail.com", Fname="mohamed", Lname="Arafa", Password="arafa22", Phone="01000000000", User_ID=3, User_Type="Admin" },
+            if (!ModelState.IsValid)
+                return View(model);
 
-                new LoginUserViewModel{ Email="Admin2@gmail.com", Fname="Admin", Lname="2", Password="12345678", Phone="01000000000", User_ID=4, User_Type="Admin" },
-                new LoginUserViewModel{Email="user1@gmail.com" , Fname="User", Lname="1", Password="12345678", Phone="01000000001", User_ID=5, User_Type="User" },
-                new LoginUserViewModel{Email="user2@gmail.com" , Fname="User", Lname="2", Password="12345678", Phone="01000000001", User_ID=6, User_Type="User" },
-
-            };
-
-        }
-
-        [HttpPost]  
-      public async Task<IActionResult> Login(LoginViewModel model)
-        {
-            if (ModelState.IsValid)
+            var user = await _userManager.FindByEmailAsync(model.EmailOrPhone);
+            if (user == null)
             {
-                var user = _useres.FirstOrDefault(u =>
-                    u.Email == model.EmailOrPhone || u.Phone == model.EmailOrPhone);
-
-                if (user != null)
-                {
-                    if (user.Password == model.Password)
-                    {
-                        var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.Fname),
-                    new Claim(ClaimTypes.NameIdentifier, user.User_ID.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.Role, user.User_Type)
-                };
-
-                        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                        var principal = new ClaimsPrincipal(identity);
-
-                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Incorrect password.");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "User not found. Please register first.");
-                    ViewBag.ShowRegisterLink = true;
-                }
+                ModelState.AddModelError("", "User not found. Please register first.");
+                ViewBag.ShowRegisterLink = true;
+                return View(model);
             }
 
-            return View(model);
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Incorrect password.");
+                return View(model);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
-
+        
         public IActionResult Register()
         {
             return View();
         }
 
-
         [HttpPost]
-        public IActionResult Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var existingUser = await _userManager.FindByEmailAsync(model.EmailOrPhone);
+            if (existingUser != null)
             {
-                var existingUser = _useres.FirstOrDefault(u =>
-                    u.Email == model.EmailOrPhone || u.Phone == model.EmailOrPhone);
-
-                if (existingUser != null)
-                {
-                    ViewBag.ToLogin = true;
-                    ModelState.AddModelError("", "A user with this email or phone already exists.");
-                    return View(model);
-                }
-
-                var newUser = new LoginUserViewModel
-                {
-                    Fname = model.Name,
-                    Email = model.EmailOrPhone.Contains("@") ? model.EmailOrPhone : null,
-                    Phone = model.EmailOrPhone.Contains("@") ? null : model.EmailOrPhone,
-                    Password = model.Password,
-                    User_Type = "Customer" 
-                };
-
-                _useres.Add(newUser);
-
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, newUser.Fname),
-                    new Claim(ClaimTypes.NameIdentifier, newUser.User_ID.ToString()),
-                    new Claim(ClaimTypes.Email, newUser.Email ?? ""),
-                    new Claim(ClaimTypes.Role, newUser.User_Type)
-                };
-
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var principal = new ClaimsPrincipal(identity);
-                HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
-                return RedirectToAction("Index", "Home");
+                ModelState.AddModelError("", "User already exists.");
+                ViewBag.ToLogin = true;
+                return View(model);
             }
 
-            return View(model);
+            var user = new User
+            {
+                UserName = model.EmailOrPhone,
+                Email = model.EmailOrPhone.Contains("@") ? model.EmailOrPhone : null,
+                PhoneNumber = !model.EmailOrPhone.Contains("@") ? model.EmailOrPhone : null,
+                Fname = model.Name,
+            };
+
+            var createResult = await _userManager.CreateAsync(user, model.Password);
+            if (!createResult.Succeeded)
+            {
+                foreach (var error in createResult.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View(model);
+            }
+
+            if (!await _roleManager.RoleExistsAsync("Admin"))
+            {
+                await _roleManager.CreateAsync(new ApplicationRole("Admin"));
+            }
+
+            await _userManager.AddToRoleAsync(user, "Admin");
+
+            await _signInManager.SignInAsync(user, isPersistent: false);
+            return RedirectToAction("Index", "Home");
         }
 
 
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Register");
         }
     }

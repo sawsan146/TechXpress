@@ -77,6 +77,7 @@ namespace TechExpress.Web.Controllers
             return PartialView("_HomeProductSection", viewModel);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult ProductDashBoard()
         {
             var products = _productAppService.GetAllProducts();
@@ -106,6 +107,7 @@ namespace TechExpress.Web.Controllers
             return View("AddProductDashBoard", vm);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddProduct(ProductDashBoardViewModel vm)
         {
             ModelState.Remove("Categories");
@@ -152,7 +154,7 @@ namespace TechExpress.Web.Controllers
             return View("AddProductDashBoard", vm);
         }
 
-
+        [Authorize(Roles = "Admin")]
         public IActionResult UpdateProduct(int id)
         {
             var product = _productAppService.GetProductById(id);
@@ -170,7 +172,6 @@ namespace TechExpress.Web.Controllers
                 Text = c.Name
             }).ToList();
 
-            // ✅ إرسال الصور الموجودة للـ View
             ViewBag.ExistingImages = product.UploadedImages?.Select(img => img).ToList();
 
             return View(viewModel);
@@ -196,7 +197,7 @@ namespace TechExpress.Web.Controllers
 
             return RedirectToAction("ProductDashBoard");
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteProduct(int id)
         {
             _productAppService.DeleteProduct(id);
