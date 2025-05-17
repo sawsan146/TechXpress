@@ -44,7 +44,8 @@
                         }
 
                         <div class="icon-overlay">
-                            <a asp-action="AddToWishList" asp-controller="WishList" asp-route-productId="@product.ProductID">
+                                                        <a method="post" asp-controller="WishList" asp-action="AddToWishList" asp-route-productId="@product.ProductID">
+
                                 <i class="fa fa-heart"></i>
 
                             </a>
