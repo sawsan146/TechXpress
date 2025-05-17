@@ -61,6 +61,22 @@ namespace TechXpress.BLL.Services.Implementations
                 throw new Exception("An error occurred while retrieving products with categories and images.", ex);
             }
         }
+
+        public Product GetProductByIdWithImage(int id)
+        {
+            try
+            {
+                var product = _unitOfWork.Products.GetProductByIdWithImage(id);
+                return product;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                throw new Exception("An error occurred while retrieving  product with Img.", ex);
+            }
+
+
+        }
     }
 
 }

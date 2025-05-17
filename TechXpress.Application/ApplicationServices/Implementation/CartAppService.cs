@@ -20,8 +20,25 @@ namespace TechXpress.Application.ApplicationServices.Implementations
         public ShoppingCartDTO GetCartFromCookie(string cookieValue, int? CurrentUserId)
         {
             var cart = _cartService.GetCartByCookie(cookieValue, CurrentUserId);
-            return _mapper.Map<ShoppingCartDTO>(cart);
+            var dto = _mapper.Map<ShoppingCartDTO>(cart);
+
+            dto.CartItems = dto.CartItems.Select(ci => new CartItemDTO
+            {
+                Cart_Item_ID = ci.Cart_Item_ID,
+                Product_ID = ci.Product_ID,
+                ProductName = ci.ProductName,
+                Quantity = ci.Quantity,
+                Price = ci.Price,
+                ProductImage = cart.CartItems
+                    .Where(c => c.Cart_Item_ID == ci.Cart_Item_ID)
+                    .Select(c => c.Product?.ProductImages.FirstOrDefault()?.ImageURL) 
+                    .FirstOrDefault()
+            }).ToList();
+
+            return dto;
         }
+
+
 
         public ShoppingCartDTO AddToCart(string cookieValue, ProductDTO product, int? CurrentUserId)
         {

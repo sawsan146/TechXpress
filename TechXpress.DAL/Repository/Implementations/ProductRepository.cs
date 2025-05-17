@@ -55,5 +55,17 @@ namespace TechXpress.DAL.Repository.Implementations
             }
 
         }
+
+        public Product GetProductByIdWithImage(int id)
+        {
+            try
+            {
+                return _dbContext.Products.Include(p => p.ProductImages).FirstOrDefault(p => p.Product_ID == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while retrieving the product with ID {id}.", ex);
+            }
+        }
     }
 }

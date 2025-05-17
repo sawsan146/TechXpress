@@ -33,8 +33,9 @@ namespace TechXpress.Web.Mapping
 
             // Cart mapping
             CreateMap<CartItems, CartItemDTO>()
-                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
-                .ForMember(dest => dest.ProductImage, opt => opt.MapFrom(src => src.Product.ProductImages.First()));
+     .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
+     .ForMember(dest => dest.ProductImage, opt => opt.MapFrom(src => src.Product.ProductImages.FirstOrDefault()));
+
 
             CreateMap<ShoppingCart, ShoppingCartDTO>()
                 .ForMember(dest => dest.TotalPrice, opt => opt.MapFrom(src => src.Total_Price));

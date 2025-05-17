@@ -24,12 +24,17 @@ namespace TechXpress.DAL.Repository.Implementations
             return _context.ShoppingCarts
                 .Include(c => c.CartItems)
                 .ThenInclude(ci => ci.Product)
+                .ThenInclude(ci=>ci.ProductImages)
                 .FirstOrDefault(c => c.CookieValue == cookieValue);
         }
 
         public ShoppingCart AddToCart(string cookieValue, int productId, int? CurrentUserId)
         {
-            var product = _context.Products.Find(productId);
+
+            var product = _context.Products
+                .Include(p => p.ProductImages)
+                .FirstOrDefault(p => p.Product_ID == productId); 
+            
             if (product == null)
                 throw new Exception("Product not found");
 
@@ -60,7 +65,7 @@ namespace TechXpress.DAL.Repository.Implementations
                 {
                     Product_ID = product.Product_ID,
                     Quantity = 1,
-                    Price = product.Price
+                    Price = product.Price                    
                 });
             }
 

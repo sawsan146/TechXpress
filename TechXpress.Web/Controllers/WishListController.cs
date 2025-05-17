@@ -49,7 +49,7 @@ namespace TechXpress.Web.Controllers
                 Price = item.Price,
                 Product = new ProductViewModel
                 {
-                    Id = 0, // you can get real Id if you extend your DTO or add it here
+                    Id = item.Id,
                     Name = item.ProductName,
                     Image = item.ProductImageUrl,
                     Price = item.Price,
