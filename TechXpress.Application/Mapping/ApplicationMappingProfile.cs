@@ -59,9 +59,22 @@ namespace TechXpress.Web.Mapping
             CreateMap<ContactMassegeDTO, ContactMessage>();
 
             //User mapping
-            CreateMap<UserDTO, User>();
-            CreateMap<User, UserDTO>();
-                
+            //CreateMap<UserDTO, User>();
+            //CreateMap<User, UserDTO>();
+            CreateMap<UserDTO, User>()
+                .ForMember(dest => dest.User_ID, opt => opt.MapFrom(src => src.User_ID))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User_Name))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Phone))
+                .ForMember(dest => dest.User_Type, opt => opt.MapFrom(src => src.User_Type));
+
+            CreateMap<User, UserDTO>()
+                .ForMember(dest => dest.User_ID, opt => opt.MapFrom(src => src.User_ID))
+                .ForMember(dest => dest.User_Name, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.PhoneNumber))
+                .ForMember(dest => dest.User_Type, opt => opt.MapFrom(src => src.User_Type));
+
         }
     }
 }

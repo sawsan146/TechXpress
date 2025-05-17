@@ -3,22 +3,22 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using TechXpress.Application.ApplicationServices.Contract;
 using TechXpress.Application.DTOs;
 using TechXpress.BLL.Services.Contracts;
 using TechXpress.DAL.Entities;
-using System.Security.Claims; 
 
 namespace TechXpress.Application.ApplicationServices.Implementation
 {
     public class UserAppService : IUserAppService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+
         public UserAppService(IUserService userService, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _userService = userService;
@@ -56,16 +56,8 @@ namespace TechXpress.Application.ApplicationServices.Implementation
         public UserDTO GetUserByEmail(string email)
         {
             var user = _userService.GetUserByEmail(email);
-            //if (user == null)
-            //{
-            //    throw new ArgumentNullException(nameof(user), "User  cannot be null");
-            //}
-           
-            
-                var userDto= _mapper.Map<UserDTO>(user);
-                return userDto;
-
-            
+            var userDto = _mapper.Map<UserDTO>(user);
+            return userDto;
         }
 
         public UserDTO GetUserById(int id)
@@ -84,16 +76,21 @@ namespace TechXpress.Application.ApplicationServices.Implementation
 
         public void UpdateUser(UserDTO userDTO)
         {
-            var user = _mapper.Map<User>(userDTO);
-            if (user == null)
+            if (userDTO == null)
             {
-                throw new ArgumentNullException(nameof(userDTO), "User cannot be null");
-            }
-            else
-            {
-                _userService.Update(user);
+                throw new ArgumentNullException(nameof(userDTO), "UserDTO cannot be null");
             }
 
+            
+            var existingUser = _userService.GetById(userDTO.User_ID);
+            if (existingUser == null)
+            {
+                throw new KeyNotFoundException($"User with ID {userDTO.User_ID} not found.");
+            }
+
+            
+            _mapper.Map(userDTO, existingUser); 
+            _userService.Update(existingUser);
         }
 
         public UserDTO GetCurrentUser()
@@ -103,7 +100,7 @@ namespace TechXpress.Application.ApplicationServices.Implementation
             if (string.IsNullOrEmpty(userId))
                 throw new UnauthorizedAccessException("User is not logged in.");
 
-            var user = _userService.GetById(int.Parse(userId)); 
+            var user = _userService.GetById(int.Parse(userId));
             return _mapper.Map<UserDTO>(user);
         }
 
@@ -119,8 +116,6 @@ namespace TechXpress.Application.ApplicationServices.Implementation
                 var userDtos = _mapper.Map<List<UserDTO>>(users);
                 return userDtos;
             }
-
         }
-
     }
 }

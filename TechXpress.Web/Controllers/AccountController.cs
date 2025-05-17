@@ -156,9 +156,12 @@ namespace TechXpress.Web.Controllers
                     return NotFound("User not found");
                 }
 
+                
                 user.Fname = model.FirstName;
                 user.Lname = model.LastName;
                 user.Email = model.Email;
+                user.Country = model.Address;
+                user.User_ID = userId; 
 
                 _userAppService.UpdateUser(user);
                 TempData["Success"] = "Profile updated successfully!";

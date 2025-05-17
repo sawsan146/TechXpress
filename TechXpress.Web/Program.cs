@@ -38,7 +38,7 @@ namespace TechXpress.Web
             // Register DbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
-                    builder.Configuration.GetConnectionString("SawsanConnection"),
+                    builder.Configuration.GetConnectionString("DefaultConnection"),
                     sqlOptions => sqlOptions.MigrationsAssembly("TechXpress.DAL")));
 
             builder.Services.AddIdentity<User, ApplicationRole>()

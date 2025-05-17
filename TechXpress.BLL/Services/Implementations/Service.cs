@@ -29,7 +29,7 @@ namespace TechXpress.BLL.Services.Implementations
             try
             {
                 _repository.Add(entity);
-                //_unitOfWork.CompleteAsync();
+                _unitOfWork.CompleteAsync().GetAwaiter().GetResult(); // save changes
                 return true;
             }
             catch (Exception ex)
@@ -48,7 +48,7 @@ namespace TechXpress.BLL.Services.Implementations
                     throw new KeyNotFoundException($"Entity with ID '{id}' not found.");
 
                 _repository.Delete(id);
-                //_unitOfWork.CompleteAsync();
+                _unitOfWork.CompleteAsync().GetAwaiter().GetResult(); // save changes
                 return true;
             }
             catch (Exception ex)
@@ -87,7 +87,7 @@ namespace TechXpress.BLL.Services.Implementations
             try
             {
                 _repository.Update(entity);
-                //_unitOfWork.CompleteAsync();
+                _unitOfWork.CompleteAsync().GetAwaiter().GetResult(); // save changes
                 return true;
             }
             catch (Exception ex)
