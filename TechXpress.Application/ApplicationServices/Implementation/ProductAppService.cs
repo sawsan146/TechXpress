@@ -98,10 +98,11 @@ namespace TechXpress.Application.ApplicationServices.Implementation
 
         public ProductDTO GetProductById(int id)
         {
-            var product = _ProductService.GetById(id);
+            var product = _ProductService.GetProductByIdWithImage(id);
             if (product != null)
             {
                 var productDto = _mapper.Map<ProductDTO>(product);
+                productDto.Image=product.ProductImages.FirstOrDefault()?.ImageURL;
                 return productDto;
             }
             else

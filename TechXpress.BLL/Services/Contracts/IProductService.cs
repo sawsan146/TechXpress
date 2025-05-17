@@ -12,6 +12,7 @@ namespace TechXpress.BLL.Services.Contracts
         public IEnumerable<Product> GetAllProductsWithCategories();
         public IEnumerable<Product> GetAllProductsWithCategoriesAndImages();
 
+        public Product GetProductByIdWithImage(int id);
         public IEnumerable<Product> GetAllProducts();
     }
 

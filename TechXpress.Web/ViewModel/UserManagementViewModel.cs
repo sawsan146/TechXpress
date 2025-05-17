@@ -16,7 +16,6 @@
             return CurrentRole.ToLower() switch
             {
                 "admin" => "role-admin",
-                "manager" => "role-manager",
                 "user" => "role-user",
                 _ => "role-other"
             };

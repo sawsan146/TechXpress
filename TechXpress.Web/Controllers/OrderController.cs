@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TechXpress.Web.ViewModel;
 using TechXpress.DAL.Entities;
-using TechXpress.DAL.Infrastructure; // Assuming your entities are in the DAL namespace
+using TechXpress.DAL.Infrastructure; 
 
 namespace TechXpress.Web.Controllers
 {

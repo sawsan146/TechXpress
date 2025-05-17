@@ -12,6 +12,8 @@ namespace TechXpress.DAL.Repository.Contracts
         public IEnumerable<Product> GetAllProductIncludingCategory();
         public IEnumerable<Product> GetAllProductIncludingCategoryAndImages();
 
+        public Product GetProductByIdWithImage(int id);
+
         public IEnumerable<Product> GetAllProducts();
 
     }

@@ -13,8 +13,8 @@
 <link href="~/css/wishlist.css" rel="stylesheet" />
 
 <div class="container">
-    <div class="wishlist-top">
-        <h2 class="wishlist-title">Wishlist (@Model?.WishlistItems?.Count )</h2>
+    <div class="wishlist-top"
+        <h2 class="wishlist-title">Wishlist (@Model?.WishlistItems?.Count() )</h2>
         <button class="move-all-to-bag">Move All To Bag</button>
     </div>
 
@@ -34,7 +34,7 @@
                                     <button type="submit" class="far fa-trash-alt del-icon btn btn-link text-danger p-0" style="font-size: 1.5em; text-decoration: none; cursor: pointer; margin-top:-18px;"></button>
                                  </form>
                                 <a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@item.Product.Id"
-                                   
+                                   S
                                     class="text-secondary text-decoration-none fs-5"
                                     title="View Details"
                                     aria-label="View Details">
@@ -42,7 +42,7 @@
                                 </a>
                             </div>
                             <img src="@Url.Content("~/images/product/" + item.Product.Image)" style="position:center;"/>
-                            <form method="post" asp-controller="Cart" asp-action="Index" asp-route-productId="@item.Product.Id">
+                            <form method="post" asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@item.Product.Id">
                                 <button type="submit" class="add-to-cart">Add to Cart</button>
                             </form>
                         </div>
@@ -67,7 +67,7 @@
         <span class="move-all-to-bag">See All</span>
     </div>
     <div class="row">
-        @* You can add logic here to display other recommended products *@
+        @* Logic of for you *@
     </div>
 </div>
 
