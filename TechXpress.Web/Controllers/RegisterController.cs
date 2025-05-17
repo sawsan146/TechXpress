@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using TechXpress.DAL.Entities; 
 using TechXpress.Web.ViewModel;
@@ -30,11 +31,25 @@ namespace TechXpress.Web.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = await _userManager.FindByEmailAsync(model.EmailOrPhone);
+            User user = null;
+
+            user = await _userManager.FindByNameAsync(model.EmailOrPhone);
+
             if (user == null)
             {
-                ModelState.AddModelError("", "User not found. Please register first.");
-                ViewBag.ShowRegisterLink = true;
+                if (model.EmailOrPhone.Contains("@"))
+                {
+                    user = await _userManager.FindByEmailAsync(model.EmailOrPhone);
+                }
+                else
+                {
+                    user = await _userManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == model.EmailOrPhone.Trim());
+                }
+            }
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "User not found.");
                 return View(model);
             }
 
@@ -49,7 +64,8 @@ namespace TechXpress.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        
+
+
         public IActionResult Register()
         {
             return View();
@@ -75,6 +91,7 @@ namespace TechXpress.Web.Controllers
                 Email = model.EmailOrPhone.Contains("@") ? model.EmailOrPhone : null,
                 PhoneNumber = !model.EmailOrPhone.Contains("@") ? model.EmailOrPhone : null,
                 Fname = model.Name,
+                User_Type = "Admin"
             };
 
             var createResult = await _userManager.CreateAsync(user, model.Password);

@@ -39,7 +39,6 @@ namespace TechXpress.DAL.Migrations
                     Fname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Lname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Country = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -501,9 +500,9 @@ namespace TechXpress.DAL.Migrations
                 columns: new[] { "Product_ID", "AddTime", "Brand", "Category_ID", "Description", "GPU", "Name", "PercentageDiscount", "Price", "PriceAfterDiscount", "Processor", "RAM", "Resolution", "ScreenSize", "Stock", "Storage" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2025, 5, 17, 12, 46, 43, 121, DateTimeKind.Local).AddTicks(431), "HP", "1", "Powerful laptop with Intel i7, 16GB RAM, and 512GB SSD.", "NVIDIA GTX 1650", "HP Pavilion 15", 10f, 15000m, 13500f, "Intel Core i7", 16, "1920x1080", 15.6m, 20, "512GB SSD" },
-                    { 2, new DateTime(2025, 5, 17, 12, 46, 43, 121, DateTimeKind.Local).AddTicks(557), "Dell", "2", "Affordable performance laptop with 8GB RAM and 256GB SSD.", "Intel Iris Xe", "Dell Inspiron 14", null, 12000m, null, "Intel Core i5", 8, "1920x1080", 14.0m, 15, "256GB SSD" },
-                    { 3, new DateTime(2025, 5, 17, 12, 46, 43, 121, DateTimeKind.Local).AddTicks(624), "Lenovo", "3", "Gaming laptop with Ryzen 7, 16GB RAM, and RTX 3060.", "NVIDIA RTX 3060", "Lenovo Legion 5", 5f, 22000m, 20900f, "AMD Ryzen 7", 16, "2560x1440", 15.6m, 10, "1TB SSD" }
+                    { 1, new DateTime(2025, 5, 17, 15, 28, 47, 373, DateTimeKind.Local).AddTicks(982), "HP", "1", "Powerful laptop with Intel i7, 16GB RAM, and 512GB SSD.", "NVIDIA GTX 1650", "HP Pavilion 15", 10f, 15000m, 13500f, "Intel Core i7", 16, "1920x1080", 15.6m, 20, "512GB SSD" },
+                    { 2, new DateTime(2025, 5, 17, 15, 28, 47, 373, DateTimeKind.Local).AddTicks(1049), "Dell", "2", "Affordable performance laptop with 8GB RAM and 256GB SSD.", "Intel Iris Xe", "Dell Inspiron 14", null, 12000m, null, "Intel Core i5", 8, "1920x1080", 14.0m, 15, "256GB SSD" },
+                    { 3, new DateTime(2025, 5, 17, 15, 28, 47, 373, DateTimeKind.Local).AddTicks(1053), "Lenovo", "3", "Gaming laptop with Ryzen 7, 16GB RAM, and RTX 3060.", "NVIDIA RTX 3060", "Lenovo Legion 5", 5f, 22000m, 20900f, "AMD Ryzen 7", 16, "2560x1440", 15.6m, 10, "1TB SSD" }
                 });
 
             migrationBuilder.InsertData(

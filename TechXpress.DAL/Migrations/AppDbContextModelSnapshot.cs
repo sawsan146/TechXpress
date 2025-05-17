@@ -434,7 +434,7 @@ namespace TechXpress.DAL.Migrations
                         new
                         {
                             Product_ID = 1,
-                            AddTime = new DateTime(2025, 5, 17, 13, 36, 2, 410, DateTimeKind.Local).AddTicks(4545),
+                            AddTime = new DateTime(2025, 5, 17, 15, 28, 47, 373, DateTimeKind.Local).AddTicks(982),
                             Brand = "HP",
                             Category_ID = "1",
                             Description = "Powerful laptop with Intel i7, 16GB RAM, and 512GB SSD.",
@@ -453,7 +453,7 @@ namespace TechXpress.DAL.Migrations
                         new
                         {
                             Product_ID = 2,
-                            AddTime = new DateTime(2025, 5, 17, 13, 36, 2, 410, DateTimeKind.Local).AddTicks(4644),
+                            AddTime = new DateTime(2025, 5, 17, 15, 28, 47, 373, DateTimeKind.Local).AddTicks(1049),
                             Brand = "Dell",
                             Category_ID = "2",
                             Description = "Affordable performance laptop with 8GB RAM and 256GB SSD.",
@@ -470,7 +470,7 @@ namespace TechXpress.DAL.Migrations
                         new
                         {
                             Product_ID = 3,
-                            AddTime = new DateTime(2025, 5, 17, 13, 36, 2, 410, DateTimeKind.Local).AddTicks(4650),
+                            AddTime = new DateTime(2025, 5, 17, 15, 28, 47, 373, DateTimeKind.Local).AddTicks(1053),
                             Brand = "Lenovo",
                             Category_ID = "3",
                             Description = "Gaming laptop with Ryzen 7, 16GB RAM, and RTX 3060.",

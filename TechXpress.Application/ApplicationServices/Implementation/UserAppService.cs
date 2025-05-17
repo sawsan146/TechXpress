@@ -107,5 +107,20 @@ namespace TechXpress.Application.ApplicationServices.Implementation
             return _mapper.Map<UserDTO>(user);
         }
 
+        public List<UserDTO> GetAllUsers()
+        {
+            var users = _userService.GetAll();
+            if (users == null)
+            {
+                throw new ArgumentNullException(nameof(users), "Users cannot be null");
+            }
+            else
+            {
+                var userDtos = _mapper.Map<List<UserDTO>>(users);
+                return userDtos;
+            }
+
+        }
+
     }
 }

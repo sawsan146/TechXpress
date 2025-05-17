@@ -12,8 +12,8 @@ using TechXpress.DAL.Infrastructure;
 namespace TechXpress.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250517101636_init2")]
-    partial class init2
+    [Migration("20250517122847_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -437,7 +437,7 @@ namespace TechXpress.DAL.Migrations
                         new
                         {
                             Product_ID = 1,
-                            AddTime = new DateTime(2025, 5, 17, 13, 16, 36, 432, DateTimeKind.Local).AddTicks(796),
+                            AddTime = new DateTime(2025, 5, 17, 15, 28, 47, 373, DateTimeKind.Local).AddTicks(982),
                             Brand = "HP",
                             Category_ID = "1",
                             Description = "Powerful laptop with Intel i7, 16GB RAM, and 512GB SSD.",
@@ -456,7 +456,7 @@ namespace TechXpress.DAL.Migrations
                         new
                         {
                             Product_ID = 2,
-                            AddTime = new DateTime(2025, 5, 17, 13, 16, 36, 432, DateTimeKind.Local).AddTicks(880),
+                            AddTime = new DateTime(2025, 5, 17, 15, 28, 47, 373, DateTimeKind.Local).AddTicks(1049),
                             Brand = "Dell",
                             Category_ID = "2",
                             Description = "Affordable performance laptop with 8GB RAM and 256GB SSD.",
@@ -473,7 +473,7 @@ namespace TechXpress.DAL.Migrations
                         new
                         {
                             Product_ID = 3,
-                            AddTime = new DateTime(2025, 5, 17, 13, 16, 36, 432, DateTimeKind.Local).AddTicks(884),
+                            AddTime = new DateTime(2025, 5, 17, 15, 28, 47, 373, DateTimeKind.Local).AddTicks(1053),
                             Brand = "Lenovo",
                             Category_ID = "3",
                             Description = "Gaming laptop with Ryzen 7, 16GB RAM, and RTX 3060.",

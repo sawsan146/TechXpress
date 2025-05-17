@@ -13,10 +13,10 @@ namespace TechXpress.Application.ApplicationServices.Contract
         public void UpdateUser(UserDTO userDTO);
         public void DeleteUser(int id);
         public UserDTO GetUserById(int id);
-      //  public List<UserDTO> GetAllUsers();
+        public List<UserDTO> GetAllUsers();
 
-       // public List<UserDTO> GetUsersByRole(string role);
-         
+        // public List<UserDTO> GetUsersByRole(string role);
+
         public UserDTO GetUserByEmail(string email);
         public UserDTO GetCurrentUser();
 

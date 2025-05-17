@@ -51,75 +51,7 @@ namespace TechXpress.DAL.Infrastructure
 
 
 
-            var hasher = new PasswordHasher<User>();
-            var user1 = new User
-            {
-                User_ID = 1,
-                User_Type = "Admin",
-                Fname = "Sawsan",
-                Lname = "Abdelaziz",
-                Phone = "01000000001",
-                Email = "sawsanelsebay2@gmail.com",
-                UserName = "Sawsan_Abdelaziz",
-                NormalizedUserName = "SAWSAN_ABDELAZIZ",
-                NormalizedEmail = "SAWSANELSEBAT@GMAIL.COM",
-                Country = "Egypt",
-                EmailConfirmed = true,
-                PhoneNumber = "01000000001",
-                PasswordHash = hasher.HashPassword(null, "12345678")
-            };
-
-            var user4 = new User
-            {
-                User_ID = 1,
-                User_Type = "Admin",
-                Fname = "Sawsann",
-                Lname = "Elseba3y",
-                Phone = "01000000001",
-                Email = "sawsaneAdmin@gmail.com",
-                UserName = "Sawsan_Elsebaey",
-                NormalizedUserName = "SAWSAN_ELSEBAEY",
-                NormalizedEmail = "SAWSANADMIN@GMAIL.COM",
-                Country = "Egypt",
-                EmailConfirmed = true,
-                PhoneNumber = "01000000001",
-                PasswordHash = hasher.HashPassword(null, "12345678")
-            };
-
-            var user2 = new User
-            {
-                User_ID = 2,
-                User_Type = "Admin",
-                Fname = "Ahmed",
-                Lname = "Ali",
-                Phone = "01000000002",
-                Email = "ahmed@example.com",
-                UserName = "ahmed@example.com",
-                NormalizedUserName = "AHMED@EXAMPLE.COM",
-                NormalizedEmail = "AHMED@EXAMPLE.COM",
-                Country = "Egypt",
-                EmailConfirmed = true,
-                PhoneNumber = "01000000002",
-                PasswordHash = hasher.HashPassword(null, "Admin123$")
-            };
-
-            var user3 = new User
-            {
-                User_ID = 3,
-                User_Type = "Customer",
-                Fname = "Mona",
-                Lname = "Ibrahim",
-                Phone = "01000000003",
-                Email = "mona@example.com",
-                UserName = "mona@example.com",
-                NormalizedUserName = "MONA@EXAMPLE.COM",
-                NormalizedEmail = "MONA@EXAMPLE.COM",
-                Country = "Egypt",
-                EmailConfirmed = true,
-                PhoneNumber = "01000000003",
-                PasswordHash = hasher.HashPassword(null, "User123$")
-            };
-
+        
     modelBuilder.Entity<Product>().HasData(
      new Product
      {

@@ -66,12 +66,10 @@ namespace TechExpress.Web.Controllers
                 Name = p.Name,
                 Price = p.Price,
                 Description = p.Description,
-                //Category = p.Category != null ? p.Category.Name : "",
                 Image = p.UploadedImages != null && p.UploadedImages.Any()
                 ? p.UploadedImages.FirstOrDefault()
                 : "/images/placeholder.jpg",
-                //ReviewCount = p.Reviews != null ? p.Reviews.Count : 0,
-                //Rating = p.Reviews != null && p.Reviews.Any() ? p.Reviews.Average(r => r.Rating) : 0
+              
             }).ToList();
 
             return PartialView("_HomeProductSection", viewModel);
@@ -176,7 +174,6 @@ namespace TechExpress.Web.Controllers
 
             return View(viewModel);
         }
-
 
         [HttpPost]
         public IActionResult UpdateProduct(ProductDashBoardViewModel viewModel)

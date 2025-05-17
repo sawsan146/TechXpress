@@ -10,7 +10,7 @@ namespace TechXpress.DAL.Entities
     public class User : IdentityUser<int>
     {
         public int User_ID { get; set; }
-        public string User_Type { get; set; }= "Customer";
+        public string User_Type { get; set; }
         public string? Fname { get; set; }
         public string? Lname { get; set; }
         public string? Phone { get; set; }
