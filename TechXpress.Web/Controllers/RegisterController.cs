@@ -91,7 +91,7 @@ namespace TechXpress.Web.Controllers
                 Email = model.EmailOrPhone.Contains("@") ? model.EmailOrPhone : null,
                 PhoneNumber = !model.EmailOrPhone.Contains("@") ? model.EmailOrPhone : null,
                 Fname = model.Name,
-                User_Type = "Admin"
+                User_Type = "Customer"
             };
 
             var createResult = await _userManager.CreateAsync(user, model.Password);
@@ -104,12 +104,12 @@ namespace TechXpress.Web.Controllers
                 return View(model);
             }
 
-            if (!await _roleManager.RoleExistsAsync("Admin"))
+            if (!await _roleManager.RoleExistsAsync("Customer"))
             {
-                await _roleManager.CreateAsync(new ApplicationRole("Admin"));
+                await _roleManager.CreateAsync(new ApplicationRole("Customer"));
             }
 
-            await _userManager.AddToRoleAsync(user, "Admin");
+            await _userManager.AddToRoleAsync(user, "Customer");
 
             await _signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction("Index", "Home");

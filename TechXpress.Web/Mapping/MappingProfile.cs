@@ -13,12 +13,15 @@ namespace TechXpress.Web.Mapping
             //product mapping
             CreateMap<ProductDashBoardViewModel, ProductDTO>()
                 .ForMember(dest => dest.UploadedImages, opt => opt.MapFrom(src =>
-                    src.UploadedImages.Select(f => f.FileName).ToList()));
+                    src.UploadedImages.Select(f => f.FileName).ToList()))
+                .ForMember(dest=>dest.ProductID,opt=>opt.MapFrom(src=>src.ProductID));
 
 
             CreateMap<ProductDTO, ProductDashBoardViewModel>()
             .ForMember(dest => dest.ImageNamesForDisplay, opt => opt.MapFrom(src => src.UploadedImages))
-            .ForMember(dest => dest.UploadedImages, opt => opt.Ignore());
+            .ForMember(dest => dest.UploadedImages, opt => opt.Ignore())
+             .ForMember(dest=>dest.ProductID,opt=>opt.MapFrom(src=>src.ProductID));
+            ;
 
 
             CreateMap<ProductDTO, ProductDetailsViewModel>();

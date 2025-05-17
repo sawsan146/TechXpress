@@ -1,10 +1,24 @@
 ﻿@model ProductDetailsViewModel
 <link rel="stylesheet" href="~/css/final details.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
 <style>
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .product-container {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        padding: 30px;
+        margin-top: 30px;
+        margin-bottom: 50px;
+    }
+
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
         filter: invert(0);
@@ -12,71 +26,214 @@
         border-radius: 50%;
         padding: 10px;
         opacity: 1;
+        width: 30px;
+        height: 30px;
+        background-size: 50% 50%;
+    }
+
+    .carousel-container {
+        position: relative;
+        width: 100%;
+        height: 425px;
+        overflow: hidden;
+        background-color: #f8f9fa;
+        border-radius: 8px;
     }
 
     .carousel-inner {
         height: 425px !important;
+        position: relative;
     }
 
-    .carousel-item img {
+    .carousel-item {
         height: 425px;
-        width: 100%;
-        object-fit: cover;
+    }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: #f8f9fa;
+        }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 40px;
+    }
+
+    .product-details {
+        padding: 0 20px;
+    }
+
+    .product-title {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: #212529;
+    }
+
+    .price {
+        font-size: 24px;
+        font-weight: 700;
+        color: #dc3545;
+        margin: 20px 0;
+    }
+
+    .product-description {
+        color: #6c757d;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+
+    .specs p {
+        margin-bottom: 8px;
+        color: #495057;
+    }
+
+    .specs strong {
+        color: #212529;
+        width: 120px;
+        display: inline-block;
+    }
+
+    .quantity-input-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .quantity-input-group button {
+            border: none;
+            background: #e9ecef;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .quantity-input-group input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+    .buy-now-button {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+
+        .buy-now-button:hover {
+            background-color: #bb2d3b;
+        }
+
+    .delivery-box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+    }
+
+        .delivery-box svg {
+            flex-shrink: 0;
+        }
+
+    .rating {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .stock-status {
+        padding: 3px 10px;
+        border-radius: 15px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .in-stock {
+        background-color: #d1e7dd;
+        color: #0f5132;
+    }
+
+    .out-of-stock {
+        background-color: #f8d7da;
+        color: #842029;
     }
 </style>
 
-<div class="container py-5" style="margin-bottom:100px;margin-top:30px;">
-    <div class="row gx-5">
+<div class="container product-container">
+    <div class="row">
         <div class="col-md-6">
             <div class="product-images">
                 @if (Model.UploadedImages != null && Model.UploadedImages.Any())
                 {
-                    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
-                        <div class="carousel-inner rounded-4" style="height: 425px;">
-                            @for (int i = 0; i < Model.UploadedImages.Count; i++)
-                            {
-                                var image = Model.UploadedImages[i];
-                                var activeClass = i == 0 ? "active" : "";
-                                <div class="carousel-item @activeClass">
-                                    <img src="@Url.Content("~/images/product/" + image)" class="d-block w-100" alt="@Model.Name" style="height: 425px; object-fit: contain;" />
-                                </div>
-                            }
+                    <div class="carousel-container">
+                        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+                            <div class="carousel-inner rounded-4">
+                                @for (int i = 0; i < Model.UploadedImages.Count; i++)
+                                {
+                                    var image = Model.UploadedImages[i];
+                                    var activeClass = i == 0 ? "active" : "";
+                                    <div class="carousel-item @activeClass">
+                                        <img src="@Url.Content("~/images/product/" + image)" class="d-block w-100" alt="@Model.Name" />
+                                    </div>
+                                }
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
                     </div>
                 }
                 else
                 {
-                    <img src="~/images/default-product.png" alt="Default product image" class="img-fluid rounded-4 product-image" style="width:100%;height:425px; object-fit: contain;" />
+                    <div class="carousel-container">
+                        <img src="~/images/default-product.png" alt="Default product image" class="img-fluid rounded-4 product-image" />
+                    </div>
                 }
             </div>
         </div>
 
         <div class="col-md-6">
-            <div class="product-details" style="color: black;">
-                <h1 class="h2 fw-semibold text-gray-800 mb-2">@Model.Name</h1>
-                <div class="d-flex align-items-center mb-3">
-                    <span class="text-sm text-warning me-1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                        @if (Model.Stock > 0) {
-                        <p class="text-xs text-success ms-2"> In Stock</p>
+            <div class="product-details">
+                <h1 class="product-title">@Model.Name</h1>
+                <div class="d-flex align-items-center mb-4">
+                    <div class="rating">
+                        <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                    </div>
+                    @if (Model.Stock > 0)
+                    {
+                        <span class="stock-status in-stock ms-3">In Stock</span>
                     }
                     else
                     {
-                        <p class="text-xs text-danger ms-2"> Out of Stock</p>
-
+                        <span class="stock-status out-of-stock ms-3">Out of Stock</span>
                     }
                 </div>
-                <p class="h4 fw-bold text-gray-900 mb-4">$@Model.Price</p>
-                <p class="text-gray-600 mb-4">@Model.Description</p>
 
-                <div class="mb-3">
+                <div class="price">$@Model.Price</div>
+
+                <p class="product-description">@Model.Description</p>
+
+                <div class="specs mb-4">
                     @if (!string.IsNullOrWhiteSpace(Model.Brand))
                     {
                         <p><strong>Brand:</strong> @Model.Brand</p>
@@ -113,38 +270,35 @@
 
                 <div class="d-flex align-items-center mb-4">
                     <div class="quantity-input-group me-4">
-                        <button id="decrement" style="border-radius: 30%;background-color:#aaa8a8;width:20px">-</button>
-                        <input type="number" id="quantity" value="2" min="1" aria-label="Quantity" style="width: 30px;background-color:#f0f0f0;text-align:center" />
-                        <button id="increment" style="border-radius: 30%;background-color:#aaa8a8;width:20px">+</button>
+                        <button id="decrement">-</button>
+                        <input type="number" id="quantity" value="1" min="1" aria-label="Quantity">
+                        <button id="increment">+</button>
                     </div>
 
-                    <form asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@Model.ProductID" method="post" style="display: inline;">
-                        @* <input type="hidden" name="product_id" value="@Model.ProductID" /> *@
-                        <button type="submit" class="buy-now-button" style="margin-left: 0; display: inline-flex; align-items: center; border: none; background-color:#dc3545; padding: 0; cursor: pointer; text-decoration: none; color: white; height:30px;padding:.75em 1.5em;">
-                            <i class="bi bi-cart3 fs-5"></i>
+                    <form asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@Model.ProductID" method="post">
+                        <button type="submit" class="buy-now-button">
+                            <i class="bi bi-cart3 me-2"></i>
                             Add to Cart
                         </button>
                     </form>
                 </div>
 
                 <div class="mb-4">
-                    <div class="free-delivery-box">
+                    <div class="delivery-box">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success">
                             <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
                             <path d="M9 12l2 2 4-4"></path>
                         </svg>
-                        <span>Free Delivery</span>
+                        <span>Free Delivery on all orders</span>
                     </div>
-                </div>
 
-                <div class="mb-4">
-                    <div class="return-delivery-box">
+                    <div class="delivery-box">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary">
                             <path d="M10.21 4.13a8 8 0 1 0 9.66 9.66"></path>
                             <path d="M10 14l-3-3 3-3"></path>
                             <path d="M14 14l3-3-3-3"></path>
                         </svg>
-                        <span>Free 30 Days Delivery Returns.</span>
+                        <span>Free 30 Days Returns</span>
                     </div>
                 </div>
             </div>
@@ -168,7 +322,7 @@
 
         decrementButton.addEventListener('click', () => {
             let currentValue = parseInt(quantityInput.value);
-            if (currentValue > 1) { 
+            if (currentValue > 1) {
                 currentValue--;
                 quantityInput.value = currentValue;
             }

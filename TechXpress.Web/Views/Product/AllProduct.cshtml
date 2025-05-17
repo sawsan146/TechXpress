@@ -19,11 +19,11 @@
             }
         </ul>
 
-        <form method="get" asp-action="Index" asp-controller="Product" class="mt-4">
+        @* <form method="get" asp-action="Index" asp-controller="Product" class="mt-4">
             <input type="hidden" name="category" value="@selectedCategory" />
             <input type="text" name="search" class="form-control mb-2" placeholder="Search products..." value="@search" />
             <button type="submit" class="btn btn-custom w-100">Search</button>
-        </form>
+        </form> *@
     </div>
 
     <div class="main-content">
@@ -44,10 +44,13 @@
                         }
 
                         <div class="icon-overlay">
-                            <a href="@Url.Action("Wishlist", "User", new { id = product.ProductID })">
+                            <a asp-action="AddToWishList" asp-controller="WishList" asp-route-productId="@product.ProductID">
                                 <i class="fa fa-heart"></i>
+
                             </a>
                             <a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@product.ProductID">
+                            @* <a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@item.Product.Id" *@
+
                                 <i class="fa fa-eye"></i>
                             </a>
                         </div>
@@ -57,7 +60,7 @@
                         <h5>@product.Name</h5>
                         <p class="price">$@product.Price</p>
 
-                        <form method="post" asp-controller="Cart" asp-action="Index" asp-route-product_id="@product.ProductID">
+                        <form method="post" asp-controller="Cart" asp-action="AddToCart" asp-route-product_id="@product.ProductID">
                             <button type="submit" class="btn btn-custom">
                                 <i class="fa fa-cart-plus me-2"></i> Add to Cart
                             </button>
