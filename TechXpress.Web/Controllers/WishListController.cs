@@ -22,7 +22,6 @@ namespace TechXpress.Web.Controllers
 
         private int GetCurrentUserId()
         {
-            // Assumes user ID is stored as claim type "UserId" or "sub"
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier || c.Type == "UserId" || c.Type == "sub");
             if (userIdClaim == null)
                 return 0;
@@ -110,6 +109,7 @@ namespace TechXpress.Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+       
         [HttpGet]
         public async Task<IActionResult> AddToWishList(int userId, int productId)
         {

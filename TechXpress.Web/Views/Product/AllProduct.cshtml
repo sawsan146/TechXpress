@@ -8,6 +8,7 @@
 }
 
 <div class="container">
+
     <div class="sidebar">
         <h2>Categories</h2>
         <ul>
@@ -19,11 +20,6 @@
             }
         </ul>
 
-        @* <form method="get" asp-action="Index" asp-controller="Product" class="mt-4">
-            <input type="hidden" name="category" value="@selectedCategory" />
-            <input type="text" name="search" class="form-control mb-2" placeholder="Search products..." value="@search" />
-            <button type="submit" class="btn btn-custom w-100">Search</button>
-        </form> *@
     </div>
 
     <div class="main-content">
@@ -44,14 +40,15 @@
                         }
 
                         <div class="icon-overlay">
-                                                        <a method="post" asp-controller="WishList" asp-action="AddToWishList" asp-route-productId="@product.ProductID">
 
-                                <i class="fa fa-heart"></i>
-
-                            </a>
+                            <form method="post" asp-controller="WishList" asp-action="AddToWishList" asp-route-productId="@product.ProductID">
+                                <button type="submit" class="text-danger text-decoration-none fs-5 heart-button"
+                                        title="Add To Wishlist"
+                                        aria-label="Add to Wishlist">
+                                    <i class="fa fa-heart"></i>
+                                </button>
+                            </form>
                             <a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@product.ProductID">
-                            @* <a asp-controller="Product" asp-action="ProductDetails" asp-route-id="@item.Product.Id" *@
-
                                 <i class="fa fa-eye"></i>
                             </a>
                         </div>
@@ -61,8 +58,8 @@
                         <h5>@product.Name</h5>
                         <p class="price">$@product.Price</p>
 
-                        <form method="post" asp-controller="Cart" asp-action="AddToCart" asp-route-product_id="@product.ProductID">
-                            <button type="submit" class="btn btn-custom">
+                        <form method="post" asp-controller="Cart" asp-action="AddToCart" >
+                            <button asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.ProductID" type="submit" class="btn btn-custom">
                                 <i class="fa fa-cart-plus me-2"></i> Add to Cart
                             </button>
                         </form>
