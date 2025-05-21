@@ -162,7 +162,29 @@ namespace TechExpress.Web.Controllers
                 return NotFound();
             }
 
-            var viewModel = _mapper.Map<ProductDashBoardViewModel>(product);
+
+            //var viewModel = _mapper.Map<ProductDashBoardViewModel>(product);
+
+            var viewModel=new UpdateProduct
+            {
+                ProductID = id,
+                Name = product.Name,
+                Price = product.Price,
+                Stock = product.Stock,
+                Description = product.Description,
+                AddTime = product.AddTime,
+                Brand = product.Brand,
+                Processor = product.Processor,
+                RAM = product.RAM,
+                Storage = product.Storage,
+                GPU = product.GPU,
+                ScreenSize = product.ScreenSize,
+                Resolution = product.Resolution,
+                Category_ID = product.Category_ID,
+                ImageNamesForDisplay = product.UploadedImages,
+                PercentageDiscount = product.PercentageDiscount,
+                PriceAfterDiscount = product.PriceAfterDiscount
+            };
 
             viewModel.Categories = _categoryAppService.GetAllCategories().Select(c => new SelectListItem
             {
@@ -176,8 +198,13 @@ namespace TechExpress.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateProduct(ProductDashBoardViewModel viewModel)
+        public IActionResult UpdateProduct(UpdateProduct viewModel)
         {
+            ModelState.Remove("CategoryName");
+            ModelState.Remove("Categories");
+            ModelState.Remove("ImageNamesForDisplay");
+            
+
             if (!ModelState.IsValid)
             {
                 var categories = _categoryAppService.GetAllCategories();

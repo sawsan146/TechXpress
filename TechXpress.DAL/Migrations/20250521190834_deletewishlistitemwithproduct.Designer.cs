@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechXpress.DAL.Infrastructure;
 
@@ -11,9 +12,11 @@ using TechXpress.DAL.Infrastructure;
 namespace TechXpress.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250521190834_deletewishlistitemwithproduct")]
+    partial class deletewishlistitemwithproduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -434,7 +437,7 @@ namespace TechXpress.DAL.Migrations
                         new
                         {
                             Product_ID = 1,
-                            AddTime = new DateTime(2025, 5, 21, 22, 9, 52, 585, DateTimeKind.Local).AddTicks(6973),
+                            AddTime = new DateTime(2025, 5, 21, 22, 8, 32, 785, DateTimeKind.Local).AddTicks(1648),
                             Brand = "HP",
                             Category_ID = "1",
                             Description = "Powerful laptop with Intel i7, 16GB RAM, and 512GB SSD.",
@@ -453,7 +456,7 @@ namespace TechXpress.DAL.Migrations
                         new
                         {
                             Product_ID = 2,
-                            AddTime = new DateTime(2025, 5, 21, 22, 9, 52, 585, DateTimeKind.Local).AddTicks(7033),
+                            AddTime = new DateTime(2025, 5, 21, 22, 8, 32, 785, DateTimeKind.Local).AddTicks(1728),
                             Brand = "Dell",
                             Category_ID = "2",
                             Description = "Affordable performance laptop with 8GB RAM and 256GB SSD.",
@@ -470,7 +473,7 @@ namespace TechXpress.DAL.Migrations
                         new
                         {
                             Product_ID = 3,
-                            AddTime = new DateTime(2025, 5, 21, 22, 9, 52, 585, DateTimeKind.Local).AddTicks(7037),
+                            AddTime = new DateTime(2025, 5, 21, 22, 8, 32, 785, DateTimeKind.Local).AddTicks(1769),
                             Brand = "Lenovo",
                             Category_ID = "3",
                             Description = "Gaming laptop with Ryzen 7, 16GB RAM, and RTX 3060.",
@@ -863,7 +866,7 @@ namespace TechXpress.DAL.Migrations
                     b.HasOne("TechXpress.DAL.Entities.Product", "Product")
                         .WithMany("CartItems")
                         .HasForeignKey("Product_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Cart");

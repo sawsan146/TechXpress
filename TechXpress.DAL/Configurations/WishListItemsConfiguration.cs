@@ -21,7 +21,7 @@ namespace TechXpress.DAL.Configurations
                 entity.HasOne(e => e.Product)
                       .WithMany() // إذا كان الـ Product لا يحتوي على قائمة WishListItems (لا علاقة عكسية)
                       .HasForeignKey(e => e.Product_ID)
-                      .OnDelete(DeleteBehavior.Restrict); // لا يسمح بحذف المنتج إذا كان له عناصر في الـ WishList
+                      .OnDelete(DeleteBehavior.Cascade); // لا يسمح بحذف المنتج إذا كان له عناصر في الـ WishList
 
                 // العلاقة بين WishListItems و WishList مع Cascade Delete
                 entity.HasOne(e => e.WishList)

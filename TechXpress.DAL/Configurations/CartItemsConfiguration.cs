@@ -24,7 +24,7 @@ namespace TechXpress.DAL.Configurations
             entity.HasOne(e => e.Product)
                   .WithMany(e => e.CartItems)
                   .HasForeignKey(e => e.Product_ID)
-                  .OnDelete(DeleteBehavior.Restrict);  // لا نريد حذف المنتج نفسه
+                  .OnDelete(DeleteBehavior.Cascade);  // لا نريد حذف المنتج نفسه
 
             // تعديل العلاقة بين CartItems و Cart
             entity.HasOne(e => e.Cart)

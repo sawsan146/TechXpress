@@ -1,4 +1,4 @@
-﻿@model ProductDashBoardViewModel
+﻿@model UpdateProduct
 @* @{
     ViewData["Title"] = "Update Product";
 } *@
@@ -216,15 +216,20 @@
             margin-bottom: 10px;
         }
 </style>
+
 <div class="card shadow border-0 mt-4">
     <div class="card-header py-3 text-center">
         <h2 class="text-white m-0">Update Product</h2>
     </div>
     <div class="card-body p-4">
-        <form asp-controller="Product" asp-action="UpdateProduct" method="post" enctype="multipart/form-data" class="row g-4">
+        <form asp-controller="Product" asp-action="UpdateProduct"  method="post" enctype="multipart/form-data" class="row g-4">
+
             <div class="col-md-8 col-lg-9">
                 <div class="border p-4 rounded-3">
+
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <input type="hidden" asp-for="ProductID" />
 
                     <div class="form-floating mb-3">
                         <input asp-for="Name" class="form-control border-0 shadow" placeholder="Product Name" />
@@ -253,6 +258,58 @@
                                 <span asp-validation-for="Stock" class="text-danger"></span>
                             </div>
                         </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Brand" class="form-control border-0 shadow" placeholder="Brand" />
+                        <label asp-for="Brand" class="ms-2"></label>
+                        <span asp-validation-for="Brand" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Processor" class="form-control border-0 shadow" placeholder="Processor" />
+                        <label asp-for="Processor" class="ms-2"></label>
+                        <span asp-validation-for="Processor" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="RAM" class="form-control border-0 shadow" placeholder="RAM" />
+                        <label asp-for="RAM" class="ms-2"></label>
+                        <span asp-validation-for="RAM" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Storage" class="form-control border-0 shadow" placeholder="Storage" />
+                        <label asp-for="Storage" class="ms-2"></label>
+                        <span asp-validation-for="Storage" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="GPU" class="form-control border-0 shadow" placeholder="GPU" />
+                        <label asp-for="GPU" class="ms-2"></label>
+                        <span asp-validation-for="GPU" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="ScreenSize" class="form-control border-0 shadow" placeholder="Screen Size" />
+                        <label asp-for="ScreenSize" class="ms-2"></label>
+                        <span asp-validation-for="ScreenSize" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Resolution" class="form-control border-0 shadow" placeholder="Resolution" />
+                        <label asp-for="Resolution" class="ms-2"></label>
+                        <span asp-validation-for="Resolution" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="PercentageDiscount" class="form-control border-0 shadow" placeholder="Percentage Discount" />
+                        <label asp-for="PercentageDiscount" class="ms-2"></label>
+                        <span asp-validation-for="PercentageDiscount" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="PriceAfterDiscount" class="form-control border-0 shadow" placeholder="Price After Discount" />
+                        <label asp-for="PriceAfterDiscount" class="ms-2"></label>
+                        <span asp-validation-for="PriceAfterDiscount" class="text-danger"></span>
                     </div>
 
                     <div class="form-floating mb-4">
@@ -302,8 +359,23 @@
 </div>
 
 <!-- Optional existing gallery -->
-@if (ViewBag.ExistingImages is List<string> existingImages && existingImages.Any())
+@* @if (ViewBag.ExistingImages is List<string> existingImages && existingImages.Any()) *@
+@if (Model.ImageNamesForDisplay != null && Model.ImageNamesForDisplay.Count > 0)
 {
+    <div class="gallery-section">
+        <h3 class="gallery-title">Existing Product Images</h3>
+        <div class="gallery-container">
+            @foreach (var image in Model.ImageNamesForDisplay)
+            {
+                <div class="image-container">
+                    <img src="~/images/product/@image" class="preview-image" />
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+@* {
     <div class="gallery-section">
         <h3 class="gallery-title">Existing Product Images</h3>
         <div class="gallery-container">
@@ -315,7 +387,7 @@
             }
         </div>
     </div>
-}
+} *@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

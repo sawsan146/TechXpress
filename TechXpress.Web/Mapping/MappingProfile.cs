@@ -24,6 +24,12 @@ namespace TechXpress.Web.Mapping
             ;
 
 
+
+            CreateMap<ProductDTO, UpdateProduct>();
+            CreateMap<UpdateProduct, ProductDTO>();
+
+
+
             CreateMap<ProductDTO, ProductDetailsViewModel>();
             CreateMap<ProductDetailsViewModel, ProductDTO>();
 
