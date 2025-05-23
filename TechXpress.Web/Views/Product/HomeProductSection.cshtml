@@ -7,10 +7,17 @@
 <h1 class="main-title">Our Products</h1>
 
 <section>
+   
     <h2 class="section-title">Explore Our Electronics</h2>
-
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
     <div class="product-list">
-        @foreach (var product in Model)
+        @foreach (var product in Model.Take(8))
         {
             <div class="product-item bg-white shadow-lg rounded-4 p-3 position-relative text-center">
                 <div class="product-img-wrapper overflow-hidden rounded-4 mb-3 position-relative">

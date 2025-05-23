@@ -60,7 +60,7 @@ namespace TechXpress.DAL.Repository.Implementations
         {
             try
             {
-                return _dbContext.Products.Include(p => p.ProductImages).FirstOrDefault(p => p.Product_ID == id);
+                return _dbContext.Products.Where(p=>p.Product_ID==id).Include(p => p.ProductImages).FirstOrDefault(p => p.Product_ID == id);
             }
             catch (Exception ex)
             {

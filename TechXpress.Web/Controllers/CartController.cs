@@ -82,8 +82,28 @@ namespace TechXpress.Web.Controllers
 
             var updatedCart = _cartAppService.AddToCart(cookie, productDto, CurrentUserId);
 
-            return RedirectToAction(nameof(Index));
+            TempData["SuccessMessage"] = $"{productDto.Name} has been added to your cart.";
+
+            // بدل ما يروح لصفحة الكارت، خليه يرجع للصفحة اللي كان فيها
+            return Redirect(Request.Headers["Referer"].ToString());
         }
+
+        //public IActionResult AddToCart(int productId)
+        //{
+        //    if (!User.Identity.IsAuthenticated)
+        //        return RedirectToAction("Login", "Register");
+
+        //    var productDto = _productAppService.GetProductById(productId);
+        //    if (productDto == null)
+        //        return NotFound();
+
+        //    var cookie = GetCartCookie();
+        //    SetCartCookie(cookie);
+
+        //    var updatedCart = _cartAppService.AddToCart(cookie, productDto, CurrentUserId);
+
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         [HttpPost]
         public IActionResult Remove(int cartItemId)

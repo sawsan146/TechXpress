@@ -32,7 +32,6 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 <body>
@@ -73,7 +72,7 @@
                 </ul>
 
                 <!-- Search -->
-                <form class="d-flex" role="search">
+                <form class="d-flex" role="search" asp-controller="Product" asp-action="Index">
                     <input class="form-control me-2" type="search" placeholder="What are you looking for?" aria-label="Search" style="width:220px;margin-right: 0;padding-right: 5px;text-align:center;">
                     <button class="btn btn-outline-secondary" type="submit">
                         <i class="bi bi-search"></i>
@@ -85,17 +84,17 @@
                     <!-- Wishlist -->
                     <a asp-controller="WishList" asp-action="Index" class="position-relative me-3 text-dark" aria-label="Wishlist">
                         <i class="bi bi-heart fs-5"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        @* <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             0
-                        </span>
+                        </span> *@
                     </a>
 
                     <!-- Cart -->
                     <a asp-controller="Cart" asp-action="Index" class="position-relative me-3 text-dark" aria-label="Cart">
                         <i class="bi bi-cart3 fs-5"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        @* <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             0
-                        </span>
+                        </span> *@
                     </a>
 
                     @* حالة المستخدم مسجل دخول *@
@@ -109,13 +108,15 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li><a class="dropdown-item" asp-controller="Account" asp-action="MyAccount">Manage My Account</a></li>
-                                <li><a class="dropdown-item" href="#">My Orders</a></li>
-
-                                @* عرض الرابط للـ Admin فقط *@
+                                @if (User.IsInRole("Customer"))
+                                {
+                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Orders">My Orders</a></li>
+                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Returns">My Returns</a></li>
+                                }
                                 @if (User.IsInRole("Admin"))
                                 {
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-controller="Admin" asp-action="Index">Dashboard</a>
+                                    <li >
+                                        <a class="dropdown-item" asp-controller="Admin" asp-action="Index">Dashboard</a>
                                     </li>
                                 }
 

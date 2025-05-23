@@ -13,11 +13,12 @@ namespace TechXpress.Web.Controllers
     {
         private readonly IWishListAppService _wishListAppService;
         private readonly IProductAppService _productAppService;
-
-        public WishlistController(IWishListAppService wishListAppService, IProductAppService productAppService)
+        private readonly ICategoryAppService categoryAppService;
+        public WishlistController(IWishListAppService wishListAppService, IProductAppService productAppService, ICategoryAppService categoryAppService)
         {
             _wishListAppService = wishListAppService;
             _productAppService = productAppService;
+            this.categoryAppService = categoryAppService;
         }
 
         private int GetCurrentUserId()
@@ -61,6 +62,7 @@ namespace TechXpress.Web.Controllers
             {
                 WishlistItems = wishlistItems
             };
+
 
             return View(viewModel);
         }

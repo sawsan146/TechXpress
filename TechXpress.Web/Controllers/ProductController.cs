@@ -230,9 +230,9 @@ namespace TechExpress.Web.Controllers
 
         public IActionResult ProductDetails(int id)
         {
-            var product = _productAppService.GetAllProductsWithCategoriesAndImages().FirstOrDefault(p => p.ProductID == id);
-       
-                var vm= _mapper.Map<ProductDetailsViewModel>(product);
+            var product = _productAppService.GetProductById(id);
+
+            var vm= _mapper.Map<ProductDetailsViewModel>(product);
             if (product == null)
             {
                 return NotFound();

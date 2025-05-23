@@ -77,24 +77,53 @@ namespace TechXpress.Application.ApplicationServices.Implementation
         }
 
 
+        //public List<ProductDTO> GetAllProductsWithCategoriesAndImages()
+        //{
+        //    var products = _ProductService.GetAllProductsWithCategoriesAndImages().ToList();
+        //    var productDtos = _mapper.Map<List<ProductDTO>>(products);
+        //    if (productDtos!=null)
+        //    {
+
+        //        foreach (var productDto in productDtos)
+        //        {
+        //            productDto.UploadedImages = productDto.UploadedImages ?? new List<string>();
+        //            foreach (var image in products.FirstOrDefault(p => p.Product_ID == productDto.ProductID)?.ProductImages)
+        //            {
+        //                productDto.UploadedImages.Add(image.ImageURL);
+        //            }
+        //        }
+        //    }
+        //    return productDtos;
+        //}
         public List<ProductDTO> GetAllProductsWithCategoriesAndImages()
         {
             var products = _ProductService.GetAllProductsWithCategoriesAndImages().ToList();
             var productDtos = _mapper.Map<List<ProductDTO>>(products);
-            if (productDtos!=null)
+
+            if (productDtos != null)
             {
+                var productDict = products.ToDictionary(p => p.Product_ID);
 
                 foreach (var productDto in productDtos)
                 {
                     productDto.UploadedImages = productDto.UploadedImages ?? new List<string>();
-                    foreach (var image in products.FirstOrDefault(p => p.Product_ID == productDto.ProductID)?.ProductImages)
+
+                    if (productDict.TryGetValue(productDto.ProductID, out var productEntity))
                     {
-                        productDto.UploadedImages.Add(image.ImageURL);
+                        if (productEntity.ProductImages != null)
+                        {
+                            foreach (var image in productEntity.ProductImages)
+                            {
+                                productDto.UploadedImages.Add(image.ImageURL);
+                            }
+                        }
                     }
                 }
             }
+
             return productDtos;
         }
+
 
         public ProductDTO GetProductById(int id)
         {

@@ -9,8 +9,9 @@
 
 <div class="container">
 
+  
     <div class="sidebar">
-        <h2>Categories</h2>
+        <h2><b>Categories</b></h2>
         <ul>
             @foreach (var cat in categories)
             {
@@ -24,7 +25,13 @@
 
     <div class="main-content">
         <p id="product-count">Showing @Model.Products.Count products</p>
-
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
         <div class="product-list">
             @foreach (var product in Model.Products)
             {
